@@ -44,7 +44,7 @@ class Job(object):
 
 		resp.status = falcon.HTTP_200  # This is the default status
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps({'job_id': job_id})
+		resp.body = json.dumps({'job_id': job.id if job else None})
 
 	def on_delete(self, req, resp, job_id):
 		# TODO remove_job()
