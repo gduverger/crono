@@ -1,3 +1,4 @@
+import json
 import falcon
 import pytest
 
@@ -10,7 +11,7 @@ def client():
 	return testing.TestClient(api)
 
 
-def test_get(client):
-	response = client.simulate_get('/jobs')
-	# assert response.content == 'Jobs'
+def test_tests_get(client):
+	response = client.simulate_get('/tests')
+	assert json.loads(response.content) == {'test': True}
 	assert response.status == falcon.HTTP_OK
