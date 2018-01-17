@@ -1,1 +1,1 @@
-web: gunicorn things:app
+web: gunicorn crono.app:api
