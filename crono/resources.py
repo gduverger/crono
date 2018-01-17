@@ -1,6 +1,8 @@
 import json
 import falcon
 
+from crono import app
+
 
 class Test(object):
 
@@ -19,14 +21,18 @@ class Jobs(object):
 	def on_get(self, req, resp):
 		"""Handles GET requests"""
 		# result = self.db.get_things(marker, limit)
-		# TODO get_job()
+		jobs = app.scheduler.get_jobs()
+
 		resp.status = falcon.HTTP_200  # This is the default status
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps({'jobs': [1,2,3]})
+		resp.body = json.dumps({'job_ids': [job.id for job in jobs]})
 
 	def on_post(self, req, resp):
-		# TODO get_job()
+		job = app.scheduler.add_job(task, 'interval', minutes=1)
+
 		resp.status = falcon.HTTP_201
+		resp.content_type = falcon.MEDIA_JSON
+		resp.body = json.dumps({'job_id': job.id})
 
 
 class Job(object):
@@ -34,12 +40,17 @@ class Job(object):
 	def on_get(self, req, resp, job_id):
 		"""Handles GET requests"""
 		# result = self.db.get_things(marker, limit)
-		# TODO get_job()
+		job = app.scheduler.get_job(job_id)
+
 		resp.status = falcon.HTTP_200  # This is the default status
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps({'job': job_id})
+		resp.body = json.dumps({'job_id': job_id})
 
 	def on_delete(self, req, resp, job_id):
 		# TODO remove_job()
 		resp.status = falcon.HTTP_201
 		resp.content_type = falcon.MEDIA_JSON
+
+
+def task():
+	print('task')
