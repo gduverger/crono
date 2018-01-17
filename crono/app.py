@@ -7,10 +7,8 @@ from crono import resources
 api = falcon.API()
 # scheduler = BackgroundScheduler()
 
-jobs = resources.Jobs()
-api.add_route('/jobs', jobs)
-
-tests = resources.Tests()
-api.add_route('/tests', tests)
+api.add_route('/test', resources.Test())
+api.add_route('/jobs', resources.Jobs())
+api.add_route('/jobs/{job_id:int}', resources.Job())
 
 # scheduler.start()
