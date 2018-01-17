@@ -11,10 +11,10 @@ def client():
 	return testing.TestClient(api)
 
 
-def test_test_get(client):
-	response = client.simulate_get('/test')
+def test_index_get(client):
+	response = client.simulate_get('/')
 	assert response.status == falcon.HTTP_OK
-	assert json.loads(response.content) == {'test': True}
+	assert 'Hello, world!' in response.content.decode()
 
 
 def test_jobs_get(client):

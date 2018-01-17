@@ -1,15 +1,22 @@
+import os
 import json
 import falcon
 
 from crono import app
+from apscheduler.jobstores.base import JobLookupError
 
 
-class Test(object):
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+
+
+class Index(object):
 
 	def on_get(self, req, resp):
 		resp.status = falcon.HTTP_200
-		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps({'test': True})
+		resp.content_type = falcon.MEDIA_HTML
+		resp.body = 'Hello, world!'
+		with open('{}/{}'.format(DIR_PATH, 'index.html'), 'r') as file:
+			resp.body = file.read()
 
 
 class Jobs(object):
@@ -47,9 +54,14 @@ class Job(object):
 		resp.body = json.dumps({'job_id': job.id if job else None})
 
 	def on_delete(self, req, resp, job_id):
-		# TODO remove_job()
-		resp.status = falcon.HTTP_201
-		resp.content_type = falcon.MEDIA_JSON
+		# resp.content_type = falcon.MEDIA_JSON
+
+		try:
+			app.scheduler.remove_job(job_id)
+			resp.status = falcon.HTTP_200
+
+		except JobLookupError as e:
+			resp.status = falcon.HTTP_204
 
 
 def task():
