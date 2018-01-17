@@ -9,13 +9,12 @@ from apscheduler.jobstores.base import JobLookupError
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
-class Index(object):
+class Doc(object):
 
 	def on_get(self, req, resp):
 		resp.status = falcon.HTTP_200
-		resp.content_type = falcon.MEDIA_HTML
-		resp.body = 'Hello, world!'
-		with open('{}/{}'.format(DIR_PATH, 'index.html'), 'r') as file:
+		resp.content_type = falcon.MEDIA_JSON
+		with open('{}/doc.json'.format(DIR_PATH), 'r') as file:
 			resp.body = file.read()
 
 
@@ -30,7 +29,7 @@ class Jobs(object):
 		# result = self.db.get_things(marker, limit)
 		jobs = app.scheduler.get_jobs()
 
-		resp.status = falcon.HTTP_200  # This is the default status
+		resp.status = falcon.HTTP_200
 		resp.content_type = falcon.MEDIA_JSON
 		resp.body = json.dumps({'job_ids': [job.id for job in jobs]})
 
