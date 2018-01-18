@@ -7,7 +7,7 @@ def test_parse_redis_url():
 	assert host == 'localhost'
 	assert port == '6379'
 
-	password, host, port = utils.parse_redis_url('redis://redistogo:901694911f6ab3ff06cbb55304673b50@soldierfish.redistogo.com:10460/')
-	assert password == '901694911f6ab3ff06cbb55304673b50'
-	assert host == 'soldierfish.redistogo.com'
-	assert port == '10460'
+	password, host, port = utils.parse_redis_url('redis://redistogo:4913f6ab1ff06cb673b7b55304090169@soldierbowl.redistogo.com:46210/')
+	assert password == '4913f6ab1ff06cb673b7b55304090169'
+	assert host == 'soldierbowl.redistogo.com'
+	assert port == '46210'
