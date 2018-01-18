@@ -9,8 +9,8 @@ from urllib.parse import urlparse
 
 
 api = falcon.API()
-redis_url = urlparse(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
-scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_url.hostname, port=redis_url.port)})
+redis_url_parsed = urlparse(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
+scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_url_parsed.hostname, port=redis_url_parsed.port)})
 queue = Queue(connection=worker.conn)
 
 api.add_route('/jobs', resources.Jobs())
