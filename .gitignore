@@ -1,6 +1,7 @@
 venv
 *.pyc
 *.cache
+dump.rdb
 *.DS_Store
 *__pycache__
 *__init__.py
