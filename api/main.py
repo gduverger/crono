@@ -8,8 +8,8 @@ from apscheduler.jobstores.redis import RedisJobStore
 
 
 api = falcon.API()
-redis_host, redis_port = utils.parse_redis_url(worker.redis_url)
-scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_host, port=redis_port)})
+redis_password, redis_host, redis_port = utils.parse_redis_url(worker.redis_url)
+scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
 queue = Queue(connection=worker.redis_connection)
 
 api.add_route('/jobs', resources.Jobs())
