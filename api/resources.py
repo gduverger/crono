@@ -23,7 +23,7 @@ class Jobs(object):
 		resp.body = json.dumps({'job_ids': [job.id for job in jobs]})
 
 	def on_post(self, req, resp):
-		job = main.scheduler.add_job(task, 'interval', minutes=1)
+		job = main.scheduler.add_job(task, 'interval', minutes=1, jobstore='redis')
 		
 		resp.status = falcon.HTTP_201
 		resp.content_type = falcon.MEDIA_JSON
