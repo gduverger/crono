@@ -9,12 +9,10 @@ httpie==0.9.9
 idna==2.6
 pluggy==0.6.0
 py==1.5.2
-py2swagger==1.0.0
 Pygments==2.2.0
 pytest==3.3.2
 python-mimeparse==1.6.0
 pytz==2017.3
-PyYAML==3.12
 redis==2.10.6
 requests==2.18.4
 rq==0.10.0
@@ -22,4 +20,3 @@ six==1.11.0
 tzlocal==1.5.1
 urllib3==1.22
 wheel==0.24.0
-Yapsy==1.11.223

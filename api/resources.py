@@ -1,20 +1,12 @@
 import os
 import json
 import falcon
+import datetime
 
 from api import main
 from apscheduler.jobstores.base import JobLookupError
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-
-
-class Doc(object):
-
-	def on_get(self, req, resp):
-		resp.status = falcon.HTTP_200
-		resp.content_type = falcon.MEDIA_JSON
-		with open('{}/doc.json'.format(DIR_PATH), 'r') as file:
-			resp.body = file.read()
 
 
 class Jobs(object):
@@ -34,7 +26,7 @@ class Jobs(object):
 
 	def on_post(self, req, resp):
 		job = main.scheduler.add_job(task, 'interval', minutes=1)
-		# main.queue.enqueue(job, args=(request_id, file_path, language_code, email_address), kwargs={'params': params, 'delete': delete}, timeout='1h')
+		
 		resp.status = falcon.HTTP_201
 		resp.content_type = falcon.MEDIA_JSON
 		resp.body = json.dumps({'job_id': job.id})
@@ -64,3 +56,4 @@ class Job(object):
 
 def task():
 	print('task')
+	main.queue.enqueue(print, args=(datetime.datetime.now(),))

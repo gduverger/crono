@@ -11,12 +11,6 @@ def client():
 	return testing.TestClient(api)
 
 
-def test_index_get(client):
-	response = client.simulate_get('/')
-	assert response.status == falcon.HTTP_OK
-	assert 'swagger' in json.loads(response.content)
-
-
 def test_jobs_get(client):
 	response = client.simulate_get('/jobs')
 	assert response.status == falcon.HTTP_OK
