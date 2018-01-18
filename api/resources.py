@@ -53,4 +53,4 @@ class Job(object):
 
 
 def task():
-	main.queue.enqueue(print, args=('Task ({})'.format(datetime.datetime.now(),)))
+	main.queue.enqueue(print, args=('Task ({})'.format(datetime.datetime.now()),))
