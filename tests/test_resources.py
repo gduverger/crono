@@ -3,7 +3,7 @@ import falcon
 import pytest
 
 from falcon import testing
-from crono.app import api
+from api.main import api
 
 
 @pytest.fixture
