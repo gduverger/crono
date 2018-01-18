@@ -6,8 +6,6 @@ import datetime
 from api import main
 from apscheduler.jobstores.base import JobLookupError
 
-DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-
 
 class Jobs(object):
 

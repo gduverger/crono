@@ -1,11 +1,16 @@
+import os
 import falcon
 
 from rq import Queue
 from api import worker, resources
 from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.jobstores.redis import RedisJobStore
+from urllib.parse import urlparse
+
 
 api = falcon.API()
-scheduler = BackgroundScheduler()
+redis_url = urlparse(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
+scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_url.hostname, port=redis_url.port)})
 queue = Queue(connection=worker.conn)
 
 api.add_route('/jobs', resources.Jobs())
