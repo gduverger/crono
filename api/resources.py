@@ -16,14 +16,14 @@ class Jobs(object):
 	def on_get(self, req, resp):
 		"""Handles GET requests"""
 		# result = self.db.get_things(marker, limit)
-		jobs = main.scheduler.get_jobs()
+		jobs = main.scheduler.get_jobs(jobstore='redis')
 
 		resp.status = falcon.HTTP_200
 		resp.content_type = falcon.MEDIA_JSON
 		resp.body = json.dumps({'job_ids': [job.id for job in jobs]})
 
 	def on_post(self, req, resp):
-		job = main.scheduler.add_job(task, 'interval', minutes=1)
+		job = main.scheduler.add_job(task, 'interval', minutes=1, jobstore='redis')
 		
 		resp.status = falcon.HTTP_201
 		resp.content_type = falcon.MEDIA_JSON
@@ -35,7 +35,7 @@ class Job(object):
 	def on_get(self, req, resp, job_id):
 		"""Handles GET requests"""
 		# result = self.db.get_things(marker, limit)
-		job = main.scheduler.get_job(job_id)
+		job = main.scheduler.get_job(job_id, jobstore='redis')
 
 		resp.status = falcon.HTTP_200  # This is the default status
 		resp.content_type = falcon.MEDIA_JSON
@@ -45,7 +45,7 @@ class Job(object):
 		# resp.content_type = falcon.MEDIA_JSON
 
 		try:
-			main.scheduler.remove_job(job_id)
+			main.scheduler.remove_job(job_id, jobstore='redis')
 			resp.status = falcon.HTTP_200
 
 		except JobLookupError as e:
