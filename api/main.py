@@ -9,6 +9,7 @@ from falcon_auth import FalconAuthMiddleware, TokenAuthBackend
 from postmarker.core import PostmarkClient
 
 
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 TEST_TOKEN = '1f40dc15-3f8c-4bfe-9e75-2d59e68350f0'
 TOKENS = [TEST_TOKEN]
 
@@ -28,7 +29,11 @@ scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_hos
 queue = Queue(connection=worker.redis_connection)
 
 # Routes
-api.add_route('/jobs', resources.Jobs())
-api.add_route('/jobs/{job_id}', resources.Job())
+api.add_route('/v0/jobs', resources.Jobs())
+api.add_route('/v0/jobs/{job_id}', resources.Job())
+
+# Static
+api.add_route('/', resources.Index())
+api.add_static_route('/static', '{}/static'.format(DIR_PATH))
 
 scheduler.start()

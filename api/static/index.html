@@ -1,0 +1,57 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+<h1>Crono</h1>
+<ol>
+	<li>
+		<a href="">Introduction</a>
+		<ol>
+			<li><a href="">Authentication</a></li>
+		</ol>
+	</li>
+	<li>
+		<a href="">Endpoints</a>
+		<ol>
+			<li><a href="">GET /jobs</a></li>
+			<li><a href="">POST /jobs</a></li>
+			<li><a href="">GET /jobs/{id}</a></li>
+			<li><a href="">DELETE /jobs/{id}</a></li>
+		</ol>
+	</li>
+	<li><a href="">Triggers</a></li>
+	<li><a href="">Commands</a></li>
+	<li><a href="">Errors</a></li>
+	<li><a href="">Librairies</a></li>
+	<li><a href="">Support</a></li>
+</ol>
+
+<h2>Introduction</h2>
+<p>Crono is a web-hosted replacement for <a href="https://en.wikipedia.org/wiki/Cron">cron</a>.</p>
+
+<h2>Endpoints</h2>
+<h3>GET /jobs</h3>
+<div class="bash"><span class="button close"></span> <span class="button minimize"></span> <span class="button fullscreen"></span><span class="title">bash</span>
+<span class="quiet">$</span> curl -X GET https://crono-api-production.herokuapp.com/v0/jobs \
+       -H "Authorization: Bearer …"
+
+<span class="quiet">HTTP/1.1 200 OK</span>
+
+[{
+	"job": {
+		"id": "060311fabafa42c3a8aee47905f5a2d1",
+		"name": "email",
+		"command": "&lt;function email at 0x7f2706ec02f0&gt;",
+		"trigger": "&lt;IntervalTrigger (interval=datetime.timedelta(0, 3600), start_date='2018-01-19 02:38:34 UTC', timezone='Etc/UTC')&gt;",
+		"args": ["Bonjour !"]
+	}
+}]
+
+</div>
+<h3>POST /jobs</h3>
+<h3>GET /jobs/{id}</h3>
+<h3>DELETE /jobs/{id}</h3>
+
+</body>
+</html>

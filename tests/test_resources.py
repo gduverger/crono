@@ -15,14 +15,14 @@ def client():
 
 
 def test_jobs_get(client):
-	response = client.simulate_get('/jobs', headers=HEADERS)
+	response = client.simulate_get('/v0/jobs', headers=HEADERS)
 	assert response.status == falcon.HTTP_OK
 	assert type(json.loads(response.content)) is list
 
 
 def test_jobs_post(client):
 	params = {'command': 'log', 'trigger': 'interval', 'seconds': 60, 'text': 'test'}
-	response = client.simulate_post('/jobs', headers=HEADERS, params=params)
+	response = client.simulate_post('/v0/jobs', headers=HEADERS, params=params)
 	content = json.loads(response.content)
 	assert response.status == falcon.HTTP_CREATED
 	assert type(content) is dict
@@ -33,5 +33,5 @@ def test_jobs_post(client):
 
 
 def test_job_get(client):
-	response = client.simulate_get('/jobs/not-found', headers=HEADERS)
+	response = client.simulate_get('/v0/jobs/not-found', headers=HEADERS)
 	assert response.status == falcon.HTTP_NOT_FOUND

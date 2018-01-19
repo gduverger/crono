@@ -1,0 +1,47 @@
+body {
+	background-color: #FAFAFA;
+}
+
+.bash {
+	display: block;
+	font-family: monospace;
+	white-space: pre-wrap;
+	margin: 1em 0;
+	background: #000;
+	background: #fff;
+	/*border: 1px solid #333;*/
+	border-radius: 5px;
+	/*box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.1);*/
+	box-shadow: 0 20px 50px 0 rgba(0,0,0,0.12);
+	/*color: #ccc;*/
+	/*color: #fff;*/
+	padding: 0 7px;
+	width: 600px;
+	position: relative;
+	/*font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif*/
+}
+
+.bash .title {
+	position: absolute;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-family: -apple-system;
+	color: #999;
+}
+
+.bash .button {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	display: inline-block;
+	/*margin-right: 4px;*/
+}
+
+.bash .close { background-color: #ec6c60; }
+.bash .minimize { background-color: #f5c250; }
+.bash .fullscreen { background-color: #64cb57; }
+
+.quiet {
+	color: #999;
+}

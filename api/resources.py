@@ -7,6 +7,17 @@ from api import main, utils
 from apscheduler.jobstores.base import JobLookupError
 
 
+class Index(object):
+
+	auth = {'exempt_methods': ['GET']}
+
+	def on_get(self, req, resp):
+		resp.status = falcon.HTTP_OK
+		resp.content_type = falcon.MEDIA_HTML
+		with open('{}/static/index.html'.format(main.DIR_PATH), 'r') as file:
+			resp.body = file.read()
+
+
 class Jobs(object):
 
 	def on_get(self, req, resp):
