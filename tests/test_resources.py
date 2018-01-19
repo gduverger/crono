@@ -3,7 +3,10 @@ import falcon
 import pytest
 
 from falcon import testing
-from api.main import api
+from api.main import api, TEST_TOKEN
+
+
+HEADERS = {'Authorization': 'Bearer {}'.format(TEST_TOKEN)}
 
 
 @pytest.fixture
@@ -12,18 +15,23 @@ def client():
 
 
 def test_jobs_get(client):
-	response = client.simulate_get('/jobs')
+	response = client.simulate_get('/jobs', headers=HEADERS)
 	assert response.status == falcon.HTTP_OK
-	assert 'job_ids' in json.loads(response.content)
+	assert type(json.loads(response.content)) is list
 
 
 def test_jobs_post(client):
-	response = client.simulate_post('/jobs')
+	params = {'command': 'log', 'trigger': 'interval', 'seconds': 60, 'text': 'test'}
+	response = client.simulate_post('/jobs', headers=HEADERS, params=params)
+	content = json.loads(response.content)
 	assert response.status == falcon.HTTP_CREATED
-	assert 'job_id' in json.loads(response.content)
+	assert type(content) is dict
+	assert type(content['job']) is dict
+	# assert content['job']['command'] == 'log' # <function lo... 0x106934a60>
+	# assert content['job']['trigger'] == 'interval' # <IntervalTri...a/New_York')>
+	assert content['job']['args'] == ['test']
 
 
 def test_job_get(client):
-	response = client.simulate_get('/jobs/1')
-	assert response.status == falcon.HTTP_OK
-	assert 'job_id' in json.loads(response.content)
+	response = client.simulate_get('/jobs/not-found', headers=HEADERS)
+	assert response.status == falcon.HTTP_NOT_FOUND
