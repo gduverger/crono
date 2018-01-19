@@ -9,19 +9,7 @@ from apscheduler.jobstores.base import JobLookupError
 
 class Jobs(object):
 
-	auth = {
-		# 'auth_disabled': True,
-		# 'backend': TokenAuthBackend(user_loader=lambda token: { 'id': 5 }),
-		# 'exempt_methods': ['GET']
-	}
-
-	# def __init__(self, db):
-	#   self.db = db
-	#   self.logger = logging.getLogger(__name__)
-
 	def on_get(self, req, resp):
-		"""Handles GET requests"""
-		# result = self.db.get_things(marker, limit)
 		jobs = main.scheduler.get_jobs(jobstore='redis')
 
 		resp.status = falcon.HTTP_200
@@ -34,14 +22,11 @@ class Jobs(object):
 		resp.status = falcon.HTTP_201
 		resp.content_type = falcon.MEDIA_JSON
 		resp.body = json.dumps({'job_id': job.id})
-		# resp.location = '/%s/things/%s' % (user_id, proper_thing['id'])
 
 
 class Job(object):
 
 	def on_get(self, req, resp, job_id):
-		"""Handles GET requests"""
-		# result = self.db.get_things(marker, limit)
 		job = main.scheduler.get_job(job_id, jobstore='redis')
 
 		resp.status = falcon.HTTP_200  # This is the default status
