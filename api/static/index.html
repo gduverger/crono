@@ -21,6 +21,7 @@
 	<li><a href="">Triggers</a></li>
 	<li><a href="">Commands</a></li>
 	<li><a href="">Errors</a></li>
+	<li><a href="">Versions</a></li>
 	<li><a href="">Librairies</a></li>
 	<li><a href="">Support</a></li>
 </ol>
@@ -31,8 +32,8 @@
 <h2>Endpoints</h2>
 <h3>GET /jobs</h3>
 <div class="bash"><span class="button close"></span> <span class="button minimize"></span> <span class="button fullscreen"></span><span class="title">bash</span>
-<span class="quiet">$</span> curl -X GET https://crono.com/v0/jobs \
-       -H "Authorization: Bearer …"
+<span class="quiet">$</span> curl -X GET https://crono.com/{version}/jobs \
+       -H "Authorization: Token …"
 
 <span class="quiet">HTTP/1.1 200 OK</span>
 
