@@ -16,17 +16,19 @@ class Jobs(object):
 		resp.body = json.dumps([utils.jsonify_job(job) for job in jobs])
 
 	def on_post(self, req, resp):
+		# Required
 		command = req.params.get('command')
 		trigger = req.params.get('trigger')
+
+		# Optional
 		name = req.params.get('name')
-		
 		seconds = req.params.get('seconds')
 		text = req.params.get('text')
 
 		if not command:
 			raise falcon.HTTPMissingParam('command')
 
-		elif command not in ['log']: # 'get', 'post', 'email', 'text', 'call'
+		elif command not in ['log', 'email']: # 'get', 'post', 'text', 'call'
 			raise falcon.HTTPInvalidParam('It should be one of the following: log.', 'command')
 
 		if not trigger:

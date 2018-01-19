@@ -13,8 +13,9 @@ def get(url):
 # def post(url):
 # 	pass
 
-def email(subject, body):
-	pass
+def email(subject='Subject', body='Body'):
+	main.postmark.emails.send(From='log@airquote.co', To='georges.duverger@gmail.com', Subject=subject, TextBody=body)
+
 
 def text(number, text):
 	pass
