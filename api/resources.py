@@ -3,7 +3,7 @@ import json
 import falcon
 import datetime
 
-from api import main
+from api import main, utils
 from apscheduler.jobstores.base import JobLookupError
 
 
@@ -13,7 +13,7 @@ class Jobs(object):
 		jobs = main.scheduler.get_jobs(jobstore='redis')
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps([{'job': {'id': job.id, 'name': job.name}} for job in jobs])
+		resp.body = json.dumps([utils.jsonify_job(job) for job in jobs])
 
 	def on_post(self, req, resp):
 		command = req.params.get('command')
@@ -39,16 +39,7 @@ class Jobs(object):
 
 		resp.status = falcon.HTTP_CREATED
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps({
-			'job': {
-				'id': job.id,
-				'command': command,
-				'trigger': trigger,
-				'name': job.name,
-				'seconds': seconds,
-				'text': text
-			}
-		})
+		resp.body = json.dumps(utils.jsonify_job(job))
 
 	def on_delete(self, req, resp):
 		resp.content_type = falcon.MEDIA_JSON
@@ -64,15 +55,10 @@ class Job(object):
 		if job:
 			resp.status = falcon.HTTP_OK
 			resp.content_type = falcon.MEDIA_JSON
-			resp.body = json.dumps({
-				'job': {
-					'id': job.id,
-					'name': job.name				
-				}
-			})
+			resp.body = json.dumps(utils.jsonify_job(job))
 
 		else:
-			raise flacon.HTTPNotFound()
+			raise falcon.HTTPNotFound()
 
 	def on_delete(self, req, resp, job_id):
 		resp.content_type = falcon.MEDIA_JSON
@@ -87,4 +73,4 @@ class Job(object):
 			})
 
 		except JobLookupError as e:
-			raise flacon.HTTPNotFound()
+			raise falcon.HTTPNotFound()

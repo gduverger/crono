@@ -16,3 +16,15 @@ def parse_redis_url(url):
 			host = _match.group(2)
 
 	return password, host, port
+
+
+def jsonify_job(job):
+	return {
+		'job': {
+			'id': job.id,
+			'name': job.name,
+			'command': repr(job.func),
+			'trigger': repr(job.trigger),
+			'args': job.args	
+		}
+	}
