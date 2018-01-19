@@ -18,7 +18,7 @@ postmark = PostmarkClient(server_token='7be71b51-6cb1-4a7c-b1ec-21e4c1b4ec5d')
 
 # Authentication
 user_loader = lambda token: token in TOKENS
-token_auth = TokenAuthBackend(user_loader, auth_header_prefix='Bearer')
+token_auth = TokenAuthBackend(user_loader)
 auth_middleware = FalconAuthMiddleware(token_auth)
 
 api = falcon.API(middleware=[auth_middleware])
