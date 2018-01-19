@@ -8,9 +8,8 @@ from apscheduler.jobstores.redis import RedisJobStore
 from falcon_auth import FalconAuthMiddleware, TokenAuthBackend
 
 
-TOKENS = [
-	'1f40dc15-3f8c-4bfe-9e75-2d59e68350f0'
-]
+TEST_TOKEN = '1f40dc15-3f8c-4bfe-9e75-2d59e68350f0'
+TOKENS = [TEST_TOKEN]
 
 
 # Authentication

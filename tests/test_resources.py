@@ -3,7 +3,10 @@ import falcon
 import pytest
 
 from falcon import testing
-from api.main import api, TOKENS
+from api.main import api, TEST_TOKEN
+
+
+HEADERS = {'Authorization': 'Bearer {}'.format(TEST_TOKEN)}
 
 
 @pytest.fixture
@@ -12,18 +15,18 @@ def client():
 
 
 def test_jobs_get(client):
-	response = client.simulate_get('/jobs', headers={'Authorization': 'Bearer {}'.format(TOKENS[0])})
+	response = client.simulate_get('/jobs', headers=HEADERS)
 	assert response.status == falcon.HTTP_OK
 	assert 'job_ids' in json.loads(response.content)
 
 
 def test_jobs_post(client):
-	response = client.simulate_post('/jobs', headers={'Authorization': 'Bearer {}'.format(TOKENS[0])})
+	response = client.simulate_post('/jobs', headers=HEADERS)
 	assert response.status == falcon.HTTP_CREATED
 	assert 'job_id' in json.loads(response.content)
 
 
 def test_job_get(client):
-	response = client.simulate_get('/jobs/1', headers={'Authorization': 'Bearer {}'.format(TOKENS[0])})
+	response = client.simulate_get('/jobs/1', headers=HEADERS)
 	assert response.status == falcon.HTTP_OK
 	assert 'job_id' in json.loads(response.content)
