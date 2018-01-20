@@ -6,7 +6,7 @@ from falcon import testing
 from api.main import api, TEST_TOKEN
 
 
-HEADERS = {'Authorization': 'Bearer {}'.format(TEST_TOKEN)}
+HEADERS = {'Authorization': 'Token {}'.format(TEST_TOKEN)}
 
 
 @pytest.fixture

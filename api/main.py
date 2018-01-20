@@ -3,8 +3,6 @@ import falcon
 
 from rq import Queue
 from api import worker, resources, utils
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.jobstores.redis import RedisJobStore
 from falcon_auth import FalconAuthMiddleware, TokenAuthBackend
 from postmarker.core import PostmarkClient
 
@@ -21,12 +19,8 @@ user_loader = lambda token: token in TOKENS
 token_auth = TokenAuthBackend(user_loader)
 auth_middleware = FalconAuthMiddleware(token_auth)
 
+# API
 api = falcon.API(middleware=[auth_middleware])
-
-# Scheduler & Queue
-redis_password, redis_host, redis_port = utils.parse_redis_url(worker.redis_url)
-scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
-queue = Queue(connection=worker.redis_connection)
 
 # Routes
 api.add_route('/v0/jobs', resources.Jobs())
@@ -35,5 +29,3 @@ api.add_route('/v0/jobs/{job_id}', resources.Job())
 # Static
 api.add_route('/', resources.Index())
 api.add_static_route('/static', '{}/static'.format(DIR_PATH))
-
-scheduler.start()

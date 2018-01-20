@@ -1,11 +1,11 @@
 import datetime
 
-from api import main
+from api import main, worker
 
 
 def log(text):
 	print(text)
-	main.queue.enqueue(print, args=(text,))
+	worker.queue.enqueue(print, args=(text,))
 
 def get(url):
 	pass
