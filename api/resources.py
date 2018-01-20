@@ -3,7 +3,7 @@ import json
 import falcon
 import datetime
 
-from api import main, utils
+from api import main, utils, clock
 from apscheduler.jobstores.base import JobLookupError
 
 
@@ -21,7 +21,7 @@ class Index(object):
 class Jobs(object):
 
 	def on_get(self, req, resp):
-		jobs = main.scheduler.get_jobs(jobstore='redis')
+		jobs = clock.scheduler.get_jobs(jobstore='redis')
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
 		resp.body = json.dumps([utils.jsonify_job(job) for job in jobs])
@@ -48,7 +48,7 @@ class Jobs(object):
 		elif trigger not in ['interval']: # 'date', 'cron'
 			raise falcon.HTTPInvalidParam('It should be one of the following: interval.', 'trigger')
 
-		job = main.scheduler.add_job('api.commands:{}'.format(command), args=(text,), trigger=trigger, name=name, seconds=int(seconds), jobstore='redis')
+		job = clock.scheduler.add_job('api.commands:{}'.format(command), args=(text,), trigger=trigger, name=name, seconds=int(seconds), jobstore='redis')
 
 		resp.status = falcon.HTTP_CREATED
 		resp.content_type = falcon.MEDIA_JSON
@@ -56,14 +56,14 @@ class Jobs(object):
 
 	def on_delete(self, req, resp):
 		resp.content_type = falcon.MEDIA_JSON
-		main.scheduler.remove_all_jobs(jobstore='redis')
+		clock.scheduler.remove_all_jobs(jobstore='redis')
 		resp.status = falcon.HTTP_OK
 
 
 class Job(object):
 
 	def on_get(self, req, resp, job_id):
-		job = main.scheduler.get_job(job_id, jobstore='redis')
+		job = clock.scheduler.get_job(job_id, jobstore='redis')
 
 		if job:
 			resp.status = falcon.HTTP_OK
@@ -77,7 +77,7 @@ class Job(object):
 		resp.content_type = falcon.MEDIA_JSON
 
 		try:
-			main.scheduler.remove_job(job_id, jobstore='redis')
+			clock.scheduler.remove_job(job_id, jobstore='redis')
 			resp.status = falcon.HTTP_OK
 			resp.body = json.dumps({
 				'job': {

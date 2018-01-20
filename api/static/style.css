@@ -1,11 +1,13 @@
 /* 6 (0.375), 7 (0.4375), 8 (0.5), 9 (0.5625), 10 (0.625), 11 (0.6875), 12 (0.75), 14 (0.875),
 16 (1), 18 (1.125), 21 (1.3125), 24 (1.5), 36 (2.25), 48 (3), 60 (3.75), 72 (4.5)  px (em) */
 
-@import url('inter-ui-2.3.css');
-/*@import url('https://rsms.me/inter/inter-ui.css');*/
+/*@import url('inter-ui-2.3.css');*/
+@import url('https://rsms.me/inter/inter-ui.css');
+/*@import url('source-code-pro.css');*/
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 
 html {
-	background-color: #fafafa;
+	background-color: #fff;
 }
 
 body {
@@ -24,6 +26,7 @@ body {
 	font-weight: normal;
 	line-height: 24px;
 	margin: 24px 20px;
+	max-width: 800px;
 }
 
 html>body {
@@ -40,23 +43,29 @@ a:hover {
 	color: #0062cc;
 }
 
+a.inherit {
+	color: inherit;
+}
+
 .bash {
 	display: block;
-	font-family: monospace;
 	white-space: pre-wrap;
-	margin: 1em 0;
 	background: #000;
-	background: #fff;
-	/*border: 1px solid #333;*/
 	border-radius: 5px;
-	/*box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.1);*/
-	box-shadow: 0 20px 50px 0 rgba(0,0,0,0.12);
-	/*color: #ccc;*/
-	/*color: #fff;*/
-	padding: 0 7px;
-	/*width: 600px;*/
+	box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+	padding: 0 10px;
 	position: relative;
-	/*font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif*/
+	font-family: 'Source Code Pro', monospace;
+	color: #fff;
+}
+
+.bash a {
+	color: inherit;
+	border-bottom-color: #999;
+}
+
+.bash a:hover {
+	border-bottom-color: #fff;
 }
 
 .bash .title {
@@ -79,6 +88,17 @@ a:hover {
 .bash .minimize { background-color: #f5c250; }
 .bash .fullscreen { background-color: #64cb57; }
 
+.bash .key { color: #ec6c60; }
+.bash .value { color: #f5c250; }
+
 .quiet {
 	color: #999;
+}
+
+
+.code {
+	font-family: 'Source Code Pro', monospace;
+	background-color: #eee;
+	border-radius: 3px;
+	padding: 0 5px;
 }
