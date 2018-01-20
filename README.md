@@ -2,3 +2,7 @@
 
 redis-server &
 redis-cli shutdown
+
+# Scaling
+
+heroku ps:scale web=1 worker=1 clock=1
