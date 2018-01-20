@@ -1,37 +1,41 @@
 <html>
-<head>
-	<title>Crono</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" type="text/css" href="static/style.css">
-</head>
-<body>
-<h1>Crono</h1>
-<ol>
-	<li><a href="">Introduction</a></li>
-	<li><a href="">Authentication</a></li>
-	<li>
-		<a href="">Endpoints</a>
+	<head>
+		<title>Crono</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="static/style.css">
+	</head>
+	<body>
+
+		<h1>Crono</h1>
+
+		<p>Crono is a web-hosted replacement for <a href="https://en.wikipedia.org/wiki/Cron">cron</a>.</p>
+
 		<ol>
-			<li><a href="">GET /jobs</a></li>
-			<li><a href="">POST /jobs</a></li>
-			<li><a href="">GET /jobs/{id}</a></li>
-			<li><a href="">DELETE /jobs/{id}</a></li>
+			<li><a href="">Authentication</a></li>
+			<li>
+				<a href="">Endpoints</a>
+				<ol>
+					<li><a href="">GET /jobs</a></li>
+					<li><a href="">POST /jobs</a></li>
+					<li><a href="">GET /jobs/{id}</a></li>
+					<li><a href="">DELETE /jobs/{id}</a></li>
+				</ol>
+			</li>
+			<li><a href="">Triggers</a></li>
+			<li><a href="">Commands</a></li>
+			<li><a href="">Errors</a></li>
+			<li><a href="">Limits</a></li>
+			<li><a href="">Versions</a></li>
+			<li><a href="">Librairies</a></li>
+			<li><a href="">Support</a></li>
 		</ol>
-	</li>
-	<li><a href="">Triggers</a></li>
-	<li><a href="">Commands</a></li>
-	<li><a href="">Errors</a></li>
-	<li><a href="">Versions</a></li>
-	<li><a href="">Librairies</a></li>
-	<li><a href="">Support</a></li>
-</ol>
 
-<h2>Introduction</h2>
-<p>Crono is a web-hosted replacement for <a href="https://en.wikipedia.org/wiki/Cron">cron</a>.</p>
-
-<h2>Endpoints</h2>
-<h3>GET /jobs</h3>
+		<h2>Authentication</h2>
+		<h2>Endpoints</h2>
+		<h3>GET /jobs</h3>
+		
 <div class="bash"><span class="button close"></span> <span class="button minimize"></span> <span class="button fullscreen"></span><span class="title">bash</span>
+
 <span class="quiet">$</span> curl -X GET https://crono.com/{version}/jobs \
        -H "Authorization: Token …"
 
@@ -48,9 +52,10 @@
 }]
 
 </div>
-<h3>POST /jobs</h3>
-<h3>GET /jobs/{id}</h3>
-<h3>DELETE /jobs/{id}</h3>
 
-</body>
+		<h3>POST /jobs</h3>
+		<h3>GET /jobs/{id}</h3>
+		<h3>DELETE /jobs/{id}</h3>
+
+	</body>
 </html>
