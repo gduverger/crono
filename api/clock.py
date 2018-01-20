@@ -1,5 +1,6 @@
 import os
 import re
+import logging
 
 from apscheduler.schedulers.background import BlockingScheduler
 from apscheduler.jobstores.redis import RedisJobStore
@@ -24,8 +25,13 @@ def parse_redis_url(url):
 	return password, host, port
 
 
+# Scheduler
 redis_password, redis_host, redis_port = parse_redis_url(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
 scheduler = BlockingScheduler(jobstores={'redis': RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
+
+# Logging
+logging.basicConfig()
+logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 
 if __name__ == '__main__':
