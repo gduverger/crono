@@ -5,4 +5,6 @@ redis-cli shutdown
 
 # Scaling
 
-heroku ps:scale web=1 worker=1
+	heroku ps:scale web=1 worker=1
+
+https://stackoverflow.com/questions/32373754/apscheduler-how-to-add-job-outside-the-scheduler

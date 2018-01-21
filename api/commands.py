@@ -3,22 +3,49 @@ import datetime
 from api import main, worker
 
 
-def log(text):
-	print(text)
-	worker.queue.enqueue(print, args=(text,))
+class Command(object):
 
-def get(url):
+	def __init__(self, params):
+		self.params = {}
+
+		for key in self.KEYS:
+			if params.get(key):
+				self.params[key] = params[key]
+
+		if len(self.params) == 0:
+			raise CommandException('Missing command parameters')
+
+	@staticmethod
+	def init(params):
+		name = None
+
+		# Name
+		if params.get('name'):
+			name = params['name']
+		else:
+			raise CommandException('Missing command name')
+
+		# Class
+		if name == EmailCommand.NAME:
+			return EmailCommand(params)
+		else:
+			raise CommandException('Invalid command name')
+
+	@property
+	def name(self):
+		return self.NAME
+
+
+class EmailCommand(Command):
+	
+	NAME = 'email'
+	KEYS = ('to', 'subject', 'body')
+
+	@staticmethod
+	def callable(to, subject, body):
+		# TODO queue?
+		main.postmark.emails.send(From='log@airquote.co', To=to, Subject=subject, TextBody=body)
+
+
+class CommandException(Exception):
 	pass
-
-# def post(url):
-# 	pass
-
-def email(subject='Subject', body='Body'):
-	main.postmark.emails.send(From='log@airquote.co', To='georges.duverger@gmail.com', Subject=subject, TextBody=body)
-
-
-def text(number, text):
-	pass
-
-# def call(number, text):
-# 	pass
