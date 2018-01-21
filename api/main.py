@@ -28,7 +28,6 @@ api = falcon.API(middleware=[auth_middleware])
 # Scheduler
 redis_password, redis_host, redis_port = utils.parse_redis_url(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
 scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
-print('SCHEDULER.START()')
 scheduler.start()
 
 # Routes
