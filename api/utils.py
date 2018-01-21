@@ -23,8 +23,8 @@ def jsonify_job(job):
 		'job': {
 			'id': job.id,
 			'name': job.name,
-			'command': repr(job.func),
+			'command': job.func.__name__,
 			'trigger': repr(job.trigger),
-			'args': job.args	
+			'params': job.kwargs
 		}
 	}

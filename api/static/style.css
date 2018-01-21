@@ -43,8 +43,13 @@ a:hover {
 	color: #0062cc;
 }
 
-a.inherit {
+a.sly {
 	color: inherit;
+	border-bottom-color: #999;
+}
+
+a.sly:hover {
+	border-bottom-color: inherit;
 }
 
 .bash {
@@ -57,15 +62,6 @@ a.inherit {
 	position: relative;
 	font-family: 'Source Code Pro', monospace;
 	color: #fff;
-}
-
-.bash a {
-	color: inherit;
-	border-bottom-color: #999;
-}
-
-.bash a:hover {
-	border-bottom-color: #fff;
 }
 
 .bash .title {

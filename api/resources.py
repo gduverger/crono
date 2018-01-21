@@ -3,7 +3,7 @@ import json
 import falcon
 import datetime
 
-from api import main, utils
+from api import main, utils, triggers, commands
 from apscheduler.jobstores.base import JobLookupError
 
 
@@ -27,28 +27,35 @@ class Jobs(object):
 		resp.body = json.dumps([utils.jsonify_job(job) for job in jobs])
 
 	def on_post(self, req, resp):
-		# Required
-		command = req.params.get('command')
-		trigger = req.params.get('trigger')
+		# Name (optional)
+		name = req.params.get('name', 'Job')
 
-		# Optional
-		name = req.params.get('name')
-		seconds = req.params.get('seconds')
-		text = req.params.get('text')
+		# Trigger
+		trigger_params = req.media.get('trigger')
 
-		if not command:
-			raise falcon.HTTPMissingParam('command')
-
-		elif command not in ['log', 'email']: # 'get', 'post', 'text', 'call'
-			raise falcon.HTTPInvalidParam('It should be one of the following: log.', 'command')
-
-		if not trigger:
+		if not trigger_params:
 			raise falcon.HTTPMissingParam('trigger')
 
-		elif trigger not in ['interval']: # 'date', 'cron'
-			raise falcon.HTTPInvalidParam('It should be one of the following: interval.', 'trigger')
+		try:
+			trigger = triggers.Trigger.init(trigger_params)
 
-		job = main.scheduler.add_job('api.commands:{}'.format(command), args=(text,), trigger=trigger, name=name, seconds=int(seconds), jobstore='redis')
+		except triggers.TriggerException as e:
+			raise falcon.HTTPInvalidParam(param_name='trigger', msg='')			
+
+		# Command
+		command_params = req.media.get('command')
+
+		if not command_params:
+			raise falcon.HTTPMissingParam('command')
+
+		try:
+			command = commands.Command.init(command_params)
+
+		except commands.CommandException as e:
+			raise falcon.HTTPInvalidParam(param_name='command', msg='')
+
+		# Job
+		job = main.scheduler.add_job(command.callable, kwargs=command.params, trigger=trigger.type, **trigger.params, name=name, jobstore='redis')
 
 		resp.status = falcon.HTTP_CREATED
 		resp.content_type = falcon.MEDIA_JSON
