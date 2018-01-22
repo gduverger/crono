@@ -12,7 +12,7 @@ class Command(object):
 			if params.get(key):
 				self.params[key] = params[key]
 
-		if len(self.params) == 0:
+		if len(self.KEYS) > len(self.params):
 			raise CommandException('Missing command parameters')
 
 	@staticmethod
@@ -28,6 +28,8 @@ class Command(object):
 		# Class
 		if name == EmailCommand.NAME:
 			return EmailCommand(params)
+		if name == LogCommand.NAME:
+			return LogCommand(params)
 		else:
 			raise CommandException('Invalid command name')
 
@@ -45,6 +47,17 @@ class EmailCommand(Command):
 	def callable(to, subject, body):
 		# TODO queue?
 		main.postmark.emails.send(From='log@airquote.co', To=to, Subject=subject, TextBody=body)
+
+
+class LogCommand(Command):
+	
+	NAME = 'log'
+	KEYS = ('message',)
+
+	@staticmethod
+	def callable(message):
+		# TODO queue?
+		print(message)
 
 
 class CommandException(Exception):
