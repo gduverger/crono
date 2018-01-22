@@ -1,2 +1,2 @@
-web: gunicorn api.main:api --preload
+web: gunicorn api.main:api
 worker: python api/worker.py
