@@ -28,7 +28,7 @@ class Jobs(object):
 
 	def on_post(self, req, resp):
 		# Name (optional)
-		name = req.params.get('name', 'Job')
+		name = req.media.get('name', 'Job')
 
 		# Trigger
 		trigger_params = req.media.get('trigger')
