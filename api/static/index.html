@@ -1,8 +1,17 @@
 <html>
 	<head>
+
 		<title>Crono</title>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" type="text/css" href="static/style.css">
+
+		<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+		<script src="static/jquery-3.3.1.slim.min.js"></script>
+
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+		<script src="static/highlight-9.12.0/highlight.pack.js"></script>
+
 	</head>
 	<body>
 
@@ -11,59 +20,102 @@
 		<p>Crono is a dev-friendly, web-hosted API replacement for <a class="sly" href="https://en.wikipedia.org/wiki/Cron">cron</a>.</p>
 
 		<ol>
-			<li><a href="">Authentication</a></li>
+			<li><a href="#authentication">Authentication</a></li>
 			<li>
-				<a href="">Endpoints</a>
+				<a href="#endpoints">Endpoints</a>
 				<ol>
-					<li><a href="">GET /jobs</a></li>
-					<li><a href="">POST /jobs</a></li>
-					<li><a href="">GET /jobs/{id}</a></li>
-					<li><a href="">DELETE /jobs/{id}</a></li>
+					<li><a href="#get-jobs">GET /jobs</a></li>
+					<li><a href="#post-jobs">POST /jobs</a></li>
+					<li><a href="#get-job">GET /jobs/{id}</a></li>
+					<li><a href="#delete-job">DELETE /jobs/{id}</a></li>
 				</ol>
 			</li>
-			<li><a href="">Triggers</a></li>
-			<li><a href="">Commands</a></li>
-			<li><a href="">Errors</a></li>
-			<li><a href="">Limits</a></li>
-			<li><a href="">Versions</a></li>
-			<li><a href="">Librairies</a></li>
-			<li><a href="">Examples</a></li>
-			<li><a href="">Support</a></li>
+			<li>Triggers</li>
+			<li>Commands</li>
+			<li>Errors</li>
+			<li>Limits</li>
+			<li><a href="#versions">Versions</a></li>
+			<li>Librairies</li>
+			<li>Examples</li>
+			<li><a href="#support">Support</a></li>
 		</ol>
 
-		<h2>Introduction</h2>
-
-		<p>Crono lets you <a href="" class="sly">trigger</a> (e.g., <span class="code">interval</span>, <span class="code">date</span>, <span class="code">cron</span>) <a href="" class="sly">commands</a> (e.g., <span class="code">get</span>, <span class="code">post</span>, <span class="code">email</span>, <span class="code">text</span>) and monitor jobs.</p>
-
+		<a name="authentication"></a>
 		<h2>Authentication</h2>
 
-		<p>Every request needs to be authenticated by providing a token in the header.</p>
+		<p>Every request needs to be authenticated with an <span class="code">Authorization</span> parameter in the header (see examples in <a href="#endpoints" class="sly">endpoints</a> below). Email <a href="mailto:georges.duverger@gmail.com">georges.duverger@gmail.com</a> to request a token.</p>
 
+		<a name="endpoints"></a>
 		<h2>Endpoints</h2>
+
+		<a name="get-jobs"></a>
 		<h3>GET /jobs</h3>
-		
-<div class="bash"><span class="button close"></span> <span class="button minimize"></span> <span class="button fullscreen"></span><span class="title">bash</span>
 
-<span class="quiet">$</span> curl -X GET https://www.crono.com/{<a href="#versions" class="sly">version</a>}/jobs \
-       -H "Authorization: Token {<a href="#authentication" class="sly">token</a>}"
+		<a name="post-jobs"></a>
+		<h3>POST /jobs</h3>
 
-<span class="quiet">HTTP/1.1 200 OK</span>
-
-[{
-  <span class="key">"job"</span>: {
-    <span class="key">"id"</span>: <span class="value">"060311fabafa42c3a8aee47905f5a2d1"</span>,
-    <span class="key">"name"</span>: <span class="value">"email"</span>,
-    <span class="key">"command"</span>: <span class="value">"&lt;function email at 0x7f2706ec02f0&gt;"</span>,
-    <span class="key">"trigger"</span>: <span class="value">"&lt;IntervalTrigger (interval=datetime.timedelta(0, 3600), start_date='2018-01-19 02:38:34 UTC', timezone='Etc/UTC')&gt;"</span>,
-    <span class="key">"args"</span>: [<span class="value">"Bonjour !"</span>]
+<div class="window"><span class="button close"></span> <span class="button minimize"></span> <span class="button fullscreen"></span><span class="title">bash</span>
+<span class="bash">
+$ curl https://www.crono.com/v0/jobs \
+    -X POST \
+    -H "Authorization: Token …" \
+    -H "Content-Type: application/json" \
+    -d '{
+          "name": "Hello world",
+          "trigger": {
+            "type": "interval",
+            "seconds": 3600
+          },
+          "command": {
+            "name": "email",
+            "to": "georges.duverger@gmail.com",
+            "subject": "Hello",
+            "body": "World"
+          }
+        }'
+</span>
+<span class="created">HTTP/1.1 201 Created</span>
+<span class="json">
+{
+  "job": {
+    "id": "c592763f2cdf456e9515422f4f09f0ce",
+    "name": "Hello world",
+    "command": "callable",
+    "trigger": "&lt;IntervalTrigger (interval=datetime.timedelta(0, 600), start_date='2018-01-21 19:54:50 EST', timezone='America/New_York')&gt;",
+    "params": {
+      "to": "georges.duverger@gmail.com",
+      "subject": "Hello",
+      "body": "World"
+    }
   }
-}]
-
+}
+</span>
 </div>
 
-		<h3>POST /jobs</h3>
+		<a name="get-job"></a>
 		<h3>GET /jobs/{id}</h3>
+
+		<a name="delete-job"></a>
 		<h3>DELETE /jobs/{id}</h3>
+
+		<a name="versions"></a>
+		<h2>Versions</h2>
+		<p>Current version is <span class="code">v0</span>.
+
+		<a name="support"></a>
+		<h2>Support</h2>
+		<p>Email <a href="mailto:georges.duverger@gmail.com">georges.duverger@gmail.com</a> for support.
+
+		<script>
+			$(document).ready(function() {
+				$('.bash').each(function(i, block) {
+					hljs.highlightBlock(block);
+				});
+				$('.json').each(function(i, block) {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
 
 	</body>
 </html>

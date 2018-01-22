@@ -52,7 +52,7 @@ a.sly:hover {
 	border-bottom-color: inherit;
 }
 
-.bash {
+.window {
 	display: block;
 	white-space: pre-wrap;
 	background: #000;
@@ -64,7 +64,7 @@ a.sly:hover {
 	color: #fff;
 }
 
-.bash .title {
+.window .title {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -72,7 +72,7 @@ a.sly:hover {
 	color: #999;
 }
 
-.bash .button {
+.window .button {
 	width: 12px;
 	height: 12px;
 	border-radius: 50%;
@@ -80,17 +80,18 @@ a.sly:hover {
 	/*margin-right: 4px;*/
 }
 
-.bash .close { background-color: #ec6c60; }
-.bash .minimize { background-color: #f5c250; }
-.bash .fullscreen { background-color: #64cb57; }
+.window .close { background-color: #ec6c60; }
+.window .minimize { background-color: #f5c250; }
+.window .fullscreen { background-color: #64cb57; }
 
-.bash .key { color: #ec6c60; }
-.bash .value { color: #f5c250; }
+.json .hljs-attr { color: #ec6c60; }
+.json .hljs-string { color: #f5c250; }
 
 .quiet {
 	color: #999;
 }
 
+.created { color: #64cb57; }
 
 .code {
 	font-family: 'Source Code Pro', monospace;
