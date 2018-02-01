@@ -1,10 +1,14 @@
 import os
 import json
+import rpyc
 import falcon
 import datetime
 
 from api import main, utils, triggers, commands
 from apscheduler.jobstores.base import JobLookupError
+
+
+conn = rpyc.connect('localhost', 12345, config={'allow_all_attrs': True})
 
 
 class Index(object):
@@ -21,10 +25,10 @@ class Index(object):
 class Jobs(object):
 
 	def on_get(self, req, resp):
-		jobs = main.scheduler.get_jobs(jobstore='redis')
+		jobs = conn.root.get_jobs()
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps([utils.jsonify_job(job) for job in jobs])
+		resp.body = json.dumps([utils.dict_job(job) for job in jobs])
 
 	def on_post(self, req, resp):
 		# Name (optional)
@@ -55,42 +59,39 @@ class Jobs(object):
 			raise falcon.HTTPInvalidParam(param_name='command', msg='')
 
 		# Job
-		job = main.scheduler.add_job(command.callable, kwargs=command.params, trigger=trigger.type, **trigger.params, name=name, jobstore='redis')
+		print('[on_post] command.callable={} command.func={} command.params={} trigger.type={} trigger.params={} name={}'.format(command.callable, command.func, command.params, trigger.type, trigger.params, name))
+		job = conn.root.add_job(command.func, kwargs=command.params, name=name, trigger=trigger.type, **trigger.params)
 
+		resp.body = json.dumps(utils.dict_job(job))
 		resp.status = falcon.HTTP_CREATED
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps(utils.jsonify_job(job))
 
-	def on_delete(self, req, resp):
-		resp.content_type = falcon.MEDIA_JSON
-		main.scheduler.remove_all_jobs(jobstore='redis')
-		resp.status = falcon.HTTP_OK
+	# def on_delete(self, req, resp):
+	# 	resp.content_type = falcon.MEDIA_JSON
+	# 	conn.root.remove_all_jobs()
+	# 	resp.status = falcon.HTTP_OK
 
 
 class Job(object):
 
 	def on_get(self, req, resp, job_id):
-		job = main.scheduler.get_job(job_id, jobstore='redis')
+		job = conn.root.get_job(job_id)
 
 		if job:
 			resp.status = falcon.HTTP_OK
 			resp.content_type = falcon.MEDIA_JSON
-			resp.body = json.dumps(utils.jsonify_job(job))
+			resp.body = json.dumps(utils.dict_job(job))
 
 		else:
 			raise falcon.HTTPNotFound()
 
 	def on_delete(self, req, resp, job_id):
 		resp.content_type = falcon.MEDIA_JSON
-
-		try:
-			main.scheduler.remove_job(job_id, jobstore='redis')
-			resp.status = falcon.HTTP_OK
-			resp.body = json.dumps({
-				'job': {
-					'id': job_id
-				}
-			})
-
-		except JobLookupError as e:
-			raise falcon.HTTPNotFound()
+		# TODO exception handling
+		conn.root.remove_job(job_id)
+		resp.status = falcon.HTTP_OK
+		resp.body = json.dumps({
+			'job': {
+				'id': job_id
+			}
+		})

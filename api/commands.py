@@ -1,6 +1,6 @@
 import datetime
 
-from api import main, worker
+from api import main
 
 
 class Command(object):
@@ -42,22 +42,30 @@ class EmailCommand(Command):
 	
 	NAME = 'email'
 	KEYS = ('to', 'subject', 'body')
+	func = 'api:commands.email'
 
 	@staticmethod
 	def callable(to, subject, body):
 		# TODO queue?
 		main.postmark.emails.send(From='log@airquote.co', To=to, Subject=subject, TextBody=body)
 
+def email(to, subject, body):
+	main.postmark.emails.send(From='log@airquote.co', To=to, Subject=subject, TextBody=body)
+
 
 class LogCommand(Command):
 	
 	NAME = 'log'
 	KEYS = ('message',)
+	func = 'api:commands.log'
 
 	@staticmethod
 	def callable(message):
 		# TODO queue?
 		print(message)
+
+def log(message):
+	print(message)
 
 
 class CommandException(Exception):

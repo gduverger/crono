@@ -18,13 +18,14 @@ def parse_redis_url(url):
 	return password, host, port
 
 
-def jsonify_job(job):
+def dict_job(job):
+	print('[dict_job] job={}'.format(job))
 	return {
 		'job': {
 			'id': job.id,
 			'name': job.name,
 			'command': job.func.__name__,
 			'trigger': repr(job.trigger),
-			'params': job.kwargs
+			# 'params': job.kwargs # BUG
 		}
 	}

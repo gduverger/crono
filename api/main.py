@@ -2,13 +2,9 @@ import os
 import falcon
 import logging
 
-from rq import Queue
-from api import resources, utils
+from api import resources, utils, scheduler
 from falcon_auth import FalconAuthMiddleware, TokenAuthBackend
 from postmarker.core import PostmarkClient
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.jobstores.redis import RedisJobStore
-from apscheduler import events as scheduler_events
 
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -25,30 +21,6 @@ auth_middleware = FalconAuthMiddleware(token_auth)
 
 # API
 api = falcon.API(middleware=[auth_middleware])
-
-# Scheduler
-redis_password, redis_host, redis_port = utils.parse_redis_url(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
-scheduler = BackgroundScheduler(jobstores={'redis': RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
-scheduler.start()
-
-def scheduler_listener(event):
-
-	if type(event) is scheduler_events.SchedulerEvent:
-		print('SchedulerEvent: code={} alias={}'.format(event.code, event.alias))
-
-	elif type(event) is scheduler_events.JobEvent:
-		print('JobEvent: code={} job_id={} jobstore={}'.format(event.code, event.job_id, event.jobstore))
-
-	elif type(event) is scheduler_events.JobSubmissionEvent:
-		print('JobSubmissionEvent: scheduled_run_times={}'.format(event.scheduled_run_times))
-
-	elif type(event) is scheduler_events.JobExecutionEvent:
-		print('JobExecutionEvent: scheduled_run_time={} retval={} exception={} traceback={}'.format(event.scheduled_run_time, event.retval, event.exception, event.traceback))
-
-	else:
-		print('Event: {}'.format(event))
-
-scheduler.add_listener(scheduler_listener, scheduler_events.EVENT_ALL)
 
 # Routes
 api.add_route('/v0/jobs', resources.Jobs())
