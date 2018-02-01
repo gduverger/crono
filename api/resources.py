@@ -8,7 +8,7 @@ from api import main, utils, triggers, commands
 from apscheduler.jobstores.base import JobLookupError
 
 
-conn = rpyc.connect(os.getenv('HOSTNAME', 'localhost'), 12345, config={'allow_all_attrs': True})
+conn = rpyc.connect(os.getenv('RPYC_HOSTNAME', 'localhost'), os.getenv('RPYC_PORT', 12345), config={'allow_all_attrs': True})
 
 
 class Index(object):
