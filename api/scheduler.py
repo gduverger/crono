@@ -47,7 +47,7 @@ if __name__ == '__main__':
 	scheduler = BackgroundScheduler(jobstores={JOBSTORE: RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
 	scheduler.start()
 	protocol_config = {'allow_all_attrs': True}
-	server = ThreadedServer(SchedulerService, hostname=os.getenv('RPYC_HOSTNAME', 'localhost'), port=int(os.getenv('RPYC_PORT', 12345)), protocol_config=protocol_config)
+	server = ThreadedServer(SchedulerService, hostname=os.getenv('RPYC_HOSTNAME', 'localhost'), port=int(os.getenv('$PORT', 12345)), protocol_config=protocol_config)
 
 	try:
 		server.start()
