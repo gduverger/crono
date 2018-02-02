@@ -1,14 +1,10 @@
 import os
 import json
-import rpyc
 import falcon
 import datetime
 
 from api import main, utils, triggers, commands
 from apscheduler.jobstores.base import JobLookupError
-
-
-conn = rpyc.connect(os.getenv('RPYC_HOSTNAME', 'localhost'), int(os.getenv('PORT', 12345)), config={'allow_all_attrs': True})
 
 
 class Index(object):
@@ -25,10 +21,12 @@ class Index(object):
 class Jobs(object):
 
 	def on_get(self, req, resp):
-		jobs = conn.root.get_jobs()
+		# jobs = conn.root.get_jobs()
+		# TODO
+		commands.add.delay(2, 2)
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps([utils.dict_job(job) for job in jobs])
+		# resp.body = json.dumps([utils.dict_job(job) for job in jobs])
 
 	def on_post(self, req, resp):
 		# Name (optional)
@@ -60,7 +58,8 @@ class Jobs(object):
 
 		# Job
 		print('[on_post] command.callable={} command.func={} command.params={} trigger.type={} trigger.params={} name={}'.format(command.callable, command.func, command.params, trigger.type, trigger.params, name))
-		job = conn.root.add_job(command.func, kwargs=command.params, name=name, trigger=trigger.type, **trigger.params)
+		# job = conn.root.add_job(command.func, kwargs=command.params, name=name, trigger=trigger.type, **trigger.params)
+		# TODO
 
 		resp.body = json.dumps(utils.dict_job(job))
 		resp.status = falcon.HTTP_CREATED
@@ -75,7 +74,8 @@ class Jobs(object):
 class Job(object):
 
 	def on_get(self, req, resp, job_id):
-		job = conn.root.get_job(job_id)
+		# job = conn.root.get_job(job_id)
+		# TODO
 
 		if job:
 			resp.status = falcon.HTTP_OK
@@ -88,7 +88,8 @@ class Job(object):
 	def on_delete(self, req, resp, job_id):
 		resp.content_type = falcon.MEDIA_JSON
 		# TODO exception handling
-		conn.root.remove_job(job_id)
+		# conn.root.remove_job(job_id)
+		# TODO
 		resp.status = falcon.HTTP_OK
 		resp.body = json.dumps({
 			'job': {

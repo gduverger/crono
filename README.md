@@ -3,7 +3,10 @@
 redis-server &
 redis-cli shutdown
 
-# Heroku Scaling
+celery -A api.scheduler worker -l info &
+gunicorn api.main:api
+
+# Scaling
 
 	heroku ps:scale web=1 clock=1
 

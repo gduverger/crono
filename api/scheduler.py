@@ -1,20 +1,13 @@
-import os
-import sys
-import rpyc
-
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from api import utils
-
-from apscheduler.jobstores.redis import RedisJobStore
-from apscheduler.schedulers.background import BackgroundScheduler
-from rpyc.utils.server import ThreadedServer
-from apscheduler.jobstores.base import JobLookupError
+from celery import Celery
 
 
-JOBSTORE = 'redis'
+queue = Celery('queue',
+		broker='redis://localhost:6379/0', # redis://:password@hostname:port/db_number
+		include=['api.commands'])
+# app.conf.result_backend = 'redis://localhost:6379/0'
 
 
-class SchedulerService(rpyc.Service):
+class SchedulerService(): # rpyc.Service
 
 	def exposed_get_jobs(self):
 		print('[exposed_get_jobs] self={}'.format(self))
@@ -42,18 +35,4 @@ class SchedulerService(rpyc.Service):
 
 
 if __name__ == '__main__':
-
-	redis_password, redis_host, redis_port = utils.parse_redis_url(os.getenv('REDISTOGO_URL', 'redis://localhost:6379'))
-	scheduler = BackgroundScheduler(jobstores={JOBSTORE: RedisJobStore(host=redis_host, port=redis_port, password=redis_password)})
-	scheduler.start()
-	protocol_config = {'allow_all_attrs': True}
-	server = ThreadedServer(SchedulerService, hostname=os.getenv('RPYC_HOSTNAME', 'localhost'), port=int(os.getenv('PORT', 12345)), protocol_config=protocol_config)
-
-	try:
-		server.start()
-
-	except (KeyboardInterrupt, SystemExit):
-		pass
-
-	finally:
-		scheduler.shutdown()
+	queue.start()

@@ -1,6 +1,6 @@
 import datetime
 
-from api import main
+from api import main, scheduler
 
 
 class Command(object):
@@ -70,3 +70,8 @@ def log(message):
 
 class CommandException(Exception):
 	pass
+
+
+@scheduler.queue.task
+def add(x, y):
+	return x + y
