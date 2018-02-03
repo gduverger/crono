@@ -3,7 +3,7 @@ import json
 import falcon
 import datetime
 
-from api import main, utils, triggers, commands
+from api import main, utils, triggers, tasks
 from apscheduler.jobstores.base import JobLookupError
 
 
@@ -23,7 +23,7 @@ class Jobs(object):
 	def on_get(self, req, resp):
 		# jobs = conn.root.get_jobs()
 		# TODO
-		commands.add.delay(2, 2)
+		tasks.add.delay(2, 2)
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
 		# resp.body = json.dumps([utils.dict_job(job) for job in jobs])
@@ -44,21 +44,21 @@ class Jobs(object):
 		except triggers.TriggerException as e:
 			raise falcon.HTTPInvalidParam(param_name='trigger', msg='')			
 
-		# Command
-		command_params = req.media.get('command')
+		# Task
+		task_params = req.media.get('task')
 
-		if not command_params:
-			raise falcon.HTTPMissingParam('command')
+		if not task_params:
+			raise falcon.HTTPMissingParam('task')
 
 		try:
-			command = commands.Command.init(command_params)
+			task = tasks.Task.init(task_params)
 
-		except commands.CommandException as e:
-			raise falcon.HTTPInvalidParam(param_name='command', msg='')
+		except tasks.TaskException as e:
+			raise falcon.HTTPInvalidParam(param_name='task', msg='')
 
 		# Job
-		print('[on_post] command.callable={} command.func={} command.params={} trigger.type={} trigger.params={} name={}'.format(command.callable, command.func, command.params, trigger.type, trigger.params, name))
-		# job = conn.root.add_job(command.func, kwargs=command.params, name=name, trigger=trigger.type, **trigger.params)
+		print('[on_post] task.callable={} task.func={} task.params={} trigger.type={} trigger.params={} name={}'.format(task.callable, task.func, task.params, trigger.type, trigger.params, name))
+		# job = conn.root.add_job(task.func, kwargs=task.params, name=name, trigger=trigger.type, **trigger.params)
 		# TODO
 
 		resp.body = json.dumps(utils.dict_job(job))
