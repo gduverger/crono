@@ -5,3 +5,5 @@ dump.rdb
 *.DS_Store
 *__pycache__
 *__init__.py
+celerybeat.pid
+celerybeat-schedule.db

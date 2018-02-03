@@ -3,6 +3,7 @@
 redis-server &
 // redis-cli shutdown
 celery -A api.scheduler worker -l info &
+celery -A api.scheduler beat -S redbeat.RedBeatScheduler -l info &
 gunicorn api.main:api
 
 # Scaling

@@ -1,9 +1,11 @@
 import os
 import json
 import falcon
+import celery
+import redbeat
 import datetime
 
-from api import main, utils, triggers, tasks
+from api import main, utils, scheduler, triggers, tasks
 from apscheduler.jobstores.base import JobLookupError
 
 
@@ -23,10 +25,21 @@ class Jobs(object):
 	def on_get(self, req, resp):
 		# jobs = conn.root.get_jobs()
 		# TODO
-		tasks.add.delay(2, 2)
+
+		# task = tasks.add.delay(2, 2)
+		# task = tasks.add.apply_async((2, 2), queue='lopri', countdown=10)
+		# sender.add_periodic_task(30.0, test.s('world'), expires=10)
+
+		interval = celery.schedules.schedule(run_every=10) # seconds
+		entry = redbeat.schedulers.RedBeatSchedulerEntry('add every 10 seconds', 'api.tasks.add', interval, args=[1, 2], app=scheduler.queue)
+		entry.save()
+
+		inspect = scheduler.queue.control.inspect()
+		print('inspect={} active={} registered={} scheduled={}'.format(inspect, inspect.active(), inspect.registered(), inspect.scheduled()))
+
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
-		# resp.body = json.dumps([utils.dict_job(job) for job in jobs])
+		resp.body = json.dumps(inspect.scheduled())
 
 	def on_post(self, req, resp):
 		# Name (optional)
