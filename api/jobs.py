@@ -31,7 +31,7 @@ class Jobs(object):
 		# sender.add_periodic_task(30.0, test.s('world'), expires=10)
 
 		interval = celery.schedules.schedule(run_every=10) # seconds
-		entry = redbeat.schedulers.RedBeatSchedulerEntry('add every 10 seconds', 'api.tasks.add', interval, args=[1, 2], app=scheduler.queue)
+		entry = redbeat.schedulers.RedBeatSchedulerEntry(name='add every 10 seconds', task='api.tasks.add', schedule=interval, args=[1, 2], app=scheduler.queue)
 		entry.save()
 
 		inspect = scheduler.queue.control.inspect()
