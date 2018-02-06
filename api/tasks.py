@@ -74,4 +74,5 @@ class TaskException(Exception):
 
 @scheduler.queue.task
 def add(x, y):
+	print('[add] x={} y={}'.format(x, y))
 	return x + y

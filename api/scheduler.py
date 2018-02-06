@@ -1,27 +1,20 @@
 import os
+import celery
+import redbeat
 
-from celery import Celery
-# from celery.task import periodic_task
 
-
-queue = Celery('scheduler',
-		broker=os.getenv('REDISTOGO_URL', 'redis://localhost'), # redis://localhost:6379/0
-		backend=os.getenv('REDISTOGO_URL', 'redis://localhost'),
+queue = celery.Celery('api',
+		broker=os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
+		backend=os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
 		include=['api.tasks'])
 
 queue.conf.redbeat_redis_url = 'redis://localhost:6379/1'
+queue.conf.beat_max_loop_interval = 5
+queue.conf.redbeat_lock_timeout = 5
+# queue.conf.result_backend = 'redis://localhost:6379/0'
 # queue.conf.beat_scheduler = 'redbeat.schedulers.RedBeatScheduler'
-# queue.conf.beat_schedule = {
-# 	'add-every-30-seconds': {
-# 		'task': 'api.tasks.add',
-# 		'schedule': 30.0,
-# 		'args': (16, 16)
-# 	},
-# }
 
-# @periodic_task(run_every=datetime.timedelta(seconds=10))
-# def periodic_print():
-# 	print('[periodic_print]')
+_scheduler = redbeat.schedulers.RedBeatScheduler(queue, lazy=True)
 
 
 if __name__ == '__main__':

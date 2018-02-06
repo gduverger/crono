@@ -1,10 +1,14 @@
 // export PATH=$PATH:/Users/gduverger/Sites/redis-4.0.6/src
 
-redis-server &
-// redis-cli shutdown
-celery -A api.scheduler worker -l info &
-celery -A api.scheduler beat -S redbeat.RedBeatScheduler -l info &
-gunicorn api.main:api
+# CLI
+
+	redis-server &
+	// redis-cli shutdown
+
+	celery worker --app api.scheduler:queue --loglevel DEBUG --detach
+	celery beat --app api.scheduler:queue --scheduler redbeat.schedulers.RedBeatScheduler --loglevel DEBUG --detach
+
+	gunicorn api.main:api
 
 # Scaling
 
