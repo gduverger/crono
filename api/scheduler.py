@@ -4,13 +4,13 @@ import redbeat
 
 
 queue = celery.Celery('api',
-		broker=os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
-		backend=os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
+		broker=os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
+		backend=os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
 		include=['api.tasks'])
 
 queue.conf.broker_pool_limit = 1
 queue.conf.redis_max_connections = 1
-queue.conf.redbeat_redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379/1')
+queue.conf.redbeat_redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379/1')
 
 # queue.conf.beat_max_loop_interval = 5
 # queue.conf.redbeat_lock_timeout = 5

@@ -3,7 +3,7 @@
   "scripts": {
   },
   "env": {
-    "REDISTOGO_URL": {
+    "REDIS_URL": {
       "required": true
     }
   },
@@ -19,7 +19,7 @@
     }
   },
   "addons": [
-    "redistogo"
+    "redis"
   ],
   "buildpacks": [
     {
