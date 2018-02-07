@@ -73,13 +73,12 @@ class Jobs(object):
 class Job(object):
 
 	def on_get(self, req, resp, job_id):
-		# job = conn.root.get_job(job_id)
-		# TODO
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(job_id, app=scheduler.queue)
 
-		if job:
+		if entry:
 			resp.status = falcon.HTTP_OK
 			resp.content_type = falcon.MEDIA_JSON
-			resp.body = json.dumps(utils.dict_job(job))
+			resp.body = json.dumps(entry.key)
 
 		else:
 			raise falcon.HTTPNotFound()
@@ -87,7 +86,8 @@ class Job(object):
 	def on_delete(self, req, resp, job_id):
 		resp.content_type = falcon.MEDIA_JSON
 		# TODO exception handling
-		entry = redbeat.schedulers.RedBeatSchedulerEntry.form_key(job_id, app=scheduler.queue)
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(job_id, app=scheduler.queue)
 		entry.delete()
 		resp.status = falcon.HTTP_OK
+		resp.content_type = falcon.MEDIA_JSON
 		resp.body = json.dumps(entry.key)
