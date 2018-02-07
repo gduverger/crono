@@ -5,10 +5,10 @@
 	redis-server &
 	// redis-cli shutdown
 
-	celery worker --app api.scheduler:queue --loglevel DEBUG --detach
+	celery worker --app api.scheduler:queue --concurrency 5 --loglevel DEBUG --detach
 	celery beat --app api.scheduler:queue --scheduler redbeat.schedulers.RedBeatScheduler --loglevel DEBUG --detach
 
-	gunicorn api.main:api
+	gunicorn api.main:api --workers 1
 
 # Scaling
 
