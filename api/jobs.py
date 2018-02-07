@@ -87,11 +87,7 @@ class Job(object):
 	def on_delete(self, req, resp, job_id):
 		resp.content_type = falcon.MEDIA_JSON
 		# TODO exception handling
-		# conn.root.remove_job(job_id)
-		# TODO
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.form_key(job_id, app=scheduler.queue)
+		entry.delete()
 		resp.status = falcon.HTTP_OK
-		resp.body = json.dumps({
-			'job': {
-				'id': job_id
-			}
-		})
+		resp.body = json.dumps(entry.key)
