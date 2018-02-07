@@ -8,8 +8,8 @@ queue = celery.Celery('api',
 		backend=os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
 		include=['api.tasks'])
 
-queue.conf.redis_max_connections = 5
-queue.conf.broker_pool_limit = 5
+# queue.conf.redis_max_connections = 5
+# queue.conf.broker_pool_limit = 5
 queue.conf.redbeat_redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379/1')
 
 # queue.conf.beat_max_loop_interval = 5
