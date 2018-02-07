@@ -3,7 +3,7 @@ import celery
 import redbeat
 
 
-queue = celery.Celery('api',
+queue = celery.Celery('api', # NOTE I believe that name should not change
 		broker=os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
 		backend=os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
 		include=['api.tasks'])
