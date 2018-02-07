@@ -20,6 +20,9 @@
     }
   },
   "formation": {
+    "worker": {
+      "quantity": 1
+    },
     "clock": {
       "quantity": 1
     },
