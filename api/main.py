@@ -2,7 +2,7 @@ import os
 import falcon
 import logging
 
-from api import resources, utils, scheduler
+from api import jobs, utils, scheduler
 from falcon_auth import FalconAuthMiddleware, TokenAuthBackend
 from postmarker.core import PostmarkClient
 
@@ -23,11 +23,11 @@ auth_middleware = FalconAuthMiddleware(token_auth)
 api = falcon.API(middleware=[auth_middleware])
 
 # Routes
-api.add_route('/v0/jobs', resources.Jobs())
-api.add_route('/v0/jobs/{job_id}', resources.Job())
+api.add_route('/v0/jobs', jobs.Jobs())
+api.add_route('/v0/jobs/{job_id}', jobs.Job())
 
 # Static
-api.add_route('/', resources.Index())
+api.add_route('/', jobs.Index())
 api.add_static_route('/static', '{}/static'.format(DIR_PATH))
 
 # Logging

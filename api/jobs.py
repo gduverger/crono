@@ -1,14 +1,12 @@
 import os
 import json
-import rpyc
+import uuid
 import falcon
+import celery
+import redbeat
 import datetime
 
-from api import main, utils, triggers, commands
-from apscheduler.jobstores.base import JobLookupError
-
-
-conn = rpyc.connect(os.getenv('RPYC_CLIENT_HOSTNAME', 'localhost'), int(os.getenv('RPYC_CLIENT_PORT', 12345)), config={'allow_all_attrs': True})
+from api import main, utils, scheduler, triggers, tasks
 
 
 class Index(object):
@@ -25,14 +23,15 @@ class Index(object):
 class Jobs(object):
 
 	def on_get(self, req, resp):
-		jobs = conn.root.get_jobs()
+		entries = [{entry.key: repr(entry)} for _, entry in scheduler._scheduler.schedule.items()]
+
 		resp.status = falcon.HTTP_OK
 		resp.content_type = falcon.MEDIA_JSON
-		resp.body = json.dumps([utils.dict_job(job) for job in jobs])
+		resp.body = json.dumps(entries)
 
 	def on_post(self, req, resp):
-		# Name (optional)
-		name = req.media.get('name', 'Job')
+		# Name
+		name = str(uuid.uuid4()) # req.media.get('name', 'Job')
 
 		# Trigger
 		trigger_params = req.media.get('trigger')
@@ -46,36 +45,36 @@ class Jobs(object):
 		except triggers.TriggerException as e:
 			raise falcon.HTTPInvalidParam(param_name='trigger', msg='')			
 
-		# Command
-		command_params = req.media.get('command')
+		# Task
+		task_params = req.media.get('task')
 
-		if not command_params:
-			raise falcon.HTTPMissingParam('command')
+		if not task_params:
+			raise falcon.HTTPMissingParam('task')
 
 		try:
-			command = commands.Command.init(command_params)
+			task = tasks.Task.init(task_params)
 
-		except commands.CommandException as e:
-			raise falcon.HTTPInvalidParam(param_name='command', msg='')
+		except tasks.TaskException as e:
+			raise falcon.HTTPInvalidParam(param_name='task', msg='')
 
 		# Job
-		print('[on_post] command.callable={} command.func={} command.params={} trigger.type={} trigger.params={} name={}'.format(command.callable, command.func, command.params, trigger.type, trigger.params, name))
-		job = conn.root.add_job(command.func, kwargs=command.params, name=name, trigger=trigger.type, **trigger.params)
+		# print('[on_post] task.callable={} task.func={} task.params={} trigger.type={} trigger.params={} name={}'.format(task.callable, task.func, task.params, trigger.type, trigger.params, name))
+		interval = celery.schedules.schedule(run_every=10) # seconds
+		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task='api.tasks.add', schedule=interval, args=[1, 2], app=scheduler.queue)
+		entry.save()
 
-		resp.body = json.dumps(utils.dict_job(job))
+		print('[on_post] name={} interval={} entry={} entry.key={} scheduler.queue={}'.format(name, interval, entry, entry.key, scheduler.queue))
+
+		resp.body = json.dumps(entry.key)
 		resp.status = falcon.HTTP_CREATED
 		resp.content_type = falcon.MEDIA_JSON
-
-	# def on_delete(self, req, resp):
-	# 	resp.content_type = falcon.MEDIA_JSON
-	# 	conn.root.remove_all_jobs()
-	# 	resp.status = falcon.HTTP_OK
 
 
 class Job(object):
 
 	def on_get(self, req, resp, job_id):
-		job = conn.root.get_job(job_id)
+		# job = conn.root.get_job(job_id)
+		# TODO
 
 		if job:
 			resp.status = falcon.HTTP_OK
@@ -88,7 +87,8 @@ class Job(object):
 	def on_delete(self, req, resp, job_id):
 		resp.content_type = falcon.MEDIA_JSON
 		# TODO exception handling
-		conn.root.remove_job(job_id)
+		# conn.root.remove_job(job_id)
+		# TODO
 		resp.status = falcon.HTTP_OK
 		resp.body = json.dumps({
 			'job': {

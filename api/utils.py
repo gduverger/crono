@@ -24,7 +24,7 @@ def dict_job(job):
 		'job': {
 			'id': job.id,
 			'name': job.name,
-			'command': job.func.__name__,
+			'task': job.func.__name__,
 			'trigger': repr(job.trigger),
 			# 'params': job.kwargs # BUG
 		}

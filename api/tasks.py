@@ -1,9 +1,9 @@
 import datetime
 
-from api import main
+from api import main, scheduler
 
 
-class Command(object):
+class Task(object):
 
 	def __init__(self, params):
 		self.params = {}
@@ -13,7 +13,7 @@ class Command(object):
 				self.params[key] = params[key]
 
 		if len(self.KEYS) > len(self.params):
-			raise CommandException('Missing command parameters')
+			raise TaskException('Missing task parameters')
 
 	@staticmethod
 	def init(params):
@@ -23,26 +23,26 @@ class Command(object):
 		if params.get('name'):
 			name = params['name']
 		else:
-			raise CommandException('Missing command name')
+			raise TaskException('Missing task name')
 
 		# Class
-		if name == EmailCommand.NAME:
-			return EmailCommand(params)
-		if name == LogCommand.NAME:
-			return LogCommand(params)
+		if name == EmailTask.NAME:
+			return EmailTask(params)
+		if name == LogTask.NAME:
+			return LogTask(params)
 		else:
-			raise CommandException('Invalid command name')
+			raise TaskException('Invalid task name')
 
 	@property
 	def name(self):
 		return self.NAME
 
 
-class EmailCommand(Command):
+class EmailTask(Task):
 	
 	NAME = 'email'
 	KEYS = ('to', 'subject', 'body')
-	func = 'api:commands.email'
+	func = 'api:tasks.email'
 
 	@staticmethod
 	def callable(to, subject, body):
@@ -53,11 +53,11 @@ def email(to, subject, body):
 	main.postmark.emails.send(From='log@airquote.co', To=to, Subject=subject, TextBody=body)
 
 
-class LogCommand(Command):
+class LogTask(Task):
 	
 	NAME = 'log'
 	KEYS = ('message',)
-	func = 'api:commands.log'
+	func = 'api:tasks.log'
 
 	@staticmethod
 	def callable(message):
@@ -68,5 +68,11 @@ def log(message):
 	print(message)
 
 
-class CommandException(Exception):
+class TaskException(Exception):
 	pass
+
+
+@scheduler.queue.task
+def add(x, y):
+	print('[add] x={} y={}'.format(x, y))
+	return x + y
