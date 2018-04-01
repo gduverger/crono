@@ -3,7 +3,7 @@ import celery
 import redbeat
 
 
-queue = celery.Celery('api', # NOTE I believe that name should not change
+queue = celery.Celery('api', # NOTE Name of the main module if running as __main__
 		broker=os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
 		backend=os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
 		include=['api.tasks'])
