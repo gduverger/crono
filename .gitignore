@@ -1,3 +1,4 @@
+.env
 *.pyc
 *.cache
 dump.rdb
