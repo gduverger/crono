@@ -1,10 +1,10 @@
-// export PATH=$PATH:/Users/gduverger/Sites/redis-4.0.6/src
 
 # Install
 
 ## Redis
 
 	https://redis.io/download
+	// export PATH=$PATH:~/Sites/redis-4.0.6/src
 
 # Run
 
