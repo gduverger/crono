@@ -1,6 +1,12 @@
 // export PATH=$PATH:/Users/gduverger/Sites/redis-4.0.6/src
 
-# CLI
+# Install
+
+## Redis
+
+	https://redis.io/download
+
+# Run
 
 	redis-server &
 	// redis-cli shutdown
@@ -10,7 +16,7 @@
 
 	gunicorn app:app --workers=1
 
-# Scaling
+# Scale
 
 	heroku ps:scale web=1 clock=1
 

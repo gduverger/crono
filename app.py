@@ -1,13 +1,11 @@
+import os
 import datetime
 import scheduler
 import redbeat
 import celery
 
-from apistar import Include, Route
-from apistar.frameworks.wsgi import WSGIApp as App
-from apistar.handlers import docs_urls, static_urls
-from apistar import typesystem
-
+from apistar import App, Include, Route
+from apistar import exceptions, types, validators
 from postmarker.core import PostmarkClient
 
 
@@ -17,36 +15,36 @@ def welcome(name=None):
 	return {'message': 'Welcome to Crono, %s!' % name}
 
 
-class Trigger(typesystem.Object):
+class Trigger(types.Type):
 	description = 'Trigger'
 	properties = {
-		'type': typesystem.enum(enum=['interval']), # 'date', 'cron'
-		'seconds': typesystem.integer(minimum=10, default=60)
+		'type': validators.String(enum=['interval']), # 'date', 'cron'
+		'seconds': validators.Integer(minimum=10, default=60)
 	}
 	required = ['type', 'seconds']
 
 
-class TaskParameters(typesystem.Object):
+class TaskParameters(types.Type):
 	properties = {
-		'to': typesystem.string(pattern='.*@.*'),
-		# 'subject': typesystem.string(max_length=100),
-		'body': typesystem.string(max_length=100, default='hello')
+		'to': validators.String(pattern='.*@.*'),
+		# 'subject': types.string(max_length=100),
+		'body': validators.String(max_length=100, default='hello')
 	}
 
 
-class Task(typesystem.Object):
+class Task(types.Type):
 	description = 'Task'
 	properties = {
-		'type': typesystem.enum(enum=['log', 'email']),
+		'type': validators.String(enum=['log', 'email']),
 		'parameters': TaskParameters
 	}
 	required = ['type', 'parameters']
 
 
-class Job(typesystem.Object):
+class Job(types.Type):
 	description = 'Job'
 	properties = {
-		'name': typesystem.string(max_length=100),
+		'name': validators.String(max_length=100),
 		'trigger': Trigger,
 		'task': Task,
 	}
@@ -87,14 +85,12 @@ routes = [
 	Route('/jobs/{job_id}/', 'GET', get_job, name='get_job_slash'),
 	Route('/jobs/{job_id}', 'DELETE', delete_job),
 	Route('/jobs/{job_id}/', 'DELETE', delete_job, name='delete_job_slash'),
-	Include('/docs', docs_urls),
-	Include('/static', static_urls)
+	# Include('/docs', docs_urls),
+	# Include('/static', static_urls)
 ]
 
 
 app = App(routes=routes)
-
-
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "14ad14b30d6fa11e7019c1896c1dc00118f76b7710a763369332f58515f47b12"
+            "sha256": "31302323da16b71c4d8db93807f0bbb04543d50229afd12241e24721ee2a17cb"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -36,9 +36,9 @@
         },
         "apistar": {
             "hashes": [
-                "sha256:4d7efd375dab42f9fd5d2d44cba92addbdfac78c05c7aa7beb2e3ca153416db4"
+                "sha256:72a8aa841bf390b11bf98d578f10caed7e6f0e0a5d8bfa2ec60bf0893296d50b"
             ],
-            "version": "==0.5.10"
+            "version": "==0.5.12"
         },
         "apscheduler": {
             "hashes": [
