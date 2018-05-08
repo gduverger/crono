@@ -1,5 +1,6 @@
-import app
 import scheduler
+
+from api import app
 
 
 @scheduler.queue.task

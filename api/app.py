@@ -1,9 +1,9 @@
 import os
 import datetime
-import scheduler
 import redbeat
 import celery
 
+from api import scheduler
 from apistar import App, Include, Route
 from apistar import exceptions, types, validators
 from postmarker.core import PostmarkClient

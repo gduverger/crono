@@ -1,9 +1,8 @@
-import app
-
+from api import app
 from apistar.test import TestClient
 
 
-client = TestClient(app)
+client = TestClient(app.app)
 
 
 def test_index():
@@ -18,6 +17,6 @@ def test_index_get():
     """
     Testing a view, using the test client.
     """
-    response = client.get('http://localhost/') # http://127.0.0.1:8000 
+    response = client.get('/')
     assert response.status_code == 200
     assert response.json() == {'hello': 'world'}
