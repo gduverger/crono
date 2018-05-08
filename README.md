@@ -16,6 +16,10 @@
 
 	gunicorn app:app --workers=1
 
+# Test
+
+	pytest
+
 # Scale
 
 	heroku ps:scale web=1 clock=1

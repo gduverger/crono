@@ -9,10 +9,8 @@ from apistar import exceptions, types, validators
 from postmarker.core import PostmarkClient
 
 
-def welcome(name=None):
-	if name is None:
-		return {'message': 'Welcome to Crono!'}
-	return {'message': 'Welcome to Crono, %s!' % name}
+def index():
+	return {'hello': 'world'}
 
 
 class Trigger(types.Type):
@@ -76,7 +74,7 @@ def delete_job(job_id: str):
 
 
 routes = [
-	Route('/', 'GET', welcome),
+	Route('/', 'GET', index),
 	Route('/jobs', 'GET', get_jobs),
 	Route('/jobs/', 'GET', get_jobs, name='get_jobs_slash'),
 	Route('/jobs', 'POST', post_job),
