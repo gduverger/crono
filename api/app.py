@@ -3,6 +3,9 @@ import datetime
 import redbeat
 import celery
 
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 from api import scheduler
 from apistar import App, Include, Route
 from apistar import exceptions, types, validators
@@ -54,7 +57,7 @@ def get_jobs():
 
 
 def post_job(job: Job):
-	name = job['name'] if hasattr(job, 'name') else str(datetime.datetime.now())
+	name = job['name'] if 'name' in job else str(datetime.datetime.now())
 	interval = celery.schedules.schedule(run_every=job['trigger']['seconds']) # seconds
 	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=job['task']['type'], schedule=interval, kwargs=job['task']['parameters'], app=scheduler.queue)
 	entry.save()
@@ -93,4 +96,4 @@ postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 
 
 if __name__ == '__main__':
-	app.main()
+	app.serve('127.0.0.1', 5000, debug=True)

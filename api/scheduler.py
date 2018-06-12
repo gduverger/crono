@@ -3,7 +3,7 @@ import celery
 import redbeat
 
 
-queue = celery.Celery('crono-api', # NOTE Name of the main module if running as __main__
+queue = celery.Celery('api', # NOTE Name of the main module if running as __main__
 		broker=os.getenv('CELERY_REDIS_URL'),
 		backend=os.getenv('CELERY_REDIS_URL'),
 		include=['tasks'])
