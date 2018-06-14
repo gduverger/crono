@@ -1,0 +1,308 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-06-14T15:30:21.892Z",
+	"__export_source": "insomnia.desktop.app:v5.16.6",
+	"resources": [
+		{
+			"_id": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"created": 1516219861805,
+			"description": "",
+			"modified": 1516219861805,
+			"name": "crono",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_f33a247dc586416ea34442aa08a596c4",
+			"color": null,
+			"created": 1516219864973,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1516219864973,
+			"name": "Base Environment",
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_a0c97c9d3a1144a7b2e924d211d36ed8",
+			"cookies": [],
+			"created": 1516219895286,
+			"modified": 1516219895286,
+			"name": "Default Jar",
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_7534eb07489c493d8b96dbc5b4602b5b",
+			"authentication": {},
+			"body": {
+				"text": ""
+			},
+			"created": 1516223541715,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_4b4d4148ecc54a25a8d058c429e9ac3f",
+					"name": "Authorization",
+					"value": "Token {{ test_token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883314,
+			"method": "GET",
+			"modified": 1522619709079,
+			"name": "/jobs",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/{{ version  }}/jobs/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_982628750f474c478454fa164f93a191",
+			"authentication": {},
+			"body": {
+				"text": ""
+			},
+			"created": 1516224925030,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_08a237ae7f9f4366bacb98367d72faac",
+					"name": "Authorization",
+					"value": "Token {{ test_token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883313,
+			"method": "GET",
+			"modified": 1522618103438,
+			"name": "/jobs/{job_id}",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/{{ version  }}/jobs/redbeat:f68955c3-9a63-4468-91a0-a9381dd8bacc",
+			"_type": "request"
+		},
+		{
+			"_id": "req_abbeabca7b01476dadc34b90686a4c1d",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"trigger\": {\n\t\t\"type\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"type\": \"email\",\n\t\t\"parameters\": {\n\t\t\t\t\"to\": \"georges.duverger@gmail\",\n\t\t\t\t\"body\": \"test\"\n\t\t}\n\t}\n}\n"
+			},
+			"created": 1516225625941,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_216445154d214c489381afd61c1cb1f0",
+					"name": "Authorization",
+					"value": "Token {{ test_token  }}"
+				},
+				{
+					"disabled": false,
+					"id": "pair_fe9e9c19f6924d759d1ccbb7178785fa",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883313.5,
+			"method": "POST",
+			"modified": 1522625919983,
+			"name": "/jobs",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/{{ version  }}/jobs",
+			"_type": "request"
+		},
+		{
+			"_id": "req_bfe618477ef744c390634646635075bd",
+			"authentication": {
+				"token": "{{ test_token  }}",
+				"type": "bearer"
+			},
+			"body": {
+				"text": ""
+			},
+			"created": 1516227897458,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_3663f7cc71854a95af5a51a53711e982",
+					"name": "Authorization",
+					"value": "Token {{ test_token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883312,
+			"method": "DELETE",
+			"modified": 1522622179072,
+			"name": "/jobs/{job_id}",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/{{ version  }}/jobs/redbeat:f68955c3-963-4468-91a0-a9381dd8bacc",
+			"_type": "request"
+		},
+		{
+			"_id": "req_950f908363f04d6786443a0b8bf88e4a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\": \"Email job\",\n\t\"trigger\": {\n\t\t\"type\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"to\": \"georges.duverger@gmail.com\",\n\t\t\"subject\": \"Bonjour\",\n\t\t\"body\": \"bonjour\"\n\t}\n}"
+			},
+			"created": 1516596095044,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_216445154d214c489381afd61c1cb1f0",
+					"name": "Authorization",
+					"value": "Token {{ test_token  }}"
+				},
+				{
+					"disabled": false,
+					"id": "pair_fe9e9c19f6924d759d1ccbb7178785fa",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883313.25,
+			"method": "POST",
+			"modified": 1522620155490,
+			"name": "/jobs (email)",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/{{ version  }}/jobs",
+			"_type": "request"
+		},
+		{
+			"_id": "req_fd0426f7dadb49c4b3157c255763ccc4",
+			"authentication": {},
+			"body": {},
+			"created": 1522617763352,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1522617763352,
+			"method": "GET",
+			"modified": 1522617812554,
+			"name": "/",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_d373baabbefb447e9a5767052741508a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": " {\n\t\"name\": \"Email job\",\n\t\"trigger\": {\n\t\t\"type\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"type\": \"log\",\n\t\t\"message\": \"test\"\n\t}\n}"
+			},
+			"created": 1522621027416,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_216445154d214c489381afd61c1cb1f0",
+					"name": "Authorization",
+					"value": "Token {{ test_token  }}"
+				},
+				{
+					"disabled": false,
+					"id": "pair_fe9e9c19f6924d759d1ccbb7178785fa",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883313.375,
+			"method": "POST",
+			"modified": 1522621031384,
+			"name": "/jobs (log)",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/{{ version  }}/jobs",
+			"_type": "request"
+		},
+		{
+			"_id": "env_72577cb9b75246ce8b7686814066632a",
+			"color": null,
+			"created": 1516219942830,
+			"data": {
+				"base_url": "http://127.0.0.1:8000",
+				"test_token": "1f40dc15-3f8c-4bfe-9e75-2d59e68350f0",
+				"version": "beta"
+			},
+			"isPrivate": false,
+			"modified": 1522624725512,
+			"name": "local",
+			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_c962a19bf1c34330a4b08923486bdf5a",
+			"color": null,
+			"created": 1516219953212,
+			"data": {
+				"base_url": "https://crono-api-staging.herokuapp.com",
+				"test_token": "1f40dc15-3f8c-4bfe-9e75-2d59e68350f0",
+				"version": "v0"
+			},
+			"isPrivate": false,
+			"modified": 1516392938005,
+			"name": "staging",
+			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_a582ae8fba984b708762486002f22c7b",
+			"color": null,
+			"created": 1516219957177,
+			"data": {
+				"base_url": "https://crono-api-production.herokuapp.com",
+				"test_token": "1f40dc15-3f8c-4bfe-9e75-2d59e68350f0",
+				"version": "v0"
+			},
+			"isPrivate": false,
+			"modified": 1516392942186,
+			"name": "production",
+			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
+			"_type": "environment"
+		}
+	]
+}
