@@ -6,93 +6,67 @@ import celery
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from api import scheduler
-from apistar import App, Include, Route
-from apistar import exceptions, types, validators
-from postmarker.core import PostmarkClient
+from api import scheduler, models
+from apistar import http, App, Include, Route
 
 
-def index():
-	return {'hello': 'world'}
+def index() -> str:
+	return 'crono'
 
 
-class Trigger(types.Type):
-	description = 'Trigger'
-	properties = {
-		'type': validators.String(enum=['interval']), # 'date', 'cron'
-		'seconds': validators.Integer(minimum=10, default=60)
-	}
-	required = ['type', 'seconds']
-
-
-class TaskParameters(types.Type):
-	properties = {
-		'to': validators.String(pattern='.*@.*'),
-		# 'subject': types.string(max_length=100),
-		'body': validators.String(max_length=100, default='hello')
+def test(request: http.Request, user_agent: http.Header, query_params: http.QueryParams) -> dict:
+	return {
+		'method': request.method,
+		'url': request.url,
+		'headers': dict(request.headers),
+		'body': request.body.decode('utf-8'),
+		'user-agent': user_agent,
+		'params': dict(query_params)
 	}
 
 
-class Task(types.Type):
-	description = 'Task'
-	properties = {
-		'type': validators.String(enum=['log', 'email']),
-		'parameters': TaskParameters
-	}
-	required = ['type', 'parameters']
-
-
-class Job(types.Type):
-	description = 'Job'
-	properties = {
-		'name': validators.String(max_length=100),
-		'trigger': Trigger,
-		'task': Task,
-	}
-	required = ['trigger', 'task']
-
-
-def get_jobs():
+def get_jobs() -> list:
 	return [entry.key for _, entry in scheduler._scheduler.schedule.items()]
 
 
-def post_job(job: Job):
-	name = job['name'] if 'name' in job else str(datetime.datetime.now())
-	interval = celery.schedules.schedule(run_every=job['trigger']['seconds']) # seconds
-	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=job['task']['type'], schedule=interval, kwargs=job['task']['parameters'], app=scheduler.queue)
+def post_job(job: models.Job) -> str:
+	name = job.name if hasattr(job, 'name') else datetime.datetime.now().isoformat()
+	delta = datetime.timedelta(seconds=job.trigger.seconds)
+	interval = celery.schedules.schedule(run_every=delta)
+	params = {param['key']: param['value'] for param in job.task.params}
+	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=job.task.name, schedule=interval, kwargs=params, app=scheduler.queue)
 	entry.save()
-
 	return entry.key
 
 
-def get_job(job_id: str):
-	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(job_id, app=scheduler.queue)
+def get_job(key: str) -> str:
+	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=scheduler.queue)
 	return repr(entry)
 
 
-def delete_job(job_id: str):
-	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(job_id, app=scheduler.queue)
+def delete_job(key: str) -> str:
+	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=scheduler.queue)
 	entry.delete()
 	return repr(entry)
 
 
 routes = [
-	Route('/', 'GET', index),
-	Route('/jobs', 'GET', get_jobs),
-	Route('/jobs/', 'GET', get_jobs, name='get_jobs_slash'),
-	Route('/jobs', 'POST', post_job),
-	Route('/jobs/', 'POST', post_job, name='post_job_slash'),
-	Route('/jobs/{job_id}', 'GET', get_job),
-	Route('/jobs/{job_id}/', 'GET', get_job, name='get_job_slash'),
-	Route('/jobs/{job_id}', 'DELETE', delete_job),
-	Route('/jobs/{job_id}/', 'DELETE', delete_job, name='delete_job_slash'),
+	Route('/', method='GET', handler=index),
+	Route('/test', method='GET', handler=test),
+	Route('/jobs', method='GET', handler=get_jobs),
+	Route('/jobs/', method='GET', handler=get_jobs, name='get_jobs_slash'),
+	Route('/jobs', method='POST', handler=post_job),
+	Route('/jobs/', method='POST', handler=post_job, name='post_job_slash'),
+	Route('/jobs/{key}', method='GET', handler=get_job),
+	Route('/jobs/{key}/', method='GET', handler=get_job, name='get_job_slash'),
+	Route('/jobs/{key}', method='DELETE', handler=delete_job),
+	Route('/jobs/{key}/', method='DELETE', handler=delete_job, name='delete_job_slash'),
 	# Include('/docs', docs_urls),
 	# Include('/static', static_urls)
 ]
 
 
 app = App(routes=routes)
-postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 
 
 if __name__ == '__main__':

@@ -1,14 +1,17 @@
 import scheduler
 
-from api import app
+from postmarker.core import PostmarkClient
+
+
+postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 
 
 @scheduler.queue.task
-def log(message):
+def log(message=None):
 	print(message)
 
 
 @scheduler.queue.task
 def email(to=None, body=None):
 	print(to, message)
-	app.postmark.emails.send(From='georges@gduverger.com', To=to, Subject='Test', TextBody=body)
+	postmark.emails.send(From='georges@gduverger.com', To=to, Subject='Test', TextBody=body)
