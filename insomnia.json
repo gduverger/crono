@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-14T21:56:27.709Z",
+	"__export_date": "2018-06-14T22:14:42.887Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -51,7 +51,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883314,
 			"method": "GET",
-			"modified": 1528991379852,
+			"modified": 1529014443073,
 			"name": "/jobs",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -60,7 +60,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/",
+			"url": "{{ base_url }}/jobs",
 			"_type": "request"
 		},
 		{
@@ -81,7 +81,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313,
 			"method": "GET",
-			"modified": 1529013306397,
+			"modified": 1529014232300,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -90,7 +90,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T21:54:50.341992",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T22:10:02.717977",
 			"_type": "request"
 		},
 		{
@@ -286,7 +286,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"value\": \"0 * * * *\"\n\t},\n\t\"task\": {\n\t\t\"name\": \"get\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"url\",\n\t\t\t\"value\": \"https://cronhub.io/ping/5e477a80-700c-11e8-8586-09895642be7e\"\n\t\t}]\n\t}\n}"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"value\": \"* * * * *\"\n\t},\n\t\"task\": {\n\t\t\"name\": \"get\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"url\",\n\t\t\t\"value\": \"https://cronhub.io/ping/8982bd30-700c-11e8-9098-ebc2799e4534\"\n\t\t}]\n\t}\n}"
 			},
 			"created": 1529006483578,
 			"description": "",
@@ -300,7 +300,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.125,
 			"method": "POST",
-			"modified": 1529013283806,
+			"modified": 1529014200009,
 			"name": "/jobs (get)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",

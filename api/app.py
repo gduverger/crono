@@ -65,13 +65,9 @@ routes = [
 	Route('/', method='GET', handler=index),
 	Route('/test', method='GET', handler=test),
 	Route('/jobs', method='GET', handler=get_jobs),
-	Route('/jobs/', method='GET', handler=get_jobs, name='get_jobs_slash'),
 	Route('/jobs', method='POST', handler=post_job),
-	Route('/jobs/', method='POST', handler=post_job, name='post_job_slash'),
 	Route('/jobs/{key}', method='GET', handler=get_job),
-	Route('/jobs/{key}/', method='GET', handler=get_job, name='get_job_slash'),
 	Route('/jobs/{key}', method='DELETE', handler=delete_job),
-	Route('/jobs/{key}/', method='DELETE', handler=delete_job, name='delete_job_slash'),
 	# Include('/docs', docs_urls),
 	# Include('/static', static_urls)
 ]
