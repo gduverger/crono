@@ -2,7 +2,7 @@ from apistar import types, validators
 
 
 class Trigger(types.Type):
-	name = validators.String(enum=['interval']), # 'date', 'cron' # required=True
+	name = validators.String(enum=['interval']), # 'date', 'cron'
 	seconds = validators.Integer(minimum=10, default=60) # required=True
 
 
@@ -12,11 +12,10 @@ class Parameter(types.Type):
 
 
 class Task(types.Type):
-	name = validators.String(enum=['log', 'email']) # required=True
+	name = validators.String(enum=['log', 'email'])
 	params = validators.Array(items=Parameter)
 
 
 class Job(types.Type):
-	# name = validators.String(max_length=100)
 	trigger = Trigger
 	task = Task

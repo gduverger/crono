@@ -34,7 +34,8 @@ def post_job(job: models.Job) -> str:
 	delta = datetime.timedelta(seconds=job.trigger.seconds)
 	interval = celery.schedules.schedule(run_every=delta)
 	params = {param['key']: param['value'] for param in job.task.params}
-	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=job.task.name, schedule=interval, kwargs=params, app=scheduler.queue)
+	task = 'api.tasks.{}'.format(job.task.name)
+	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=task, schedule=interval, kwargs=params, app=scheduler.queue)
 	entry.save()
 	return entry.key
 

@@ -6,7 +6,7 @@ import redbeat
 queue = celery.Celery('api', # NOTE Name of the main module if running as __main__
 		broker=os.getenv('CELERY_REDIS_URL'),
 		backend=os.getenv('CELERY_REDIS_URL'),
-		include=['tasks'])
+		include=['api.tasks'])
 
 queue.conf.broker_pool_limit = 1
 queue.conf.redis_max_connections = 1
