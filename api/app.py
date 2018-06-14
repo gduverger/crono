@@ -30,12 +30,22 @@ def get_jobs() -> list:
 
 
 def post_job(job: models.Job) -> str:
-	name = job.name if hasattr(job, 'name') else datetime.datetime.now().isoformat()
-	delta = datetime.timedelta(seconds=job.trigger.seconds)
-	interval = celery.schedules.schedule(run_every=delta)
+	schedule = None
+
+	if job.trigger.name == 'interval':
+		seconds = datetime.timedelta(seconds=int(job.trigger.value))
+		schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
+
+	elif job.trigger.name == 'crontab':
+		minute, hour, day_of_month, month_of_year, day_of_week = job.trigger.value.split(' ')
+		schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
+
+	# elif job.trigger == 'date':
+	# 	schedule = 
+
 	params = {param['key']: param['value'] for param in job.task.params}
 	task = 'api.tasks.{}'.format(job.task.name)
-	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=task, schedule=interval, kwargs=params, app=scheduler.queue)
+	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=datetime.datetime.now().isoformat(), task=task, schedule=schedule, kwargs=params, app=scheduler.queue)
 	entry.save()
 	return entry.key
 
