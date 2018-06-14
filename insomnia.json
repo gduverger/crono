@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-14T17:26:32.819Z",
+	"__export_date": "2018-06-14T21:56:27.709Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -81,7 +81,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313,
 			"method": "GET",
-			"modified": 1528997143080,
+			"modified": 1529013306397,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -90,7 +90,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T13:21:56.169629",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T21:54:50.341992",
 			"_type": "request"
 		},
 		{
@@ -98,7 +98,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"args\": [{\n\t\t\t\"key\": \"to\",\n\t\t\t\"value\": \"georges.duverger@gmail\"\n\t\t}]\n\t}\n}\n"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"to\",\n\t\t\t\"value\": \"georges.duverger@gmail\"\n\t\t}]\n\t}\n}\n"
 			},
 			"created": 1516225625941,
 			"description": "",
@@ -118,7 +118,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.5,
 			"method": "POST",
-			"modified": 1528996883012,
+			"modified": 1529006457339,
 			"name": "/jobs",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -151,7 +151,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1528996865517,
+			"modified": 1529013094264,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -160,7 +160,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T13:18:37.822159",
+			"url": "{{ base_url }}/jobs/crono2018-06-14T17:48:54.286995",
 			"_type": "request"
 		},
 		{
@@ -168,7 +168,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"args\": [{\n\t\t\t\"key\": \"to\",\n\t\t\t\"value\": \"georges.duverger@gmail.com\"\n\t\t}, {\n\t\t\t\"key\": \"subject\",\n\t\t\t\"value\": \"Bonjour\"\n\t\t}, {\n\t\t\t\"key\": \"body\",\n\t\t\t\"value\": \"bonjour\"\n\t\t}]\n\t}\n}"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"to\",\n\t\t\t\"value\": \"georges.duverger@gmail.com\"\n\t\t}, {\n\t\t\t\"key\": \"subject\",\n\t\t\t\"value\": \"Bonjour\"\n\t\t}, {\n\t\t\t\"key\": \"body\",\n\t\t\t\"value\": \"bonjour\"\n\t\t}]\n\t}\n}"
 			},
 			"created": 1516596095044,
 			"description": "",
@@ -188,7 +188,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.25,
 			"method": "POST",
-			"modified": 1528996271562,
+			"modified": 1528997888759,
 			"name": "/jobs (email)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -227,7 +227,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": " {\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"log\",\n\t\t\"args\": [{\n\t\t\t\"key\": \"message\",\n\t\t\t\"value\": \"test\"\n\t\t}]\n\t}\n}"
+				"text": " {\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"value\": \"10\"\n\t},\n\t\"task\": {\n\t\t\"name\": \"log\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"message\",\n\t\t\t\"value\": \"test 2\"\n\t\t}]\n\t}\n}"
 			},
 			"created": 1522621027416,
 			"description": "",
@@ -247,7 +247,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.375,
 			"method": "POST",
-			"modified": 1528996184681,
+			"modified": 1529012842671,
 			"name": "/jobs (log)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -282,6 +282,37 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_081d6623bc68414b9c2f69e68aa661fe",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"value\": \"0 * * * *\"\n\t},\n\t\"task\": {\n\t\t\"name\": \"get\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"url\",\n\t\t\t\"value\": \"https://cronhub.io/ping/5e477a80-700c-11e8-8586-09895642be7e\"\n\t\t}]\n\t}\n}"
+			},
+			"created": 1529006483578,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_db02fe14e3a445aead3011c7c6850d6e",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1516219883313.125,
+			"method": "POST",
+			"modified": 1529013283806,
+			"name": "/jobs (get)",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/jobs",
+			"_type": "request"
+		},
+		{
 			"_id": "env_72577cb9b75246ce8b7686814066632a",
 			"color": null,
 			"created": 1516219942830,
@@ -300,11 +331,11 @@
 			"color": null,
 			"created": 1516219953212,
 			"data": {
-				"base_url": "https://crono-api-staging.herokuapp.com",
+				"base_url": "https://crono-stag.herokuapp.com",
 				"test_token": "1f40dc15-3f8c-4bfe-9e75-2d59e68350f0"
 			},
 			"isPrivate": false,
-			"modified": 1528991264769,
+			"modified": 1528999331569,
 			"name": "staging",
 			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
 			"_type": "environment"
@@ -314,11 +345,11 @@
 			"color": null,
 			"created": 1516219957177,
 			"data": {
-				"base_url": "https://crono-api-production.herokuapp.com",
+				"base_url": "https://crono-prod.herokuapp.com",
 				"test_token": "1f40dc15-3f8c-4bfe-9e75-2d59e68350f0"
 			},
 			"isPrivate": false,
-			"modified": 1528991267699,
+			"modified": 1528999339626,
 			"name": "production",
 			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
 			"_type": "environment"
