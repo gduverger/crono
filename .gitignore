@@ -1,8 +1,7 @@
 .env
 *.pyc
 *.cache
-dump.rdb
+*.rdb
+*.pid
 *.DS_Store
 *__pycache__
-*.pid
-*.db

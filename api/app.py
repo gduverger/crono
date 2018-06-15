@@ -6,7 +6,7 @@ import celery
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from api import scheduler, models
+from api import scheduler, schemas
 from apistar import http, App, Include, Route
 
 
@@ -29,7 +29,7 @@ def get_jobs() -> list:
 	return [entry.key for _, entry in scheduler._scheduler.schedule.items()]
 
 
-def post_job(job: models.Job) -> str:
+def post_job(job: schemas.Job) -> str:
 	schedule = None
 
 	if job.trigger.name == 'interval':
