@@ -1,16 +1,11 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [dev-packages]
 
-
-
 [packages]
-
 amqp = "==2.2.2"
 APScheduler = "==3.5.1"
 attrs = "==17.4.0"
@@ -40,3 +35,4 @@ tzlocal = "==1.5.1"
 "urllib3" = "==1.22"
 vine = "==1.1.4"
 apistar = "==0.5.34"
+flask = "*"

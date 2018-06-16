@@ -6,7 +6,7 @@ import celery
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from api import scheduler, schemas
+from api import scheduler, schemas, hooks, components
 from apistar import http, App, Include, Route
 
 
@@ -73,7 +73,9 @@ routes = [
 ]
 
 
-app = App(routes=routes)
+components = [components.UserComponent()]
+event_hooks = [hooks.TimingHook(), hooks.AuthenticationHook(), hooks.ErrorHook()]
+app = App(routes=routes, components=components, event_hooks=event_hooks)
 
 
 if __name__ == '__main__':
