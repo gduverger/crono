@@ -1,6 +1,6 @@
 import time
 
-from apistar import exceptions, http
+from apistar import App, exceptions, http
 from api import components
 
 
@@ -16,8 +16,9 @@ class TimingHook:
 
 class AuthenticationHook:
 
-	def on_request(self, user: components.User=None) -> None:
-		if user is None:
+	def on_request(self, app: App, request: http.Request, user: components.User=None) -> None:
+		# NOTE: '/' (index) doesn't require authentication
+		if request.url.components.path != app.reverse_url('index') and user is None:
 			raise exceptions.Forbidden('Not authenticated')
 
 
@@ -28,6 +29,10 @@ class ErrorHook:
 			print('Handler returned a response')
 		else:
 			print('Exception handler returned a response')
+			
 
-	def on_error(self, response: http.Response):
+	def on_error(self, response: http.Response): # -> http.Response:
 		print('An unhandled error was raised')
+		# response.content = 'Internal Server Error'
+		# response.status_code = 500
+		# response.headers = 

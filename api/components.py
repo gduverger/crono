@@ -26,7 +26,8 @@ class UserComponent(Component):
 
 		token = base64.b64decode(token).decode('utf-8')
 		if not self.check_authentication(token):
-			raise exceptions.Forbidden('Incorrect token')
+			# raise exceptions.Forbidden('Incorrect token')
+			return None
 
 		return User(token)
 
