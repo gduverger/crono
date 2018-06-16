@@ -5,9 +5,9 @@ from api import schemas
 
 
 class TestSchemas(object):
-"""
-python -m pytest tests/test_schemas.py::TestSchemas
-"""
+	"""
+	python -m pytest tests/test_schemas.py::TestSchemas
+	"""
 
 
 	def test_empty_job(self):
