@@ -67,11 +67,13 @@ def post_job(job: schemas.Job) -> str:
 
 	elif job.trigger['name'] == 'eta':
 		# TODO
+		# http://docs.celeryproject.org/en/master/reference/celery.app.task.html#celery.app.task.Task.apply_async
 		# add.apply_async(args=[10, 10], eta=job.trigger['params']['datetime'])
 		raise Exception('Not implemented')
 
 	elif job.trigger['name'] == 'countdown':
 		# TODO
+		# http://docs.celeryproject.org/en/master/reference/celery.app.task.html#celery.app.task.Task.apply_async
 		# add.apply_async(args=[10, 10], countdown=job.trigger['params']['seconds'])
 		raise Exception('Not implemented')
 
