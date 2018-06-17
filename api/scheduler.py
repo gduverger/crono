@@ -19,8 +19,5 @@ queue.conf.redbeat_redis_url = os.getenv('REDIS_URL')
 # CELERY_TIMEZONE = 'UTC'
 # CELERY_ENABLE_UTC = True
 
-_scheduler = redbeat.schedulers.RedBeatScheduler(queue, lazy=True)
-
-
 if __name__ == '__main__':
 	queue.start()

@@ -44,8 +44,14 @@ def redis_(key: str=None):
 		return [key.decode('utf-8') for key in r.scan_iter()]
 
 
-def get_jobs() -> list:
-	return [entry.key for _, entry in scheduler._scheduler.schedule.items()]
+def get_jobs(user: components.User) -> dict:
+	i = scheduler.queue.control.inspect()
+	return {
+		'registered': i.registered(),
+		'active': i.active(),
+		'scheduled': i.scheduled(),
+		'reserved': i.reserved()
+	}
 
 
 def post_job(job: schemas.Job) -> str:

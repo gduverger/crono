@@ -17,7 +17,7 @@ class TimingHook:
 class AuthenticationHook:
 
 	def on_request(self, app: App, request: http.Request, user: components.User=None) -> None:
-		public_routes = [app.reverse_url('index'), app.reverse_url('redis_')]
+		public_routes = [app.reverse_url('index')]
 		if request.url.components.path not in public_routes and user is None:
 			raise exceptions.Forbidden('Not authenticated')
 
