@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-16T22:48:38.340Z",
+	"__export_date": "2018-06-17T15:35:59.196Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -75,7 +75,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313,
 			"method": "GET",
-			"modified": 1529187127889,
+			"modified": 1529248626395,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -84,7 +84,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T22:10:02.717977",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T11:16:34.845466",
 			"_type": "request"
 		},
 		{
@@ -95,7 +95,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"to\",\n\t\t\t\"value\": \"georges.duverger@gmail\"\n\t\t}]\n\t}\n}\n"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"params\": {\n\t\t\t\"seconds\": 10\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": {\n\t\t\t\"to\": \"georges.duverger@gmail\"\n\t\t}\n\t}\n}\n"
 			},
 			"created": 1516225625941,
 			"description": "",
@@ -110,7 +110,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.5,
 			"method": "POST",
-			"modified": 1529187107097,
+			"modified": 1529249682492,
 			"name": "/jobs",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -137,7 +137,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1529187134993,
+			"modified": 1529249102034,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -146,7 +146,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/crono2018-06-14T17:48:54.286995",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T22:05:32.867782",
 			"_type": "request"
 		},
 		{
@@ -157,7 +157,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"seconds\": 10\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"to\",\n\t\t\t\"value\": \"georges.duverger@gmail.com\"\n\t\t}, {\n\t\t\t\"key\": \"subject\",\n\t\t\t\"value\": \"Bonjour\"\n\t\t}, {\n\t\t\t\"key\": \"body\",\n\t\t\t\"value\": \"bonjour\"\n\t\t}]\n\t}\n}"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"params\": {\n\t\t\t\"seconds\": 10\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": {\n\t\t\t\"to\": \"georges.duverger@gmail.com\",\n\t\t\t\"subject\": \"Bonjour\",\n\t\t\t\"body\": \"bonjour\"\n\t\t}\n\t}\n}"
 			},
 			"created": 1516596095044,
 			"description": "",
@@ -172,7 +172,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.25,
 			"method": "POST",
-			"modified": 1529187114513,
+			"modified": 1529249734862,
 			"name": "/jobs (email)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -218,7 +218,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": " {\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"value\": \"10\"\n\t},\n\t\"task\": {\n\t\t\"name\": \"log\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"message\",\n\t\t\t\"value\": \"test 2\"\n\t\t}]\n\t}\n}"
+				"text": " {\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"params\": {\n\t\t\t\"seconds\": 10\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"log\",\n\t\t\"params\": {\n\t\t\t\"message\": \"test 2\"\n\t\t}\n\t}\n}"
 			},
 			"created": 1522621027416,
 			"description": "",
@@ -233,7 +233,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.375,
 			"method": "POST",
-			"modified": 1529187109730,
+			"modified": 1529249693255,
 			"name": "/jobs (log)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -278,7 +278,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"value\": \"* * * * *\"\n\t},\n\t\"task\": {\n\t\t\"name\": \"get\",\n\t\t\"params\": [{\n\t\t\t\"key\": \"url\",\n\t\t\t\"value\": \"https://cronhub.io/ping/8982bd30-700c-11e8-9098-ebc2799e4534\"\n\t\t}]\n\t}\n}"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"* * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"get\",\n\t\t\"params\": {\n\t\t\t\"url\": \"https://www.google.com/\"\n\t\t}\n\t}\n}"
 			},
 			"created": 1529006483578,
 			"description": "",
@@ -292,7 +292,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.125,
 			"method": "POST",
-			"modified": 1529187120184,
+			"modified": 1529242235674,
 			"name": "/jobs (get)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -302,6 +302,56 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ base_url }}/jobs",
+			"_type": "request"
+		},
+		{
+			"_id": "req_6e919d5366f246269776b5875898b171",
+			"authentication": {
+				"token": "{{ user_token  }}",
+				"type": "bearer"
+			},
+			"body": {},
+			"created": 1529247825660,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1517819353323.5,
+			"method": "GET",
+			"modified": 1529247846461,
+			"name": "/redis",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/redis",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e3643184f33f45d9a610898ebbdecf36",
+			"authentication": {
+				"token": "{{ user_token  }}",
+				"type": "bearer"
+			},
+			"body": {},
+			"created": 1529248675728,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1517019618318.75,
+			"method": "GET",
+			"modified": 1529249083429,
+			"name": "/redis?key={key}",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/redis?key=redbeat:2018-06-14T22:05:32.867782",
 			"_type": "request"
 		},
 		{
