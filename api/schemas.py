@@ -12,7 +12,7 @@ class Job(types.Type):
 			})
 		}),
 
-		#  Crontab
+		# Crontab
 		validators.Object(definitions={
 			'name': validators.String(enum=['crontab']),
 			'params': validators.Object(definitions={
@@ -20,13 +20,22 @@ class Job(types.Type):
 			})
 		}),
 
-		# Datetime
+		# ETA
 		validators.Object(definitions={
-			'name': validators.String(enum=['datetime']),
+			'name': validators.String(enum=['eta']),
 			'params': validators.Object(definitions={
 				'datetime': validators.String(format='datetime')
 			})
-		})
+		}),
+
+		# Countdown
+		validators.Object(definitions={
+			'name': validators.String(enum=['countdown']),
+			'params': validators.Object(definitions={
+				'seconds': validators.String(format='datetime')
+			})
+		}),
+
 	])
 
 	task = validators.Union(items=[
@@ -36,6 +45,16 @@ class Job(types.Type):
 			'name': validators.String(enum=['log']),
 			'params': validators.Object(definitions={
 				'message': validators.String(max_length=100)
+			})
+		}),
+
+		# Email
+		validators.Object(definitions={
+			'name': validators.String(enum=['email']),
+			'params': validators.Object(definitions={
+				'to': validators.String(pattern=r'[^@]*@[^@]*.[^@]*'),
+				'subject': validators.String(max_length=100),
+				'body': validators.String(max_length=100)
 			})
 		}),
 

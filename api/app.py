@@ -65,8 +65,15 @@ def post_job(job: schemas.Job) -> str:
 		minute, hour, day_of_month, month_of_year, day_of_week = job.trigger['params']['expression'].split(' ')
 		schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
 
-	# elif job.trigger['name'] == 'datetime':
-	# 	schedule = 
+	elif job.trigger['name'] == 'eta':
+		# TODO
+		# add.apply_async(args=[10, 10], eta=job.trigger['params']['datetime'])
+		raise Exception('Not implemented')
+
+	elif job.trigger['name'] == 'countdown':
+		# TODO
+		# add.apply_async(args=[10, 10], countdown=job.trigger['params']['seconds'])
+		raise Exception('Not implemented')
 
 	params = job.task['params']
 	task = 'api.tasks.{}'.format(job.task['name'])
@@ -94,6 +101,9 @@ routes = [
 	Route('/jobs', method='POST', handler=post_job),
 	Route('/jobs/{key}', method='GET', handler=get_job),
 	Route('/jobs/{key}', method='DELETE', handler=delete_job),
+	# TODO
+	# Route('/logs', method='GET', handler=get_logs),
+
 	# Include('/docs', docs_urls),
 	# Include('/static', static_urls)
 ]
