@@ -1,4 +1,5 @@
 import os
+import redis
 import datetime
 import redbeat
 import celery
@@ -25,6 +26,24 @@ def test(request: http.Request, user_agent: http.Header, query_params: http.Quer
 	}
 
 
+def redis_(key: str=None):
+	r = redis.StrictRedis.from_url(os.getenv('REDIS_URL')) # db=0
+
+	if key:
+		t = r.type(key).decode('utf-8')
+
+		if t == 'hash':
+			# e.g., crono:2018-06-17T09:30:37.555291
+			return [{k.decode('utf-8'): v.decode('utf-8')} for k, v in r.hgetall(key).items()]
+
+		elif t == 'zset':
+			# e.g., crono::schedule
+			return [k.decode('utf-8') for k in r.zrange(key, 0, 2)]
+
+	else:
+		return [key.decode('utf-8') for key in r.scan_iter()]
+
+
 def get_jobs() -> list:
 	return [entry.key for _, entry in scheduler._scheduler.schedule.items()]
 
@@ -32,19 +51,19 @@ def get_jobs() -> list:
 def post_job(job: schemas.Job) -> str:
 	schedule = None
 
-	if job.trigger.name == 'interval':
-		seconds = datetime.timedelta(seconds=int(job.trigger.value))
+	if job.trigger['name'] == 'interval':
+		seconds = datetime.timedelta(seconds=int(job.trigger['params']['seconds']))
 		schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
 
-	elif job.trigger.name == 'crontab':
-		minute, hour, day_of_month, month_of_year, day_of_week = job.trigger.value.split(' ')
+	elif job.trigger['name'] == 'crontab':
+		minute, hour, day_of_month, month_of_year, day_of_week = job.trigger['params']['expression'].split(' ')
 		schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
 
-	# elif job.trigger == 'date':
+	# elif job.trigger['name'] == 'datetime':
 	# 	schedule = 
 
-	params = {param['key']: param['value'] for param in job.task.params}
-	task = 'api.tasks.{}'.format(job.task.name)
+	params = job.task['params']
+	task = 'api.tasks.{}'.format(job.task['name'])
 	entry = redbeat.schedulers.RedBeatSchedulerEntry(name=datetime.datetime.now().isoformat(), task=task, schedule=schedule, kwargs=params, app=scheduler.queue)
 	entry.save()
 	return entry.key
@@ -64,6 +83,7 @@ def delete_job(key: str) -> str:
 routes = [
 	Route('/', method='GET', handler=index),
 	Route('/test', method='GET', handler=test),
+	Route('/redis', method='GET', handler=redis_),
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
 	Route('/jobs/{key}', method='GET', handler=get_job),

@@ -19,6 +19,16 @@ class TestSchemas(object):
 			job = schemas.Job({})
 
 
+	def test_incomplete_job(self):
+		"""
+		python -m pytest tests/test_schemas.py::TestSchemas::test_incomplete_job
+		"""
+
+		job = schemas.Job({"trigger": {}, "task": {}})
+		assert job.trigger == {}
+		assert job.task == {}
+
+
 	def test_job(self):
 		"""
 		python -m pytest tests/test_schemas.py::TestSchemas::test_job
@@ -27,20 +37,24 @@ class TestSchemas(object):
 		job = {
 			"trigger": {
 				"name": "interval",
-				"arg": 10
+				"params": {
+					"seconds": 10
+				}
 			},
-			"command": {
+			"task": {
 				"name": "email",
-				"args": [{
-					"key": "to",
-					"value": "email@address.com"
-				}]
+				"params": {
+					"to": "email@address.com"
+				}
 			}
 		}
 
 		j = schemas.Job(job)
+
+		with pytest.raises(AttributeError):
+			j.trigger.name
+
 		assert j.trigger['name'] == 'interval'
-		assert j.trigger['arg'] == 10
-		assert j.command['name'] == 'email'
-		assert j.command['args'][0]['key'] == 'to'
-		assert j.command['args'][0]['value'] == 'email@address.com'
+		# assert j.trigger['params']['seconds'] == 10
+		assert j.task['name'] == 'email'
+		assert j.task['params']['to'] == 'email@address.com'

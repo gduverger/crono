@@ -18,6 +18,6 @@ def get(url=None):
 	requests.get(url)
 
 
-@api.scheduler.queue.task
-def email(to=None, subject=None, body=None):
-	postmark.emails.send(From='crono@gduverger.com', To=to, Subject=subject, TextBody=body)
+# @api.scheduler.queue.task
+# def email(to=None, subject=None, body=None):
+# 	postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
