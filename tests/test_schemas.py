@@ -24,9 +24,18 @@ class TestSchemas(object):
 		python -m pytest tests/test_schemas.py::TestSchemas::test_incomplete_job
 		"""
 
-		job = schemas.Job({"trigger": {}, "task": {}})
-		assert job.trigger == {}
-		assert job.task == {}
+		job = schemas.Job({'trigger': {
+			'name': 'interval',
+			'params': {}
+		}, 'task': {
+			'name': 'log',
+			'params': {}
+		}})
+
+		assert job.trigger['name'] == 'interval'
+		assert job.trigger['params'] == {}
+		assert job.task['name'] == 'log'
+		assert job.task['params'] == {}
 
 
 	def test_job(self):
@@ -44,7 +53,9 @@ class TestSchemas(object):
 			"task": {
 				"name": "email",
 				"params": {
-					"to": "email@address.com"
+					"to": "email@address.com",
+					"subject": "Subject",
+					"body": "Body"
 				}
 			}
 		}

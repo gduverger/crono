@@ -1,6 +1,7 @@
 import os
 import redis
 import datetime
+import dateparser
 import redbeat
 import celery
 
@@ -58,7 +59,7 @@ def post_job(job: schemas.Job) -> str:
 	schedule = None
 
 	if job.trigger['name'] == 'interval':
-		seconds = datetime.timedelta(seconds=int(job.trigger['params']['seconds']))
+		seconds = datetime.timedelta(seconds=job.trigger['params']['seconds'])
 		schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
 
 	elif job.trigger['name'] == 'crontab':
@@ -66,15 +67,13 @@ def post_job(job: schemas.Job) -> str:
 		schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
 
 	elif job.trigger['name'] == 'eta':
-		# TODO
-		# http://docs.celeryproject.org/en/master/reference/celery.app.task.html#celery.app.task.Task.apply_async
-		# add.apply_async(args=[10, 10], eta=job.trigger['params']['datetime'])
+		# datetime_ = dateparser.parse(job.trigger['params']['datetime'])
+		# schedule = redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=scheduler.queue) # HACK
 		raise Exception('Not implemented')
 
 	elif job.trigger['name'] == 'countdown':
-		# TODO
-		# http://docs.celeryproject.org/en/master/reference/celery.app.task.html#celery.app.task.Task.apply_async
-		# add.apply_async(args=[10, 10], countdown=job.trigger['params']['seconds'])
+		# seconds = job.trigger['params']['seconds']
+		# schedule = redbeat.schedules.rrule('SECONDLY', interval=seconds, count=1, app=scheduler.queue)
 		raise Exception('Not implemented')
 
 	params = job.task['params']
