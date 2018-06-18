@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-17T20:13:54.895Z",
+	"__export_date": "2018-06-18T01:14:47.514Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -75,7 +75,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313,
 			"method": "GET",
-			"modified": 1529266248272,
+			"modified": 1529272648342,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -84,7 +84,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T16:09:12.869323",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T17:12:05.098953",
 			"_type": "request"
 		},
 		{
@@ -137,7 +137,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1529266253064,
+			"modified": 1529277236767,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -146,7 +146,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T16:09:12.869323",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T19:13:50.302326",
 			"_type": "request"
 		},
 		{
@@ -157,7 +157,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"params\": {\n\t\t\t\"seconds\": 60\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": {\n\t\t\t\"to\": \"georges.duverger@gmail.com\",\n\t\t\t\"subject\": \"Bonjour\",\n\t\t\t\"body\": \"bonjour\"\n\t\t}\n\t}\n}"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"*/10 * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": {\n\t\t\t\"to\": \"georges.duverger@gmail.com\",\n\t\t\t\"subject\": \"Crontab\",\n\t\t\t\"body\": \"*/10 * * * *\"\n\t\t}\n\t}\n}"
 			},
 			"created": 1516596095044,
 			"description": "",
@@ -172,7 +172,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.25,
 			"method": "POST",
-			"modified": 1529266140966,
+			"modified": 1529276441102,
 			"name": "/jobs (email)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
