@@ -1,19 +1,19 @@
 from apistar import types, validators
 
-trigger_interval_params = validators.Object(
+interval_params = validators.Object(
 	additional_properties=False,
 	required=['seconds'],
 	properties=[
-		('seconds', validators.Integer(minimum=300)) # 5 minutes
+		('seconds', validators.Integer(minimum=60*5))
 	]
 )
 
-trigger_interval = validators.Object(
+interval = validators.Object(
 	required=['name', 'params'],
 	additional_properties=False,
 	properties=[
 		('name', validators.String(enum=['interval'])),
-		('params', trigger_interval_params)
+		('params', interval_params),
 	]
 )
 
@@ -37,7 +37,7 @@ trigger_crontab = validators.Object(
 
 class Job(types.Type):
 
-	trigger = trigger_interval | trigger_crontab
+	trigger = interval | trigger_crontab
 
 	def __init__(self, *args, **kwargs):
 		value = super().__init__(*args, **kwargs)

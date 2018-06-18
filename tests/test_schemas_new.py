@@ -10,37 +10,61 @@ class TestSchemas(object):
 	"""
 
 
-	def test_trigger_interval_params(self):
+	def test_interval_params(self):
 		"""
-		python -m pytest tests/test_schemas_new.py::TestSchemas::test_trigger_interval_params
+		python -m pytest tests/test_schemas_new.py::TestSchemas::test_interval_params
 		"""
 
 		with pytest.raises(exceptions.ValidationError, match="{'seconds': 'This field is required.'}"):
-			schemas.trigger_interval_params.validate({})
+			schemas.interval_params.validate({})
 
 		with pytest.raises(exceptions.ValidationError, match='Must be an object.'):
-			schemas.trigger_interval_params.validate({'foo'})
+			schemas.interval_params.validate({'foo'})
 
 		with pytest.raises(exceptions.ValidationError, match="{'seconds': 'This field is required.', 'foo': 'Invalid property name.'}"):
-			schemas.trigger_interval_params.validate({'foo': 'bar'})
+			schemas.interval_params.validate({'foo': 'bar'})
 
 		with pytest.raises(exceptions.ValidationError, match="{'seconds': 'Must be a number.'}"):
-			schemas.trigger_interval_params.validate({'seconds': 'bar'})
+			schemas.interval_params.validate({'seconds': 'bar'})
 
 		with pytest.raises(exceptions.ValidationError, match="{'seconds': 'Must be a number.'}"):
-			schemas.trigger_interval_params.validate({'seconds': '10'})
+			schemas.interval_params.validate({'seconds': '10'})
 
 		with pytest.raises(exceptions.ValidationError, match="{'seconds': 'Must be greater than or equal to 300.'}"):
-			schemas.trigger_interval_params.validate({'seconds': 10})
+			schemas.interval_params.validate({'seconds': 10})
 
-		trigger_interval_params = schemas.trigger_interval_params.validate({'seconds': 300})
-		assert trigger_interval_params['seconds'] == 300
+		interval_params = schemas.interval_params.validate({'seconds': 300})
+		assert interval_params['seconds'] == 300
 
 
-	def test_trigger_interval(self):
+	def test_interval(self):
 		"""
-		python -m pytest tests/test_schemas_new.py::TestSchemas::test_trigger_interval
+		python -m pytest tests/test_schemas_new.py::TestSchemas::test_interval
 		"""
 
 		with pytest.raises(exceptions.ValidationError, match="{'name': 'This field is required.', 'params': 'This field is required.'}"):
-			schemas.trigger_interval.validate({})
+			schemas.interval.validate({})
+
+		# BUG
+		with pytest.raises(KeyError):
+			schemas.interval.validate({'name': 'foo', 'params': 'bar'})
+
+		with pytest.raises(exceptions.ValidationError, match="{'params': 'Must be an object.'}"):
+			schemas.interval.validate({'name': 'interval', 'params': 'bar'})
+
+		with pytest.raises(exceptions.ValidationError, match="{'params': {'seconds': 'This field is required.'}}"):
+			schemas.interval.validate({'name': 'interval', 'params': {}})
+
+		with pytest.raises(exceptions.ValidationError, match="{'params': {'seconds': 'Must be a number.'}}"):
+			schemas.interval.validate({'name': 'interval', 'params': {'seconds': 'foo'}})
+
+		with pytest.raises(exceptions.ValidationError, match="{'params': {'seconds': 'Must be a number.'}}"):
+			schemas.interval.validate({'name': 'interval', 'params': {'seconds': '10'}})
+
+		with pytest.raises(exceptions.ValidationError, match="{'params': {'seconds': 'Must be greater than or equal to 300.'}}"):
+			schemas.interval.validate({'name': 'interval', 'params': {'seconds': 10}})
+
+		interval = schemas.interval.validate({'name': 'interval', 'params': {'seconds': 300}})
+		assert interval['name'] == 'interval'
+		assert interval['params'] == {'seconds': 300}
+		assert interval['params']['seconds'] == 300
