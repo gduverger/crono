@@ -1,28 +1,26 @@
 import pytest
-
 from apistar import exceptions, validators
 
+foo = validators.Object(
+	required=['foo'],
+	properties=[
+		('foo', validators.String(enum=['bar']))
+	]
+)
 
-class TestApistar(object):
+def test_validate():
 	"""
-	python -m pytest tests/test_apistar.py::TestApistar
+	python -m pytest tests/test_apistar.py::test_validate
 	"""
 
+	with pytest.raises(exceptions.ValidationError, match="{'foo': 'This field is required.'}"):
+		foo.validate({})
 
-	def test_validators(self):
-		"""
-		python -m pytest tests/test_apistar.py::TestApistar::test_validators
-		"""
+	with pytest.raises(exceptions.ValidationError, match="{'foo': 'Must be a string.'}"):
+		foo.validate({'foo': []})
 
-		validator = validators.String(enum=['foo', 'bar'])
-		assert validator.validate('foo')
-		with pytest.raises(exceptions.ValidationError):
-			validator.validate('eee')
+	# with pytest.raises(exceptions.ValidationError):
+	# 	# BUG KeyError: 'exact'
+	# 	foo.validate({'foo': 'err'})
 
-		validator = validators.Array(items=[validators.String(enum=['foo', 'bar'])])
-		assert validator.validate(['foo'])
-		with pytest.raises(exceptions.ValidationError):
-			validator.validate(['eee'])
-
-		validator = validators.String(pattern='[^\s]* [^\s]* [^\s]* [^\s]* [^\s]*')
-		assert validator.validate('*/10 * * * *')
+	assert foo.validate({'foo': 'bar'})

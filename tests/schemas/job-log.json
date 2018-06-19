@@ -1,14 +1,14 @@
- {
+{
 	"trigger": {
 		"name": "interval",
 		"params": {
-			"seconds": 10
+			"seconds": 300
 		}
 	},
 	"task": {
 		"name": "log",
 		"params": {
-			"message": "test 2"
+			"message": "foo"
 		}
 	}
 }
