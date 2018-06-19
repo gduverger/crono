@@ -1,68 +1,100 @@
+import typing
+
 from apistar import types, validators
+
+interval_params = validators.Object(
+	additional_properties=False,
+	required=['seconds'],
+	properties=[
+		('seconds', validators.Integer(minimum=60*5))
+	]
+)
+
+interval = validators.Object(
+	required=['name', 'params'],
+	additional_properties=False,
+	properties=[
+		('name', validators.String(enum=['interval'])),
+		('params', interval_params),
+	]
+)
+
+crontab_params = validators.Object(
+	additional_properties=False,
+	required=['expression'],
+	properties=[
+		('expression', validators.String())
+	]
+)
+
+crontab = validators.Object(
+	required=['name', 'params'],
+	additional_properties=False,
+	properties=[
+		('name', validators.String(enum=['crontab'])),
+		('params', crontab_params)
+	]
+)
+
+get_params = validators.Object(
+	required=['url'],
+	additional_properties=False,
+	properties=[
+		('url', validators.String(pattern=r'^http.*'))
+	]
+)
+
+get = validators.Object(
+	required=['name', 'params'],
+	additional_properties=False,
+	properties=[
+		('name', validators.String(enum=['get', 'BUG'])),
+		('params', get_params)
+	]
+)
+
+email_params = validators.Object(
+	required=['to', 'subject', 'body'],
+	additional_properties=False,
+	properties=[
+		('to', validators.String(pattern=r'[^@]*@[^@]*.[^@]*')),
+		('subject', validators.String(max_length=100)),
+		('body', validators.String(max_length=100))
+	]
+)
+
+email = validators.Object(
+	required=['name', 'params'],
+	additional_properties=False,
+	properties=[
+		('name', validators.String(enum=['email'])),
+		('params', email_params)
+	]
+)
+
+log_params = validators.Object(
+	required=['message'],
+	additional_properties=False,
+	properties=[
+		('message', validators.String())
+	]
+)
+
+log = validators.Object(
+	required=['name', 'params'],
+	additional_properties=False,
+	properties=[
+		('name', validators.String(enum=['log'])),
+		('params', log_params)
+	]
+)
 
 class Job(types.Type):
 
-	trigger = validators.Union(items=[
+	trigger = interval | crontab
+	task = get | email # | log
 
-		# Interval
-		validators.Object(definitions={
-			'name': validators.String(enum=['interval']),
-			'params': validators.Object(definitions={
-				'seconds': validators.Integer(minimum=300, default=3600) # 5 minutes, 1 hour
-			})
-		}),
-
-		# Crontab
-		validators.Object(definitions={
-			'name': validators.String(enum=['crontab']),
-			'params': validators.Object(definitions={
-				'expression': validators.String(pattern='[^\s]* [^\s]* [^\s]* [^\s]* [^\s]*')
-			})
-		}),
-
-		# ETA
-		validators.Object(definitions={
-			'name': validators.String(enum=['eta']),
-			'params': validators.Object(definitions={
-				'datetime': validators.String(format='datetime')
-			})
-		}),
-
-		# Countdown
-		validators.Object(definitions={
-			'name': validators.String(enum=['countdown']),
-			'params': validators.Object(definitions={
-				'seconds': validators.String(format='datetime')
-			})
-		}),
-
-	])
-
-	task = validators.Union(items=[
-
-		# Log
-		validators.Object(definitions={
-			'name': validators.String(enum=['log']),
-			'params': validators.Object(definitions={
-				'message': validators.String(max_length=100)
-			})
-		}),
-
-		# Email
-		validators.Object(definitions={
-			'name': validators.String(enum=['email']),
-			'params': validators.Object(definitions={
-				'to': validators.String(pattern=r'[^@]*@[^@]*.[^@]*'),
-				'subject': validators.String(max_length=100),
-				'body': validators.String(max_length=100)
-			})
-		}),
-
-		# GET
-		validators.Object(definitions={
-			'name': validators.String(enum=['get']),
-			'params': validators.Object(definitions={
-				'url': validators.String(pattern='^http.*')
-			})
-		})
-	])
+	def __init__(self, *args, **kwargs):
+		value = super().__init__(*args, **kwargs)
+		# Additional validation
+		return value
