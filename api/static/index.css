@@ -21,7 +21,7 @@ body {
 	font-weight: normal;
 	line-height: 21px;
 	margin: 21px 20px;
-	max-width: 600px;
+	max-width: 800px;
 }
 
 html>body {
@@ -36,4 +36,78 @@ a {
 
 a:hover {
 	color: #0062cc;
+}
+
+
+h1,
+h2 {
+	font-weight: 700;
+}
+
+h3 {
+	/*font-weight: 500;*/
+}
+
+pre,
+code {
+	padding: 0 5px;
+	background: #fafcfc;
+	border: 1px solid #f0f4f7;
+	border-radius: 4px;
+	/*color: #b93d6a;*/
+	/*font-size: 13px;*/
+	/*line-height: 20px;*/
+}
+
+code {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: inline-block;
+}
+
+h2 {
+	margin-top: 21px;
+}
+
+
+.http-created {
+	color: #64cb57;
+}
+
+.http-get {
+	font-size: 10px;
+	line-height: 16px;
+	padding: 0 5px;
+	/*border: 1px solid #f0f4f7;*/
+	border-radius: 2px;
+	background-color: #a795fc;
+	color: white;
+}
+
+.http-post {
+	font-size: 10px;
+	line-height: 16px;
+	padding: 0 5px;
+	/*border: 1px solid #f0f4f7;*/
+	border-radius: 2px;
+	background-color: #8bcd3b;
+	color: white;
+}
+
+.http-delete {
+	font-size: 10px;
+	line-height: 16px;
+	padding: 0 5px;
+	/*border: 1px solid #f0f4f7;*/
+	border-radius: 2px;
+	background-color: #EC5948;
+	color: white;
+}
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+	margin-left: 20px;
 }

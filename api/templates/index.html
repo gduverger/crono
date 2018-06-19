@@ -7,6 +7,148 @@
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
 	</head>
 		<body>
-		<div style="font-family:monospace;white-space:pre">crono</div>
+		
+			<h1>crono</h1>
+			<p>cron as a service</p>
+
+			<br>
+
+			<ol>
+				<li><a href="#authentication">Authentication</a></li>
+				<li><a href="#example">Example</a></li>
+				<li><a href="#endpoints">Endpoints</a></li>
+				<ol>
+					<li><span class="http-get">GET</span> <a href="#get-jobs">/jobs</a></li>
+					<li><span class="http-post">POST</span> <a href="#post-jobs">/jobs</a></li>
+					<li><span class="http-get">GET</span> <a href="#get-job">/jobs/{key}</a></li>
+					<li><span class="http-delete">DELETE</span> <a href="#delete-job">/jobs/{key}</a></li>
+				</ol>
+				<li><a href="#triggers">Triggers</a></li>
+				<ul>
+					<li><a href="#crontab">Crontab</a></li>
+				</ul>
+				<li><a href="#tasks">Tasks</a></li>
+				<ul>
+					<li><a href="#get">GET</a></li>
+				</ul>
+				<li><a href="#support">Support</a></li>
+			</ol>
+
+			<h2>
+				<a id="authentication"></a>
+				Authentication
+			</h2>
+
+			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See an <a href="#example">example</a> for more details. Email <a href="mailto:support@crono.com">support@crono.com</a> to request a token.
+
+			<h2>
+				<a id="example"></a>
+				Example
+			</h2>
+
+<pre>
+$ curl https://www.crono.com/jobs \
+  -X POST \
+  -H "Authorization: Bearer {token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "<a href="#triggers">trigger</a>": {
+      "name": "crontab",
+      "params": {
+        "seconds": "* * * * *"
+      }
+    },
+    "<a href="#tasks">task</a>": {
+      "name": "get",
+      "params": {
+        "url": "https://www.google.com/"
+      }
+    }'
+
+<span class="http-created">HTTP/1.1 201 Created</span>
+
+{
+  "job": {
+    "id": "c592763f2cdf456e9515422f4f09f0ce",
+    "task": "callable",
+    "trigger": "<IntervalTrigger (interval=datetime.timedelta(0, 600), start_date='2018-01-21 19:54:50 EST', timezone='America/New_York')>",
+    "params": {
+      "to": "georges.duverger@gmail.com",
+      "subject": "Hello",
+      "body": "World"
+    }
+  }
+}
+</pre>
+
+			<h2>
+				<a id="endpoints"></a>
+				Endpoints
+			</h2>
+
+			<h3>
+				<a id="get-jobs"></a>
+				<span class="http-get">GET</span> /jobs
+			</h3>
+
+			<h3>
+				<a id="post-jobs"></a>
+				<span class="http-post">POST</span> /jobs
+			</h3>
+
+			<h3>
+				<a id="get-job"></a>
+				<span class="http-get">GET</span> /jobs/{key}
+			</h3>
+
+			<h3>
+				<a id="delete-job"></a>
+				<span class="http-delete">DELETE</span> /jobs/{key}
+			</h3>
+
+			<h2>
+				<a id="triggers"></a>
+				Triggers
+			</h2>
+
+			<h3>
+				<a id="crontab"></a>
+				Crontab
+			</h3>
+
+<pre>
+{
+  "name": "crontab",
+  "params": {
+    "expression": "* * * * *"
+  }
+}
+</pre>
+			<h2>
+				<a id="tasks"></a>
+				Tasks
+			</h2>
+
+			<h3>
+				<a id="get"></a>
+				GET
+			</h3>
+
+<pre>
+{
+  "name": "get",
+  "params": {
+    "url": "https://www.google.com/"
+  }
+}
+</pre>
+
+			<h2>
+				<a id="support"></a>
+				Support
+			</h2>
+
+			<p>Email <a href="support@crono.com">support@crono.com</a> for help.</p>
+
 		</body>
 </html>
