@@ -11,7 +11,7 @@ name = "pypi"
 
 [packages]
 
-celery = "==4.1.0"
+celery = "==4.1.1"
 celery-redbeat = "==0.11.1"
 gunicorn = "==19.7.1"
 postmarker = "==0.11.3"
@@ -20,4 +20,3 @@ requests = "==2.18.4"
 apistar = "==0.5.40"
 dateparser = "==0.7.0"
 pytest = "==3.3.2"
-kombu = "*"

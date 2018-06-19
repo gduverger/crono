@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "990bba7f384a6f294d3df96ab09ebfe9353247c29d99f5e435a09dc380b59a9a"
+            "sha256": "ce0befd2672dbad0fcb3a8be5b11ec2e4bbaf85bef665d60c9cf9c09457768ae"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -56,10 +56,10 @@
         },
         "celery": {
             "hashes": [
-                "sha256:81a67f0d53a688ec2bc8557bd5d6d7218f925a6f2e6df80e01560de9e28997ec",
-                "sha256:77ff3730198d6a17b3c1f05579ebe570b579efb35f6d7e13dba3b1368d068b35"
+                "sha256:6fc4678d1692af97e137b2a9f1c04efd8e7e2fb7134c5c5ad60738cdd927762f",
+                "sha256:d1f2a3359bdbdfb344edce98b8e891f5fe64f8a11c5a45538ec20ac237c971f5"
             ],
-            "version": "==4.1.0"
+            "version": "==4.1.1"
         },
         "celery-redbeat": {
             "hashes": [
