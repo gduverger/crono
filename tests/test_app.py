@@ -10,10 +10,6 @@ python -m pytest tests/test_app.py
 
 client = TestClient(app.app)
 
-def test_index():
-	response = app.index()
-	assert response == 'crono'
-
 
 def test_jobs_not_authenticated():
 	response = client.get('/jobs')
