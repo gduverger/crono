@@ -1,0 +1,39 @@
+/* 6 (0.375), 7 (0.4375), 8 (0.5), 9 (0.5625), 10 (0.625), 11 (0.6875), 12 (0.75), 14 (0.875),
+16 (1), 18 (1.125), 21 (1.3125), 24 (1.5), 36 (2.25), 48 (3), 60 (3.75), 72 (4.5)  px (em) */
+
+@import url('https://rsms.me/inter/inter-ui.css');
+@import url('https://meyerweb.com/eric/tools/css/reset/reset.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700');
+
+html {
+	background-color: #fff;
+}
+
+body {
+	font-size: 87.5%; /* 14px */
+	*font-size: small;
+	color: #111;
+	font-family: 'Roboto Mono', monospace;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 21px;
+	margin: 21px 20px;
+	max-width: 600px;
+}
+
+html>body {
+	font-size: 14px;
+}
+
+a {
+	color: #007bff;
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+a:hover {
+	color: #0062cc;
+}

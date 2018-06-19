@@ -14,6 +14,7 @@ from apistar import http, App, Include, Route
 
 BASE_DIR = os.path.dirname(__file__)
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 def index(app: App):
@@ -116,7 +117,7 @@ routes = [
 
 components = [components.UserComponent()]
 event_hooks = [hooks.TimingHook(), hooks.AuthenticationHook(), hooks.ErrorHook()]
-app = App(routes=routes, components=components, event_hooks=event_hooks, template_dir=TEMPLATE_DIR)
+app = App(routes=routes, components=components, event_hooks=event_hooks, template_dir=TEMPLATE_DIR, static_dir=STATIC_DIR)
 
 
 if __name__ == '__main__':
