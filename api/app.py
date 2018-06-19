@@ -12,8 +12,12 @@ from api import scheduler, schemas, hooks, components
 from apistar import http, App, Include, Route
 
 
-def index() -> str:
-	return 'crono'
+BASE_DIR = os.path.dirname(__file__)
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+
+def index(app: App):
+	return app.render_template('index.html')
 
 
 def test(request: http.Request, user_agent: http.Header, query_params: http.QueryParams) -> dict:
@@ -112,7 +116,7 @@ routes = [
 
 components = [components.UserComponent()]
 event_hooks = [hooks.TimingHook(), hooks.AuthenticationHook(), hooks.ErrorHook()]
-app = App(routes=routes, components=components, event_hooks=event_hooks)
+app = App(routes=routes, components=components, event_hooks=event_hooks, template_dir=TEMPLATE_DIR)
 
 
 if __name__ == '__main__':
