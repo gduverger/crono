@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>crono</title>
+		<title>Crono</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
 	</head>
 		<body>
 		
-			<h1>crono</h1>
-			<p>cron as a service</p>
+			<h1>Crono</h1>
+			<p>Web-hosted API replacement for cron (or cron as a service 🤓)</p>
+
+			<br>
+
+			<p>Cron is a Unix utility for time-based job scheduling. A lot of tech  companies rely on it despite its flaws: it doesn’t scale; it's error prone; it's hard to debug. Many big tech companies replaced it with their own solution. Some of them have even made their libraries open source (Airbnb’s Chronos, Yelp’s Tron, NextDoor’s NDScheduler). However, even though they have solved some of the flaws mentioned above, they have done it with a focus on giant infrastructure. Smaller tech startups are still left in a situation where they are spending a lot of time and energy integrating and maintaining those open source libraries. Crono takes what the Airbnbs of the world have built that works for them and turn it into an web-hosted API that's efficient for every other tech startup out there.</p>
 
 			<br>
 
@@ -39,7 +43,7 @@
 				Authentication
 			</h2>
 
-			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See an <a href="#example">example</a> for more details. Email <a href="mailto:support@crono.com">support@crono.com</a> to request a token.
+			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:support@crono.com">support@crono.com</a> to request a token.
 
 			<h2>
 				<a id="example"></a>
@@ -47,7 +51,7 @@
 			</h2>
 
 <pre>
-$ curl https://www.crono.com/jobs \
+<span class="quiet">$</span> curl https://www.crono.com/jobs \
   -X POST \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
@@ -65,7 +69,7 @@ $ curl https://www.crono.com/jobs \
       }
     }'
 
-<span class="http-created">HTTP/1.1 201 Created</span>
+<span class="quiet">HTTP/1.1 201 Created</span>
 
 {
   "job": {

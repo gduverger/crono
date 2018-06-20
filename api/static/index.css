@@ -111,3 +111,7 @@ ol ul,
 ol ol {
 	margin-left: 20px;
 }
+
+.quiet {
+	color: #999;
+}
