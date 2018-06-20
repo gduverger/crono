@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Crono</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="/static/index.css">
+	</head>
+	<body>
+
+		<h1>Crono</h1>
+
+		<br>
+
+		<form action="{{ reverse_url('post_charge') }}" method="POST">
+			<script
+			src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			data-key="{{ stripe_public_key }}"
+			data-amount="{{ stripe_amount }}"
+			data-name="{{ stripe_name }}"
+			data-description="{{ stripe_description }}"
+			data-image="{{ stripe_image }}"
+			data-locale="{{ stripe_locale }}"
+			data-zip-code="{{ stripe_zip_code }}">
+			</script>
+		</form>
+
+	</body>
+</html>
