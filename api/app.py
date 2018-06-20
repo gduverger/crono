@@ -1,5 +1,6 @@
 import os
 import redis
+import stripe
 import datetime
 import dateparser
 import redbeat
@@ -17,11 +18,11 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
-def index(app: App):
-	return app.render_template('index.html')
+def get_index(app: App):
+	return app.render_template('index.html', heap_analytics_id=os.getenv('HEAP_ANALYTICS_ID'))
 
 
-def test(request: http.Request, user_agent: http.Header, query_params: http.QueryParams) -> dict:
+def get_test(request: http.Request, user_agent: http.Header, query_params: http.QueryParams) -> dict:
 	return {
 		'method': request.method,
 		'url': request.url,
@@ -32,7 +33,7 @@ def test(request: http.Request, user_agent: http.Header, query_params: http.Quer
 	}
 
 
-def redis_(key: str=None):
+def get_redis(key: str=None):
 	r = redis.StrictRedis.from_url(os.getenv('REDIS_URL')) # db=0
 
 	if key:
@@ -48,6 +49,38 @@ def redis_(key: str=None):
 
 	else:
 		return [key.decode('utf-8') for key in r.scan_iter()]
+
+
+def get_charge(app: App):
+	context = {
+		'stripe_amount': 1000, # in cents
+		'stripe_public_key': os.getenv('STRIPE_PUBLIC_KEY'),
+		'stripe_name': 'Crono',
+		'stripe_description': 'Web-hosted API replacement for cron',
+		'stripe_image': 'https://stripe.com/img/documentation/checkout/marketplace.png',
+		'stripe_locale': 'auto',
+		'stripe_zip_code': 'true',
+		'heap_analytics_id': os.getenv('HEAP_ANALYTICS_ID')
+	}
+	return app.render_template('charge.html', **context)
+
+
+def post_charge(app: App):
+	# Set your secret key: remember to change this to your live secret key in production
+	# See your keys here: https://dashboard.stripe.com/account/apikeys
+	stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+
+	# Token is created using Checkout or Elements!
+	# Get the payment token ID submitted by the form:
+	token = request.form['stripeToken'] # Using Flask
+
+	charge = stripe.Charge.create(
+		amount=999,
+		currency='usd',
+		description='Example charge',
+		source=token,
+	)
+	return app.render_template('charge.html')
 
 
 def get_jobs(user: components.User) -> dict:
@@ -74,12 +107,12 @@ def post_job(job: schemas.Job) -> str:
 	elif job.trigger['name'] == 'eta':
 		# datetime_ = dateparser.parse(job.trigger['params']['datetime'])
 		# schedule = redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=scheduler.queue) # HACK
-		raise Exception('Not implemented')
+		raise Exception('Not implemented yet')
 
 	elif job.trigger['name'] == 'countdown':
 		# seconds = job.trigger['params']['seconds']
 		# schedule = redbeat.schedules.rrule('SECONDLY', interval=seconds, count=1, app=scheduler.queue)
-		raise Exception('Not implemented')
+		raise Exception('Not implemented yet')
 
 	params = job.task['params']
 	task = 'api.tasks.{}'.format(job.task['name'])
@@ -100,9 +133,11 @@ def delete_job(key: str) -> str:
 
 
 routes = [
-	Route('/', method='GET', handler=index),
-	Route('/test', method='GET', handler=test),
-	Route('/redis', method='GET', handler=redis_),
+	Route('/', method='GET', handler=get_index),
+	Route('/test', method='GET', handler=get_test),
+	Route('/redis', method='GET', handler=get_redis),
+	Route('/charge', method='GET', handler=get_charge),
+	Route('/charge', method='POST', handler=post_charge),
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
 	Route('/jobs/{key}', method='GET', handler=get_job),
