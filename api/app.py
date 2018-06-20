@@ -18,7 +18,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 def get_index(app: App):
-	return app.render_template('index.html')
+	return app.render_template('index.html', heap_analytics_id=os.getenv('HEAP_ANALYTICS_ID'))
 
 
 def get_test(request: http.Request, user_agent: http.Header, query_params: http.QueryParams) -> dict:
@@ -58,7 +58,8 @@ def get_charge(app: App):
 		'stripe_description': 'Web-hosted API replacement for cron',
 		'stripe_image': 'https://stripe.com/img/documentation/checkout/marketplace.png',
 		'stripe_locale': 'auto',
-		'stripe_zip_code': 'true'
+		'stripe_zip_code': 'true',
+		'heap_analytics_id': os.getenv('HEAP_ANALYTICS_ID')
 	}
 	return app.render_template('charge.html', **context)
 
