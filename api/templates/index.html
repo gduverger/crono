@@ -15,11 +15,19 @@
 		<body>
 		
 			<h1>Crono</h1>
-			<p>Web-hosted API replacement for cron (or cron as a service 🤓)</p>
+			<p>A web-hosted API replacement for <code>cron</code> (or cron as a service 🤓).</p>
 
 			<br>
 
-			<p>Cron is a Unix utility for time-based job scheduling. A lot of tech  companies rely on it despite its flaws: it doesn’t scale; it's error prone; it's hard to debug. Many big tech companies replaced it with their own solution. Some of them have even made their libraries open source (Airbnb’s Chronos, Yelp’s Tron, NextDoor’s NDScheduler). However, even though they have solved some of the flaws mentioned above, they have done it with a focus on giant infrastructure. Smaller tech startups are still left in a situation where they are spending a lot of time and energy integrating and maintaining those open source libraries. Crono takes what the Airbnbs of the world have built that works for them and turn it into an web-hosted API that's efficient for every other tech startup out there.</p>
+			<p>Here is the thing, implementing time is hard. Giving your web application a sense of timing is more complicated than geolocalization. That doesn't make sense. A lot of companies still rely on <code>cron</code>, the Unix utility for time-based job scheduling, but it doesn't scale; it's error-prone; and it's hard to debug.</p>
+
+			<br>
+
+			<p class="sly">Bigger tech companies have replaced <code>cron</code> with their own solution: Airbnb’s <a href="https://github.com/mesos/chronos">Chronos</a>, Yelp’s <a href="https://github.com/Yelp/Tron">Tron</a>, NextDoor’s <a href="https://github.com/Nextdoor/ndscheduler">NDScheduler</a>&hellip; and that's great! It's distributed, more reliable, and easier to use but at what cost? Are you okay deploying, maintaining, and depending on a stale library in your precious code base?</p>
+
+			<br>
+
+			<p>The alternative: Crono. Simply make one POST request specifying a trigger (crontab expression) and a task (GET request) and let it handle the rest. See an <a href="#example">example</a> below for more details.</p>
 
 			<br>
 
@@ -58,7 +66,7 @@
 			</h2>
 
 <pre>
-<span class="quiet">$</span> curl https://www.crono.com/jobs \
+<span class="quiet">$</span> curl {{ reverse_url('post_job') }} \
   -X POST \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
@@ -66,7 +74,7 @@
     "<a href="#triggers">trigger</a>": {
       "name": "crontab",
       "params": {
-        "seconds": "* * * * *"
+        "expression": "* * * * *"
       }
     },
     "<a href="#tasks">task</a>": {

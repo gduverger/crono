@@ -38,6 +38,14 @@ a:hover {
 	color: #0062cc;
 }
 
+.sly a {
+	color: inherit;
+	border-bottom-color: #999;
+}
+
+.sly a:hover {
+	border-bottom-color: #000;
+}
 
 h1,
 h2 {
@@ -89,7 +97,7 @@ h2 {
 	color: #a795fc;
 }
 
-.http-post {
+.http-post-fill {
 	font-size: 10px;
 	line-height: 16px;
 	padding: 0 5px;
@@ -97,6 +105,10 @@ h2 {
 	border-radius: 2px;
 	background-color: #8bcd3b;
 	color: white;
+}
+
+.http-post-text {
+	color: #8bcd3b;
 }
 
 .http-delete-fill {
