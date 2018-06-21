@@ -34,7 +34,7 @@ def get_test(request: http.Request, user_agent: http.Header, query_params: http.
 
 
 def get_redis(key: str=None):
-	r = redis.StrictRedis.from_url(os.getenv('REDIS_URL')) # db=0
+	r = redis.from_url(os.getenv('REDIS_URL')) # db=0
 
 	if key:
 		t = r.type(key).decode('utf-8')
