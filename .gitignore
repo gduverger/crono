@@ -1,8 +1,9 @@
 .env
 *.pyc
-*.cache
 *.rdb
 *.pid
+*.cache
+*.sqlite
 *.DS_Store
 *__pycache__
 .pytest_cache
