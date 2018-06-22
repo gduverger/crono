@@ -13,21 +13,25 @@
 
 	</head>
 		<body>
-		
+
+			{% if message %}
+				<p class="message">{{ message }}</p>
+			{% endif %}
+
 			<h1>Crono</h1>
-			<p>A web-hosted API replacement for <code>cron</code> (or cron as a service 🤓).</p>
+			<p>A web-hosted API replacement for cron (or cron as a service 🤓).</p>
 
 			<br>
 
-			<p>Here is the thing, implementing time is hard. Giving your web application a sense of timing is more complicated than geolocalization. It doesn't make sense. A lot of companies still rely on <code>cron</code>, the Unix utility for time-based job scheduling, but it doesn't scale; it's error-prone; and it's hard to debug.</p>
+			<p>Here is the thing, implementing time is hard. Giving your web application a sense of timing is more complicated than geolocalizing it. It doesn't make sense. A lot of companies still rely on cron, the Unix utility for time-based job scheduling, but it doesn't scale; it's error-prone; and it's hard to debug.</p>
 
 			<br>
 
-			<p class="sly">Bigger tech companies have replaced <code>cron</code> with their own solution: Airbnb’s <a href="https://github.com/mesos/chronos">Chronos</a>, Yelp’s <a href="https://github.com/Yelp/Tron">Tron</a>, NextDoor’s <a href="https://github.com/Nextdoor/ndscheduler">NDScheduler</a>&hellip; and that's great! It's distributed, more reliable, and easier to use but at what cost? Are you okay deploying, maintaining, and depending on a stale library in your precious code base?</p>
+			<p class="sly">Bigger tech companies have replaced cron with their own solution: Airbnb’s <a href="https://github.com/mesos/chronos">Chronos</a>, Yelp’s <a href="https://github.com/Yelp/Tron">Tron</a>, NextDoor’s <a href="https://github.com/Nextdoor/ndscheduler">NDScheduler</a>&hellip; and that's great. It's distributed, more reliable, and easier to use. But at what cost? Are you okay deploying, maintaining, and depending on a stale library in your precious code base?</p>
 
 			<br>
 
-			<p>The alternative: Crono. Simply make one POST request specifying a trigger (crontab expression) and a task (GET request) and let it handle the rest. See an <a href="#example">example</a> below for more details.</p>
+			<p>The alternative: Crono. Simply make one POST request with a trigger (crontab expression) and a task (GET request) and let it handle the rest. See an <a href="#example">example</a> for more details.</p>
 
 			<br>
 

@@ -1,6 +1,7 @@
 import os
 import base64
 
+from api import database
 from apistar import exceptions, http
 from apistar.server.components import Component
 
@@ -34,4 +35,5 @@ class UserComponent(Component):
 	def check_authentication(self, token: str) -> bool:
 		# Just an example here. You'd normally want to make a database lookup,
 		# and check against a hash of the password.
+		# return database.has_user(token=token)
 		return token == os.getenv('USER_TOKEN')
