@@ -1,7 +1,7 @@
 import time
 
 from apistar import App, exceptions, http
-from api import database
+from api import models
 
 
 class TimingHook:
@@ -16,11 +16,11 @@ class TimingHook:
 
 class AuthenticationHook:
 
-	def on_request(self, app: App, request: http.Request, user: database.User=None) -> None:
+	def on_request(self, app: App, request: http.Request, user: models.User=None) -> None:
+		# HACK
 		public_routes = [
 			app.reverse_url('get_index'),
-			# app.reverse_url('get_charge'),
-			# app.reverse_url('post_charge')
+			app.reverse_url('post_user'),
 		]
 		if request.url.components.path not in public_routes and user is None:
 			raise exceptions.Forbidden('Not authenticated')
