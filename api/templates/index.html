@@ -70,25 +70,25 @@
 			</h2>
 
 <pre>
-<span class="quiet">$</span> curl {{ reverse_url('post_job') }} \
-  -X POST \
-  -H "Authorization: Bearer {token}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "<a href="#triggers">trigger</a>": {
+<span style="color:#73705F">$</span> <span style="color:#82D5ED">curl</span> {{ reverse_url('post_job') }} \
+  <span style="color:#F19C34">-X</span> POST \
+  <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Authorization: Bearer {token}" \</span>
+  <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Content-Type: application/json" \</span>
+  <span style="color:#F19C34">-d</span> <span style="color:#E6DD7D">'{
+    "<a href="#triggers" class="sly">trigger</a>": {
       "name": "crontab",
       "params": {
         "expression": "* * * * *"{# <!-- <span class="quiet">&lt;-- at every minute</span> --> #}
       }
     },
-    "<a href="#tasks">task</a>": {
+    "<a href="#tasks" class="sly">task</a>": {
       "name": "get",
       "params": {
         "url": "https://www.google.com/"
       }
-    }'
+    }'</span>
 
-<span class="quiet">HTTP/1.1 201 Created</span>
+<span style="color:#73705F">HTTP/1.1 201 Created</span>
 
 {
   "job": {
