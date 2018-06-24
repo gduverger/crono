@@ -6,15 +6,9 @@ from apistar import exceptions, http
 from apistar.server.components import Component
 
 
-class User(object):
+class AuthorizationComponent(Component):
 
-	def __init__(self, token: str):
-		self.token = token
-
-
-class UserComponent(Component):
-
-	def resolve(self, authorization: http.Header) -> User:
+	def resolve(self, authorization: http.Header) -> database.User:
 		"""
 		Determine the user associated with a request, using HTTP Basic Authentication.
 		"""
@@ -25,15 +19,9 @@ class UserComponent(Component):
 		if scheme.lower() != 'bearer':
 			return None
 
-		token = base64.b64decode(token).decode('utf-8')
-		if not self.check_authentication(token):
-			# raise exceptions.Forbidden('Incorrect token')
-			return None
+		user = database.User.get_user(token)
 
-		return User(token)
+		if not user:
+			raise exceptions.Forbidden('Incorrect token')
 
-	def check_authentication(self, token: str) -> bool:
-		# Just an example here. You'd normally want to make a database lookup,
-		# and check against a hash of the password.
-		# return database.has_user(token=token)
-		return token == os.getenv('USER_TOKEN')
+		return user

@@ -9,7 +9,7 @@ import celery
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from api import scheduler, schemas, hooks, components
+from api import scheduler, schemas, hooks, components, database
 from apistar import http, App, Include, Route
 
 
@@ -87,14 +87,12 @@ def post_charge(app: App):
 	return app.render_template('charge.html')
 
 
-def get_jobs(user: components.User) -> dict:
-	i = scheduler.queue.control.inspect()
-	return {
-		'registered': i.registered(),
-		'active': i.active(),
-		'scheduled': i.scheduled(),
-		'reserved': i.reserved()
-	}
+def get_user(user: database.User) -> dict:
+	return user.__dict__
+
+
+def get_jobs(user: database.User) -> list:
+	return [j.__dict__ for j in user.get_jobs()]
 
 
 def post_job(job: schemas.Job) -> str:
@@ -141,12 +139,16 @@ routes = [
 	Route('/', method='POST', handler=post_index),
 	Route('/test', method='GET', handler=get_test),
 	Route('/redis', method='GET', handler=get_redis),
+
+	Route('/user', method='GET', handler=get_user),
 	# Route('/charge', method='GET', handler=get_charge),
 	# Route('/charge', method='POST', handler=post_charge),
+
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
 	Route('/jobs/{key}', method='GET', handler=get_job),
 	Route('/jobs/{key}', method='DELETE', handler=delete_job),
+
 	# TODO
 	# Route('/logs', method='GET', handler=get_logs),
 
@@ -156,7 +158,7 @@ routes = [
 
 
 components = [
-	components.UserComponent(),
+	components.AuthorizationComponent(),
 ]
 
 event_hooks = [

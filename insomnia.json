@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-18T01:14:47.514Z",
+	"__export_date": "2018-06-24T19:55:06.919Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -75,7 +75,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313,
 			"method": "GET",
-			"modified": 1529272648342,
+			"modified": 1529870087745,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -84,7 +84,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T17:12:05.098953",
+			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T21:54:50.341992",
 			"_type": "request"
 		},
 		{
@@ -137,7 +137,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1529277236767,
+			"modified": 1529870090851,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -342,7 +342,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1517019618318.75,
 			"method": "GET",
-			"modified": 1529249909894,
+			"modified": 1529583543317,
 			"name": "/redis?key={key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -351,7 +351,32 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url  }}/redis?key=redbeat:2018-06-17T11:16:34.845466",
+			"url": "{{ base_url  }}/redis?key=redbeat:2018-06-14T21:54:50.341992",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a08ee0baefc04094b53144cef6d1d12a",
+			"authentication": {
+				"token": "{{ user_token  }}",
+				"type": "bearer"
+			},
+			"body": {},
+			"created": 1529869869717,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1516619750816.375,
+			"method": "GET",
+			"modified": 1529869901467,
+			"name": "/user",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/user",
 			"_type": "request"
 		},
 		{
@@ -360,10 +385,10 @@
 			"created": 1516219942830,
 			"data": {
 				"base_url": "http://127.0.0.1:5000",
-				"user_token": "Q3JvbjIwMTgh"
+				"user_token": "37b3d85ee7adb2075154b1926677693d0dee0ca82353104990d63a84585e83a8"
 			},
 			"isPrivate": false,
-			"modified": 1529187080706,
+			"modified": 1529867610858,
 			"name": "local",
 			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
 			"_type": "environment"

@@ -1,7 +1,7 @@
 import time
 
 from apistar import App, exceptions, http
-from api import components
+from api import database
 
 
 class TimingHook:
@@ -16,7 +16,7 @@ class TimingHook:
 
 class AuthenticationHook:
 
-	def on_request(self, app: App, request: http.Request, user: components.User=None) -> None:
+	def on_request(self, app: App, request: http.Request, user: database.User=None) -> None:
 		public_routes = [
 			app.reverse_url('get_index'),
 			# app.reverse_url('get_charge'),
