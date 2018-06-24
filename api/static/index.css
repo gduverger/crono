@@ -92,6 +92,7 @@ h2 {
 }
 
 
+/*
 .http-created {
 	color: #64cb57;
 }
@@ -100,7 +101,6 @@ h2 {
 	font-size: 10px;
 	line-height: 16px;
 	padding: 0 5px;
-	/*border: 1px solid #f0f4f7;*/
 	border-radius: 2px;
 	background-color: #a795fc;
 	color: white;
@@ -114,7 +114,6 @@ h2 {
 	font-size: 10px;
 	line-height: 16px;
 	padding: 0 5px;
-	/*border: 1px solid #f0f4f7;*/
 	border-radius: 2px;
 	background-color: #8bcd3b;
 	color: white;
@@ -128,7 +127,6 @@ h2 {
 	font-size: 10px;
 	line-height: 16px;
 	padding: 0 5px;
-	/*border: 1px solid #f0f4f7;*/
 	border-radius: 2px;
 	background-color: #ec5948;
 	color: white;
@@ -137,6 +135,7 @@ h2 {
 .http-delete-text {
 	color: #ec5948;
 }
+*/
 
 ul ul,
 ul ol,
