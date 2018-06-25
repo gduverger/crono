@@ -60,8 +60,8 @@ components = [
 ]
 
 event_hooks = [
-	hooks.AuthenticationHook(),
 	hooks.TimingHook(),
+	hooks.AuthenticationHook(),
 	hooks.ErrorHook(),
 ]
 
