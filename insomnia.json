@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-06-24T19:55:06.919Z",
+	"__export_date": "2018-06-25T01:42:18.893Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -73,9 +73,9 @@
 			"description": "",
 			"headers": [],
 			"isPrivate": false,
-			"metaSortKey": -1516219883313,
+			"metaSortKey": -1516219883313.75,
 			"method": "GET",
-			"modified": 1529870087745,
+			"modified": 1529889668188,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -84,7 +84,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-14T21:54:50.341992",
+			"url": "{{ base_url }}/jobs/653581c7-0f00-4f94-80b9-cf619ca6329f",
 			"_type": "request"
 		},
 		{
@@ -95,7 +95,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"interval\",\n\t\t\"params\": {\n\t\t\t\"seconds\": 10\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"email\",\n\t\t\"params\": {\n\t\t\t\"to\": \"georges.duverger@gmail\"\n\t\t}\n\t}\n}\n"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"* * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"get\",\n\t\t\"params\": {\n\t\t\t\"url\": \"http://google.com\"\n\t\t}\n\t}\n}\n"
 			},
 			"created": 1516225625941,
 			"description": "",
@@ -110,7 +110,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.5,
 			"method": "POST",
-			"modified": 1529249682492,
+			"modified": 1529889676148,
 			"name": "/jobs",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -137,7 +137,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1529870090851,
+			"modified": 1529889722751,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -146,7 +146,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/redbeat:2018-06-17T19:13:50.302326",
+			"url": "{{ base_url }}/jobs/2f618b10-a541-422c-a3f7-345840671511",
 			"_type": "request"
 		},
 		{
@@ -186,11 +186,7 @@
 		},
 		{
 			"_id": "req_fd0426f7dadb49c4b3157c255763ccc4",
-			"authentication": {
-				"prefix": "",
-				"token": "{{ user_token  }}",
-				"type": "bearer"
-			},
+			"authentication": {},
 			"body": {},
 			"created": 1522617763352,
 			"description": "",
@@ -198,7 +194,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1522617763352,
 			"method": "GET",
-			"modified": 1529187098592,
+			"modified": 1529877394317,
 			"name": "/",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -246,31 +242,6 @@
 			"_type": "request"
 		},
 		{
-			"_id": "req_2d8b10c0f1e84cff86ae436a04795559",
-			"authentication": {
-				"token": "{{ user_token  }}",
-				"type": "bearer"
-			},
-			"body": {},
-			"created": 1528993988442,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1519418823333,
-			"method": "GET",
-			"modified": 1529187101969,
-			"name": "/test",
-			"parameters": [],
-			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ base_url  }}/test",
-			"_type": "request"
-		},
-		{
 			"_id": "req_081d6623bc68414b9c2f69e68aa661fe",
 			"authentication": {
 				"token": "{{ user_token  }}",
@@ -305,56 +276,6 @@
 			"_type": "request"
 		},
 		{
-			"_id": "req_6e919d5366f246269776b5875898b171",
-			"authentication": {
-				"token": "{{ user_token  }}",
-				"type": "bearer"
-			},
-			"body": {},
-			"created": 1529247825660,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1517819353323.5,
-			"method": "GET",
-			"modified": 1529247846461,
-			"name": "/redis",
-			"parameters": [],
-			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ base_url  }}/redis",
-			"_type": "request"
-		},
-		{
-			"_id": "req_e3643184f33f45d9a610898ebbdecf36",
-			"authentication": {
-				"token": "{{ user_token  }}",
-				"type": "bearer"
-			},
-			"body": {},
-			"created": 1529248675728,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1517019618318.75,
-			"method": "GET",
-			"modified": 1529583543317,
-			"name": "/redis?key={key}",
-			"parameters": [],
-			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ base_url  }}/redis?key=redbeat:2018-06-14T21:54:50.341992",
-			"_type": "request"
-		},
-		{
 			"_id": "req_a08ee0baefc04094b53144cef6d1d12a",
 			"authentication": {
 				"token": "{{ user_token  }}",
@@ -377,6 +298,34 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ base_url }}/user",
+			"_type": "request"
+		},
+		{
+			"_id": "req_fb8a2b7a7a0448768c8688959f23b3b8",
+			"authentication": {},
+			"body": {},
+			"created": 1529877831250,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1516419817065.1875,
+			"method": "POST",
+			"modified": 1529889539945,
+			"name": "/user",
+			"parameters": [
+				{
+					"id": "pair_64359a200c074ba3bbe3ca3afe19f35a",
+					"name": "email",
+					"value": "test@gmail.com"
+				}
+			],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/user",
 			"_type": "request"
 		},
 		{
