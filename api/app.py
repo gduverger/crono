@@ -24,19 +24,19 @@ def post_user(email: str) -> dict:
 
 
 def get_jobs(user: models.User) -> list:
-	return [j.to_dict() for j in user.get_jobs()]
+	return [job.to_dict() for job in user.get_jobs()]
 
 
 def post_job(user: models.User, job: schemas.Job) -> dict:
 	return user.add_job(job).to_dict()
 
 
-def get_job(user: models.User, uuid: str) -> dict:
-	return user.get_job(uuid).to_dict()
+def get_job(user: models.User, key: str) -> dict:
+	return user.get_job(key).to_dict()
 
 
-def delete_job(user: models.User, uuid: str) -> dict:
-	return user.remove_job(uuid).to_dict()
+def delete_job(user: models.User, key: str) -> dict:
+	return user.remove_job(key).to_dict()
 
 
 routes = [
@@ -45,8 +45,8 @@ routes = [
 	Route('/user', method='POST', handler=post_user),
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
-	Route('/jobs/{uuid}', method='GET', handler=get_job),
-	Route('/jobs/{uuid}', method='DELETE', handler=delete_job),
+	Route('/jobs/{key}', method='GET', handler=get_job),
+	Route('/jobs/{key}', method='DELETE', handler=delete_job),
 
 	# TODO
 	# Route('/logs', method='GET', handler=get_logs),
