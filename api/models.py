@@ -58,27 +58,27 @@ class Job:
 		})
 
 		schedule = None
-		if job.trigger['name'] == 'crontab':
-			minute, hour, day_of_month, month_of_year, day_of_week = job.trigger['params']['expression'].split(' ')
+		if data.trigger['name'] == 'crontab':
+			minute, hour, day_of_month, month_of_year, day_of_week = data.trigger['params']['expression'].split(' ')
 			schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
 
-		elif job.trigger['name'] == 'interval':
-			# seconds = datetime.timedelta(seconds=job.trigger['params']['seconds'])
+		elif data.trigger['name'] == 'interval':
+			# seconds = datetime.timedelta(seconds=data.trigger['params']['seconds'])
 			# schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
 			raise exceptions.MethodNotAllowed("Trigger 'interval' not implemented yet")
 
-		elif job.trigger['name'] == 'eta':
-			# datetime_ = dateparser.parse(job.trigger['params']['datetime'])
+		elif data.trigger['name'] == 'eta':
+			# datetime_ = dateparser.parse(data.trigger['params']['datetime'])
 			# schedule = redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=scheduler.queue) # HACK
 			raise exceptions.MethodNotAllowed("Trigger 'ETA' not implemented yet")
 
-		elif job.trigger['name'] == 'countdown':
-			# seconds = job.trigger['params']['seconds']
+		elif data.trigger['name'] == 'countdown':
+			# seconds = data.trigger['params']['seconds']
 			# schedule = redbeat.schedules.rrule('SECONDLY', interval=seconds, count=1, app=scheduler.queue)
 			raise exceptions.MethodNotAllowed("Trigger 'countdown' not implemented yet")
 
-		params = job.task['params']
-		task = 'api.tasks.{}'.format(job.task['name'])
+		params = data.task['params']
+		task = 'api.tasks.{}'.format(data.task['name'])
 		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=job.key, task=task, schedule=schedule, kwargs=params, app=scheduler.queue)
 		entry.save()
 
@@ -89,10 +89,16 @@ class Job:
 		"""
 		For removing, we start with the queue and end with the database.
 		"""
-		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.key, app=scheduler.queue)
-		entry.delete()
-		self.is_active = False
-		db.update(self.table_name, self.record_id, {'Active': self.is_active})
+
+		try:
+			entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.key, app=scheduler.queue)
+			entry.delete()
+			self.is_active = False
+			db.update(self.table_name, self.record_id, {'Active': self.is_active})
+
+		except KeyError:
+			db.delete(self.table_name, self.record_id)
+
 		return self
 
 
