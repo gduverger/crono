@@ -11,6 +11,8 @@ from apistar import exceptions
 from airtable import airtable
 
 
+BALANCE_DEFAULT = 1 # USD
+
 db = airtable.Airtable(os.getenv('AIRTABLE_BASE_ID'), os.getenv('AIRTABLE_API_KEY'))
 
 
@@ -33,7 +35,7 @@ class Job:
 		if record:
 			fields = record['fields']
 			return cls(
-				key=fields['Key'],
+				key=fields.get('Key'),
 				is_active=fields.get('Active', False),
 				record_id=record['id']
 			)
@@ -45,32 +47,8 @@ class Job:
 	@classmethod
 	def add(cls, user, data):
 		"""
-		schedule = None
-
-		if job.trigger['name'] == 'interval':
-			seconds = datetime.timedelta(seconds=job.trigger['params']['seconds'])
-			schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
-
-		elif job.trigger['name'] == 'crontab':
-			minute, hour, day_of_month, month_of_year, day_of_week = job.trigger['params']['expression'].split(' ')
-			schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
-
-		elif job.trigger['name'] == 'eta':
-			# datetime_ = dateparser.parse(job.trigger['params']['datetime'])
-			# schedule = redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=scheduler.queue) # HACK
-			raise Exception('Not implemented yet')
-
-		elif job.trigger['name'] == 'countdown':
-			# seconds = job.trigger['params']['seconds']
-			# schedule = redbeat.schedules.rrule('SECONDLY', interval=seconds, count=1, app=scheduler.queue)
-			raise Exception('Not implemented yet')
-
-		params = job.task['params']
-		task = 'api.tasks.{}'.format(job.task['name'])
-		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=datetime.datetime.now().isoformat(), task=task, schedule=schedule, kwargs=params, app=scheduler.queue)
-		entry.save()
+		For adding, we start with the database and end with the queue.
 		"""
-
 		job = cls()
 
 		db.create(cls.table_name, {
@@ -79,14 +57,40 @@ class Job:
 			'Active': job.is_active
 		})
 
+		schedule = None
+		if job.trigger['name'] == 'crontab':
+			minute, hour, day_of_month, month_of_year, day_of_week = job.trigger['params']['expression'].split(' ')
+			schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
+
+		elif job.trigger['name'] == 'interval':
+			# seconds = datetime.timedelta(seconds=job.trigger['params']['seconds'])
+			# schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
+			raise exceptions.MethodNotAllowed("Trigger 'interval' not implemented yet")
+
+		elif job.trigger['name'] == 'eta':
+			# datetime_ = dateparser.parse(job.trigger['params']['datetime'])
+			# schedule = redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=scheduler.queue) # HACK
+			raise exceptions.MethodNotAllowed("Trigger 'ETA' not implemented yet")
+
+		elif job.trigger['name'] == 'countdown':
+			# seconds = job.trigger['params']['seconds']
+			# schedule = redbeat.schedules.rrule('SECONDLY', interval=seconds, count=1, app=scheduler.queue)
+			raise exceptions.MethodNotAllowed("Trigger 'countdown' not implemented yet")
+
+		params = job.task['params']
+		task = 'api.tasks.{}'.format(job.task['name'])
+		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=job.key, task=task, schedule=schedule, kwargs=params, app=scheduler.queue)
+		entry.save()
+
 		return job
 
 
 	def remove(self):
 		"""
+		For removing, we start with the queue and end with the database.
+		"""
 		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.key, app=scheduler.queue)
 		entry.delete()
-		"""
 		self.is_active = False
 		db.update(self.table_name, self.record_id, {'Active': self.is_active})
 		return self
@@ -104,10 +108,10 @@ class User:
 	table_name = 'Users'
 
 
-	def __init__(self, email, token=None, balance=1, is_active=True, jobs=None, record_id=None):
+	def __init__(self, email, token=None, balance=None, is_active=True, jobs=None, record_id=None):
 		self.email = email
 		self.token = token or secrets.token_hex()
-		self.balance = balance
+		self.balance = balance or BALANCE_DEFAULT
 		self.is_active = is_active
 		self.jobs = jobs
 		self.record_id = record_id

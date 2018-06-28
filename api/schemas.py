@@ -91,7 +91,7 @@ log = validators.Object(
 
 class Job(types.Type):
 
-	trigger = interval | crontab
+	trigger = crontab | interval
 	task = get | log # | email
 
 	def __init__(self, *args, **kwargs):

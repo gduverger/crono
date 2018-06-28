@@ -4,9 +4,11 @@ import base64
 from api import app, auth
 from apistar.test import TestClient
 
+
 """
 python -m pytest tests/test_app.py
 """
+
 
 client = TestClient(app.app)
 

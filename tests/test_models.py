@@ -66,7 +66,7 @@ class TestUser(object):
 
 	def test_user_to_dict(self):
 		"""
-		python -m pytest tests/test_models.py::TestJob::test_user_to_dict
+		python -m pytest tests/test_models.py::TestUser::test_user_to_dict
 		"""
 
 		dict_ = models.User('email').to_dict()
@@ -76,3 +76,18 @@ class TestUser(object):
 		assert isinstance(dict_['token'], str)
 		assert 'balance' in dict_
 		assert isinstance(dict_['balance'], int)
+
+
+	def test_user_get_job(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_get_job
+		"""
+
+		job = models.Job()
+		job2 = models.Job()
+		job3 = models.Job(key=job.key)
+		user = models.User('email', jobs=[job, job2, job3])
+
+		assert user.get_job(job.key) == job
+		assert user.get_job(job.key) != job2
+		assert user.get_job(job.key) != job3

@@ -6,6 +6,11 @@ from apistar import exceptions
 from api import schemas
 
 
+"""
+python -m pytest tests/test_schemas.py
+"""
+
+
 class TestSchemas(object):
 	"""
 	python -m pytest tests/test_schemas.py::TestSchemas
@@ -103,10 +108,10 @@ class TestSchemas(object):
 		with pytest.raises(exceptions.ValidationError, match="{'task': 'The \"task\" field is required.', 'trigger': 'Must match one of the union types.'}"):
 			schemas.Job({'trigger': 'foo'})
 
-		job = schemas.Job({'trigger': {'name': 'interval', 'params': {'seconds': 300}}, 'task': {'name': 'get', 'params': {'url': 'http://google.com'}}})
-		assert job.trigger['name'] == 'interval'
-		assert job.trigger['params'] == {'seconds': 300}
-		assert job.trigger['params']['seconds'] == 300
+		job = schemas.Job({'trigger': {'name': 'crontab', 'params': {'expression': '* * * * *'}}, 'task': {'name': 'get', 'params': {'url': 'http://google.com'}}})
+		assert job.trigger['name'] == 'crontab'
+		assert job.trigger['params'] == {'expression': '* * * * *'}
+		assert job.trigger['params']['expression'] == '* * * * *'
 
 
 	def test_schema(self):

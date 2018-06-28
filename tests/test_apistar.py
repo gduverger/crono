@@ -1,6 +1,12 @@
 import pytest
 from apistar import exceptions, validators
 
+
+"""
+python -m pytest tests/test_apistar.py
+"""
+
+
 foo = validators.Object(
 	required=['foo'],
 	properties=[
