@@ -1,4 +1,6 @@
 import os
+import logging
+import timber
 import requests
 import api.scheduler
 
@@ -6,12 +8,16 @@ from postmarker.core import PostmarkClient
 
 
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
+timber = timber.TimberHandler(api_key=os.getenv('TIMBER_API_KEY'))
+
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+logger.addHandler(timber)
 
 
 @api.scheduler.queue.task
 def log(message=None):
-	# TODO log with timber.io
-	print(message)
+	logger.info('Log: {}'.format(message), extra={'meta': 'test'})
 
 
 @api.scheduler.queue.task
