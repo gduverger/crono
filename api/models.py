@@ -16,6 +16,25 @@ BALANCE_DEFAULT = 1 # USD
 db = airtable.Airtable(os.getenv('AIRTABLE_BASE_ID'), os.getenv('AIRTABLE_API_KEY'))
 
 
+class Log:
+
+
+	table_name = 'Logs'
+
+
+	def __init__(self, job):
+		self.job = job
+
+
+	@classmethod
+	def add(cls, job):
+		log = cls(job)
+		db.create(cls.table_name, {
+			'Job': [log.job.record_id]
+		})
+		return log
+
+
 class Job:
 
 
@@ -42,6 +61,26 @@ class Job:
 
 		else:
 			raise exceptions.NotFound('Job not found')
+
+
+	@classmethod
+	def get_by_key(cls, key):
+		records = db.get(cls.table_name, filter_by_formula="{{Key}}='{}'".format(key))['records']
+		
+		if len(records) <= 0:
+			raise exceptions.NotFound('Job not found')
+
+		elif len(records) == 1:
+			fields = records[0]['fields']
+			return cls(
+				key=fields.get('Key'),
+				is_active=fields.get('Active', False),
+				record_id=records[0]['id']
+			)
+
+		else:
+			raise exceptions.NotFound('More than 1 job found')
+
 
 
 	@classmethod
@@ -79,10 +118,14 @@ class Job:
 
 		params = data.task['params']
 		task = 'api.tasks.{}'.format(data.task['name'])
-		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=job.key, task=task, schedule=schedule, kwargs=params, app=scheduler.queue)
+		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=job.key, task=task, schedule=schedule, args=(job.key,), kwargs=params, app=scheduler.queue)
 		entry.save()
 
 		return job
+
+
+	def add_log(self):
+		return Log.add(self)
 
 
 	def remove(self):

@@ -91,3 +91,18 @@ class TestUser(object):
 		assert user.get_job(job.key) == job
 		assert user.get_job(job.key) != job2
 		assert user.get_job(job.key) != job3
+
+
+class TestLog(object):
+	"""
+	python -m pytest tests/test_models.py::TestLog
+	"""
+
+
+	def test_log(self):
+		"""
+		python -m pytest tests/test_models.py::TestLog::test_log
+		"""
+
+		# TODO
+		pass
