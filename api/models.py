@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+import pytz
 import celery
 import secrets
 import redbeat
@@ -20,15 +21,17 @@ class Log:
 	table_name = 'Logs'
 
 
-	def __init__(self, job):
+	def __init__(self, job, date=None):
 		self.job = job
+		self.date = date or datetime.datetime.now()
 
 
 	@classmethod
 	def add(cls, job):
 		log = cls(job)
 		db.create(cls.table_name, {
-			'Job': [log.job.record_id]
+			'Job': [log.job.record_id],
+			'Date': log.date.astimezone(pytz.utc).isoformat(timespec='milliseconds')
 		})
 		return log
 
