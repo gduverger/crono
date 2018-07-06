@@ -42,8 +42,9 @@ class Job:
 	table_name = 'Jobs'
 
 
-	def __init__(self, key=None, is_active=True, record_id=None):
+	def __init__(self, key=None, data=None, is_active=True, record_id=None):
 		self.key = key or str(uuid.uuid4())
+		self.data = data
 		self.is_active = is_active
 		self.record_id = record_id
 
@@ -56,6 +57,7 @@ class Job:
 			fields = record['fields']
 			return cls(
 				key=fields.get('Key'),
+				data=fields.get('Data'),
 				is_active=fields.get('Active', False),
 				record_id=record['id']
 			)
@@ -75,6 +77,7 @@ class Job:
 			fields = records[0]['fields']
 			return cls(
 				key=fields.get('Key'),
+				data=fields.get('Data'),
 				is_active=fields.get('Active', False),
 				record_id=records[0]['id']
 			)
@@ -89,11 +92,12 @@ class Job:
 		"""
 		For adding, we start with the database and end with the queue.
 		"""
-		job = cls()
+		job = cls(data=data)
 
 		db.create(cls.table_name, {
 			'User': [user.record_id],
 			'Key': job.key,
+			'Data': str(job.data),
 			'Active': job.is_active
 		})
 
@@ -149,6 +153,7 @@ class Job:
 	def to_dict(self) -> dict:
 		return {
 			'key': self.key,
+			'data': str(self.data)
 		}
 
 
