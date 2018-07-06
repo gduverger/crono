@@ -141,11 +141,12 @@ class Job:
 		try:
 			entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.key, app=scheduler.queue)
 			entry.delete()
-			self.is_active = False
-			db.update(self.table_name, self.record_id, {'Active': self.is_active})
 
-		except KeyError:
-			db.delete(self.table_name, self.record_id)
+		except Exception:
+			pass
+
+		self.is_active = False
+		db.update(self.table_name, self.record_id, {'Active': self.is_active})
 
 		return self
 
@@ -203,13 +204,13 @@ class User:
 		return user
 
 
-	def get_jobs(self) -> list:
-		return [job for job in self.jobs if job.is_active]
+	def get_jobs(self, is_active=True) -> list:
+		return [job for job in self.jobs if job.is_active == is_active]
 
 
-	def get_job(self, key) -> Job:
+	def get_job(self, key, is_active=True) -> Job:
 
-		for job in self.get_jobs():
+		for job in self.get_jobs(is_active=is_active):
 
 			if job.key == key:
 				return job
