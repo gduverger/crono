@@ -138,12 +138,8 @@ class Job:
 		For removing, we start with the queue and end with the database.
 		"""
 
-		try:
-			entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.key, app=scheduler.queue)
-			entry.delete()
-
-		except Exception:
-			pass
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=scheduler.queue)
+		entry.delete()
 
 		self.is_active = False
 		db.update(self.table_name, self.record_id, {'Active': self.is_active})
