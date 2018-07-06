@@ -1,0 +1,14 @@
+{
+	"trigger": {
+		"name": "crontab",
+		"params": {
+			"expression": "* * * * *"
+		}
+	},
+	"task": {
+		"name": "log",
+		"params": {
+			"message": "Test"
+		}
+	}
+}

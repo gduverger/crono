@@ -1,0 +1,149 @@
+/* 6 (0.375), 7 (0.4375), 8 (0.5), 9 (0.5625), 10 (0.625), 11 (0.6875), 12 (0.75), 14 (0.875),
+16 (1), 18 (1.125), 21 (1.3125), 24 (1.5), 36 (2.25), 48 (3), 60 (3.75), 72 (4.5)  px (em) */
+
+@import url('https://rsms.me/inter/inter-ui.css');
+@import url('https://meyerweb.com/eric/tools/css/reset/reset.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700');
+
+html {
+	background-color: #fff;
+}
+
+body {
+	font-size: 87.5%; /* 14px */
+	*font-size: small;
+	color: #111;
+	font-family: 'Roboto Mono', monospace;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 21px;
+	margin: 21px 20px;
+	max-width: 800px;
+}
+
+html>body {
+	font-size: 14px;
+}
+
+a {
+	color: #007bff;
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+a:hover {
+	color: #0062cc;
+}
+
+a.sly,
+.sly a {
+	color: inherit;
+	/*border-bottom-color: #999;*/
+}
+
+a.sly:hover
+.sly a:hover {
+	/*border-bottom-color: #000;*/
+}
+
+h1,
+h2 {
+	font-weight: 700;
+}
+
+h3 {
+	/*font-weight: 500;*/
+}
+
+pre,
+code {
+	padding: 0 5px;
+	border: 1px solid;
+	border-radius: 4px;
+	/*color: #b93d6a;*/
+	/*font-size: 13px;*/
+	/*line-height: 20px;*/
+}
+
+pre {
+	color: #fff;
+	border-color: #333;
+	background-color: #000;
+	font-size: 12px;
+	line-height: 18px;
+	background-color: #282923;
+	color: #F8F8F2;
+}
+
+code {
+	background-color: #fafcfc;
+	border-color: #f0f4f7;
+	/*-webkit-box-sizing: border-box;*/
+	/*-moz-box-sizing: border-box;*/
+	/*box-sizing: border-box;*/
+	/*display: inline-block;*/
+}
+
+h2 {
+	margin-top: 21px;
+}
+
+
+/*
+.http-created {
+	color: #64cb57;
+}
+
+.http-get-fill {
+	font-size: 10px;
+	line-height: 16px;
+	padding: 0 5px;
+	border-radius: 2px;
+	background-color: #a795fc;
+	color: white;
+}
+
+.http-get-text {
+	color: #a795fc;
+}
+
+.http-post-fill {
+	font-size: 10px;
+	line-height: 16px;
+	padding: 0 5px;
+	border-radius: 2px;
+	background-color: #8bcd3b;
+	color: white;
+}
+
+.http-post-text {
+	color: #8bcd3b;
+}
+
+.http-delete-fill {
+	font-size: 10px;
+	line-height: 16px;
+	padding: 0 5px;
+	border-radius: 2px;
+	background-color: #ec5948;
+	color: white;
+}
+
+.http-delete-text {
+	color: #ec5948;
+}
+*/
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+	margin-left: 20px;
+}
+
+.quiet {
+	color: #999;
+}

@@ -1,7 +1,9 @@
-venv
+.env
 *.pyc
+*.rdb
+*.pid
 *.cache
-dump.rdb
+*.sqlite
 *.DS_Store
 *__pycache__
-*__init__.py
+.pytest_cache

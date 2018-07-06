@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Crono</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+		<script type="text/javascript">
+			window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+			heap.load("{{ heap_analytics_id }}");
+		</script>
+
+	</head>
+		<body>
+
+			{% if message %}
+				<p class="message">{{ message }}</p>
+			{% endif %}
+
+			<h1>Crono</h1>
+			<p>A web-hosted API replacement for cron (or cron as a service 🤓).</p>
+
+			<br>
+
+			<p>Here is the thing, implementing time is hard. Giving your web application a sense of timing is more complicated than geolocalizing it. It doesn't make sense. A lot of companies still rely on cron, the Unix utility for time-based job scheduling, but it doesn't scale; it's error-prone; and it's hard to debug.</p>
+
+			<br>
+
+			<p class="sly">Bigger tech companies have replaced cron with their own solution: Airbnb’s <a href="https://github.com/mesos/chronos">Chronos</a>, Yelp’s <a href="https://github.com/Yelp/Tron">Tron</a>, NextDoor’s <a href="https://github.com/Nextdoor/ndscheduler">NDScheduler</a>&hellip; and that's great. It's distributed, more reliable, and easier to use. But at what cost? Are you okay deploying, maintaining, and depending on a stale library in your precious code base?</p>
+
+			<br>
+
+			<p>The alternative: Crono. Simply make one POST request with a trigger (crontab expression) and a task (GET request) and let it handle the rest. See an <a href="#example">example</a> for more details.</p>
+
+			<br>
+
+			<ol>
+				<li><a href="#authentication">Authentication</a></li>
+				<li><a href="#example">Example</a></li>
+				<li><a href="#endpoints">Endpoints</a></li>
+				<ol>
+					<li><span class="http-get-fill">GET</span> <a href="#get-jobs" class="http-get-text">/jobs</a></li>
+					<li><span class="http-post-fill">POST</span> <a href="#post-jobs" class="http-post-text">/jobs</a></li>
+					<li><span class="http-get-fill">GET</span> <a href="#get-job" class="http-get-text">/jobs/{key}</a></li>
+					<li><span class="http-delete-fill">DELETE</span> <a href="#delete-job" class="http-delete-text">/jobs/{key}</a></li>
+				</ol>
+				<li><a href="#triggers">Triggers</a></li>
+				<ul>
+					<li><a href="#crontab">Crontab</a></li>
+				</ul>
+				<li><a href="#tasks">Tasks</a></li>
+				<ul>
+					<li><a href="#get">GET</a></li>
+				</ul>
+				<li><a href="#pricing">Pricing</a></li>
+				<li><a href="#support">Support</a></li>
+			</ol>
+
+			<h2>
+				<a id="authentication"></a>
+				Authentication
+			</h2>
+
+			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:support@crono.com">support@crono.com</a> to request a token.
+
+			<h2>
+				<a id="example"></a>
+				Example
+			</h2>
+
+<pre>
+<span style="color:#73705F">$</span> <span style="color:#82D5ED">curl</span> {{ reverse_url('post_job') }} \
+  <span style="color:#F19C34">-X</span> POST \
+  <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Authorization: Bearer {token}" \</span>
+  <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Content-Type: application/json" \</span>
+  <span style="color:#F19C34">-d</span> <span style="color:#E6DD7D">'{
+    "<a href="#triggers" class="sly">trigger</a>": {
+      "name": "crontab",
+      "params": {
+        "expression": "* * * * *"{# <!-- <span class="quiet">&lt;-- at every minute</span> --> #}
+      }
+    },
+    "<a href="#tasks" class="sly">task</a>": {
+      "name": "get",
+      "params": {
+        "url": "https://www.google.com/"
+      }
+    }'</span>
+
+<span style="color:#73705F">HTTP/1.1 201 Created</span>
+
+{
+  "job": {
+    "id": "c592763f2cdf456e9515422f4f09f0ce",
+    "task": "callable",
+    "trigger": "<IntervalTrigger (interval=datetime.timedelta(0, 600), start_date='2018-01-21 19:54:50 EST', timezone='America/New_York')>",
+    "params": {
+      "to": "georges.duverger@gmail.com",
+      "subject": "Hello",
+      "body": "World"
+    }
+  }
+}
+</pre>
+
+			<h2>
+				<a id="endpoints"></a>
+				Endpoints
+			</h2>
+
+			<h3>
+				<a id="get-jobs"></a>
+				<span class="http-get-fill">GET</span> <span class="http-get-text">/jobs</span>
+			</h3>
+
+			<h3>
+				<a id="post-jobs"></a>
+				<span class="http-post-fill">POST</span> <span class="http-post-text">/jobs</span>
+			</h3>
+
+			<h3>
+				<a id="get-job"></a>
+				<span class="http-get-fill">GET</span> <span class="http-get-text">/jobs/{key}</span>
+			</h3>
+
+			<h3>
+				<a id="delete-job"></a>
+				<span class="http-delete-fill">DELETE</span> <span class="http-delete-text">/jobs/{key}</span>
+			</h3>
+
+			<h2>
+				<a id="triggers"></a>
+				Triggers
+			</h2>
+
+			<h3>
+				<a id="crontab"></a>
+				Crontab
+			</h3>
+
+<pre>
+{
+  "name": "crontab",
+  "params": {
+    "expression": "* * * * *"
+  }
+}
+</pre>
+			<h2>
+				<a id="tasks"></a>
+				Tasks
+			</h2>
+
+			<h3>
+				<a id="get"></a>
+				GET
+			</h3>
+
+<pre>
+{
+  "name": "get",
+  "params": {
+    "url": "https://www.google.com/"
+  }
+}
+</pre>
+
+			<h2>
+				<a id="pricing"></a>
+				Pricing
+			</h2>
+
+			<p>Crono costs $0.01/execution and your first 100 executions are free.</p>
+
+			<h2>
+				<a id="support"></a>
+				Support
+			</h2>
+
+			<p>Email <a href="support@crono.com">support@crono.com</a> for help.</p>
+
+		</body>
+</html>

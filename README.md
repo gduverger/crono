@@ -1,10 +1,22 @@
-// export PATH=$PATH:/Users/gduverger/Sites/redis-4.0.6/src
+# Redis
 
-redis-server &
-redis-cli shutdown
+	https://redis.io/download
+	// export PATH=$PATH:~/Sites/redis-4.0.6/src
 
-# Scaling
+	redis-server &
+	// redis-cli shutdown
 
-	heroku ps:scale web=1 worker=1
+	heroku redis:cli
+	flushall
 
-https://stackoverflow.com/questions/32373754/apscheduler-how-to-add-job-outside-the-scheduler
+	scan 0 match redbeat* // count 100
+	hgetall {key}
+	// del/hdel
+
+# Test
+
+	python -m pytest
+
+# Scale
+
+	heroku ps:scale web=1 clock=1
