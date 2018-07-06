@@ -170,7 +170,14 @@ class User:
 
 	@classmethod
 	def get(cls, token):
-		records = db.get(cls.table_name, filter_by_formula="{{token}}='{}'".format(token))['records']
+		records = []
+
+		try:
+			records = db.get(cls.table_name, filter_by_formula="{{token}}='{}'".format(token))['records']
+
+		except AttributeError as error:
+			# BUG "AttributeError: 'HTTPError' object has no attribute 'message'"
+			pass
 
 		if len(records) <= 0:
 			raise exceptions.NotFound('User not found')
