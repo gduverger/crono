@@ -9,6 +9,10 @@
 	heroku redis:cli
 	flushall
 
+	scan 0 match redbeat* // count 100
+	hgetall {key}
+	// del/hdel
+
 # Test
 
 	python -m pytest
