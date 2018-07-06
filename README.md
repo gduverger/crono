@@ -6,6 +6,9 @@
 	redis-server &
 	// redis-cli shutdown
 
+	heroku redis:cli
+	flushall
+
 # Test
 
 	python -m pytest
