@@ -56,8 +56,6 @@ class TestUser(object):
 		assert isinstance(user.email, str)
 		assert user.email == 'email'
 		assert isinstance(user.token, str)
-		assert isinstance(user.balance, int)
-		assert user.balance == 1
 		assert isinstance(user.is_active, bool)
 		assert user.is_active == True
 		assert user.jobs == None
@@ -74,8 +72,6 @@ class TestUser(object):
 		assert isinstance(dict_['email'], str)
 		assert 'token' in dict_
 		assert isinstance(dict_['token'], str)
-		assert 'balance' in dict_
-		assert isinstance(dict_['balance'], int)
 
 
 	def test_user_get_job(self):

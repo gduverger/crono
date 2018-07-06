@@ -11,8 +11,6 @@ from apistar import exceptions
 from airtable import airtable
 
 
-BALANCE_DEFAULT = 1 # USD
-
 db = airtable.Airtable(os.getenv('AIRTABLE_BASE_ID'), os.getenv('AIRTABLE_API_KEY'))
 
 
@@ -157,10 +155,9 @@ class User:
 	table_name = 'Users'
 
 
-	def __init__(self, email, token=None, balance=None, is_active=True, jobs=None, record_id=None):
+	def __init__(self, email, token=None, is_active=True, jobs=None, record_id=None):
 		self.email = email
 		self.token = token or secrets.token_hex()
-		self.balance = balance or BALANCE_DEFAULT
 		self.is_active = is_active
 		self.jobs = jobs
 		self.record_id = record_id
@@ -178,7 +175,6 @@ class User:
 			return cls(
 				fields['Email'],
 				token=fields.get('Token'),
-				balance=fields.get('Balance'),
 				is_active=fields.get('Active', False),
 				jobs=[Job.get(record_id) for record_id in fields.get('Jobs', [])],
 				record_id=records[0]['id']
@@ -195,7 +191,6 @@ class User:
 			'Email': user.email,
 			'Token': user.token,
 			'Active': user.is_active,
-			'Balance': user.balance
 		})
 		return user
 
@@ -230,5 +225,4 @@ class User:
 		return {
 			'email': self.email,
 			'token': self.token,
-			'balance': self.balance
 		}
