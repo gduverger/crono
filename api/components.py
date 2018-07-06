@@ -12,6 +12,7 @@ class AuthorizationComponent(Component):
 		"""
 		Determine the user associated with a request, using HTTP Basic Authentication.
 		"""
+
 		if authorization is None:
 			return None
 
