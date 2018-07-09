@@ -18,17 +18,32 @@ logger.addHandler(timber)
 
 @api.scheduler.queue.task
 def log(job_key, message=None):
-	models.Job.get_by_key(job_key).add_log()
-	logger.info('Log: {}'.format(message), extra={'job_key': job_key})
+
+	try:
+		models.Job.get_by_key(job_key).add_log()
+		logger.info('Log: {}'.format(message), extra={'job_key': job_key})
+
+	except Exception as error:
+		logger.critical(error, extra={'job_key': job_key, 'url': url})
 
 
 @api.scheduler.queue.task
 def get(job_key, url=None):
-	models.Job.get_by_key(job_key).add_log()
-	requests.get(url)
+
+	try:
+		models.Job.get_by_key(job_key).add_log()
+		requests.get(url, timeout=60) # 1 minute
+
+	except Exception as error:
+		logger.critical(error, extra={'job_key': job_key, 'url': url})
 
 
 @api.scheduler.queue.task
 def email(job_key, to=None, subject=None, body=None):
-	models.Job.get_by_key(job_key).add_log()
-	postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
+	
+	try:
+		models.Job.get_by_key(job_key).add_log()
+		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
+
+	except Exception as error:
+		logger.critical(error, extra={'job_key': job_key, 'to': to, 'subject': subject, 'body': body})
