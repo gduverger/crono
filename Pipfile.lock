@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3ae93a140a6585b0901a8bb980b5d8eaaee0266084184dabac2f3c634c5812a2"
+            "sha256": "18aba3369b3be0cf702ec8fae35036055883cd2ffa77de54ad7226707d6e3d5a"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -44,10 +44,9 @@
         },
         "billiard": {
             "hashes": [
-                "sha256:1d7b22bdc47aa52841120fcd22a74ae4fc8c13e9d3935643098184f5788c3ce6",
-                "sha256:abd9ce008c9a71ccde2c816f8daa36246e92a21e6a799831b887d88277187ecd"
+                "sha256:ed65448da5877b5558f19d2f7f11f8355ea76b3e63e1c0a6059f47cfae5f1c84"
             ],
-            "version": "==3.5.0.3"
+            "version": "==3.5.0.4"
         },
         "celery": {
             "hashes": [
@@ -262,10 +261,10 @@
         },
         "timber": {
             "hashes": [
-                "sha256:126b0673e9ff6f8fb259a57b785019613cd73181ee4cd9f0982de0d6542892a7"
+                "sha256:b00b0e4d1bad10dd5660d6b33efe67b117f11afe035148ddddf2f7bad2abbf65"
             ],
             "index": "pypi",
-            "version": "==1.0.3"
+            "version": "==1.0.2"
         },
         "tzlocal": {
             "hashes": [
