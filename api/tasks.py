@@ -1,6 +1,6 @@
 import os
 import logging
-import timber
+# import timber
 import requests
 import api.scheduler
 
@@ -9,11 +9,11 @@ from api import models
 
 
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
-timber = timber.TimberHandler(api_key=os.getenv('TIMBER_API_KEY'))
-# logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
-# logger.setLevel(logging.INFO)
+# timber = timber.TimberHandler(api_key=os.getenv('TIMBER_API_KEY'))
+
+logger.setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
-logger.addHandler(timber)
+# logger.addHandler(timber)
 
 
 @api.scheduler.queue.task

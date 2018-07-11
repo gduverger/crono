@@ -20,3 +20,7 @@
 # Scale
 
 	heroku ps:scale web=1 clock=1
+
+# Logs
+
+	heroku drains:add https://<TIMBER_API_KEY>@logs.timber.io/frames --app=crono-stag
