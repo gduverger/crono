@@ -11,8 +11,8 @@ from api import models
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 # timber = timber.TimberHandler(api_key=os.getenv('TIMBER_API_KEY'))
 
-logger.setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 # logger.addHandler(timber)
 
 
