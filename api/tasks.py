@@ -18,7 +18,7 @@ logger.setLevel(logging.INFO)
 
 @api.scheduler.queue.task
 def log(job_key, message=None):
-	extra = {'job_key': job_key, 'message': message}
+	extra = {'job_key': job_key, 'message_': message}
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
