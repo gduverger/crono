@@ -108,7 +108,7 @@ class TestSchemas(object):
 		with pytest.raises(exceptions.ValidationError, match="{'task': 'The \"task\" field is required.', 'trigger': 'Must match one of the union types.'}"):
 			schemas.Job({'trigger': 'foo'})
 
-		job = schemas.Job({'trigger': {'name': 'crontab', 'params': {'expression': '* * * * *'}}, 'task': {'name': 'get', 'params': {'url': 'http://google.com'}}})
+		job = schemas.Job({'trigger': {'name': 'crontab', 'params': {'expression': '* * * * *'}}, 'task': {'name': 'request', 'params': {'url': 'http://google.com'}}})
 		assert job.trigger['name'] == 'crontab'
 		assert job.trigger['params'] == {'expression': '* * * * *'}
 		assert job.trigger['params']['expression'] == '* * * * *'

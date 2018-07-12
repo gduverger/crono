@@ -11,8 +11,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
-def get_index(app: App, msg: str=None):
-	return app.render_template('index.html', heap_analytics_id=os.getenv('HEAP_ANALYTICS_ID'), message=msg)
+def get_index(app: App):
+	return app.render_template('index.html', heap_analytics_id=os.getenv('HEAP_ANALYTICS_ID'))
 
 
 def get_user(user: models.User) -> dict:
@@ -42,7 +42,7 @@ def delete_job(user: models.User, key: str) -> dict:
 routes = [
 	Route('/', method='GET', handler=get_index),
 	Route('/user', method='GET', handler=get_user),
-	Route('/user', method='POST', handler=post_user),
+	# Route('/user', method='POST', handler=post_user), # NOTE admin only
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
 	Route('/jobs/{key}', method='GET', handler=get_job),
@@ -56,13 +56,15 @@ routes = [
 ]
 
 components = [
+	# NOTE the order matters
 	components.AuthorizationComponent(),
 ]
 
 event_hooks = [
-	hooks.TimingHook(),
+	# NOTE the order matters
+	# hooks.TimingHook(),
 	hooks.AuthenticationHook(),
-	hooks.ErrorHook(),
+	# hooks.ErrorHook(),
 ]
 
 app = App(routes=routes, components=components, event_hooks=event_hooks, template_dir=TEMPLATE_DIR, static_dir=STATIC_DIR)

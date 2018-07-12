@@ -21,7 +21,7 @@ class AuthenticationHook:
 		# HACK
 		public_routes = [
 			app.reverse_url('get_index'),
-			app.reverse_url('post_user'),
+			# app.reverse_url('post_user'),
 		]
 
 		if user is None and request.url.components.path not in public_routes:
