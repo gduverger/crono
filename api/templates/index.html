@@ -19,7 +19,7 @@
 
 			<br>
 
-			<p>Here is the thing, implementing time is hard. To give your web application a sense of timing is more complicated than geolocalizing it. It doesn't make sense. A lot of companies still rely on cron, the Unix utility for time-based job scheduling. It is simple but it doesn't scale; it's error-prone; and it's hard to debug.</p>
+			<p>Here is the thing, implementing time is hard. To give your web application a sense of timing is more complicated than geolocalizing it. It doesn't make sense. A lot of companies still rely on cron, the Unix utility for time-based job scheduling. It is simple to set up but it doesn't scale; it's error-prone; and it's hard to debug.</p>
 
 			<br>
 
@@ -27,7 +27,7 @@
 
 			<br>
 
-			<p>Crono is the alternative. Simply create a job with a trigger (e.g., a crontab expression) and a task (e.g., a GET request) and you're done. See an <a href="#example">example</a> for more details.</p>
+			<p>Crono is the best of both worlds, simple and reliable. See an <a href="#example">example</a> for more details.</p>
 
 			<br>
 
@@ -78,7 +78,7 @@
 			</h2>
 
 <pre>
-<span style="color:#73705F">$</span> <span style="color:#82D5ED">curl</span> {{ reverse_url('post_job') }} \
+<span style="color:#73705F">$</span> <span style="color:#82D5ED">curl</span> http://www.crono.com{{ reverse_url('post_job') }} \
   <span style="color:#F19C34">-X</span> POST \
   <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Authorization: Bearer {token}" \</span>
   <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Content-Type: application/json" \</span>
@@ -92,7 +92,8 @@
     "<a href="#tasks" class="sly">task</a>": {
       "name": "request",
       "params": {
-        "url": "https://www.google.com/"
+        "method": "GET",
+        "url": "http://gduverger.com/"
       }
     }'</span>
 
@@ -160,7 +161,8 @@
 {
   "name": "request",
   "params": {
-    "url": "https://www.google.com/"
+    "method": "GET",
+    "url": "http://gduverger.com/"
   }
 }
 </pre>
