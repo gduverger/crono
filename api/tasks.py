@@ -17,7 +17,7 @@ def log(job_key, message=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		logger.info(__name__, extra=locals())
+		# logger.info('log', extra=locals())
 
 	except Exception as error:
 		logger.error(error, extra=locals(), exc_info=True)
@@ -28,7 +28,7 @@ def request(job_key, method='GET', url=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		logger.info(__name__, extra=locals())
+		# logger.info('request', extra=locals())
 		
 		if method in ['GET', 'get']:
 			requests.get(url, timeout=60) # 1 minute
@@ -49,7 +49,7 @@ def email(job_key, to=None, subject=None, body=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		logger.info(__name__, extra=locals())
+		# logger.info('email', extra=locals())
 
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
 
