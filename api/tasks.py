@@ -1,34 +1,35 @@
 import os
-import logging
 import requests
-import api.scheduler
+import raven
+# import logging
 
 from postmarker.core import PostmarkClient
-from api import models
+from api import models, scheduler
 from apistar import exceptions
 
 
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
-logger = logging.getLogger(__name__)
+raven = raven.Client(os.getenv('SENTRY_DSN'))
+# logger = logging.getLogger(__name__)
 
 
-@api.scheduler.queue.task
+@scheduler.queue.task
 def log(job_key, message=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		# logger.info('log', extra=locals())
+		raven.captureMessage('log')
 
 	except Exception as error:
-		logger.error(error, extra=locals(), exc_info=True)
+		# logger.error(error, extra=locals(), exc_info=True)
+		raven.captureException()
 
 
-@api.scheduler.queue.task
+@scheduler.queue.task
 def request(job_key, method='GET', url=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		# logger.info('request', extra=locals())
 		
 		if method in ['GET', 'get']:
 			requests.get(url, timeout=60) # 1 minute
@@ -41,17 +42,18 @@ def request(job_key, method='GET', url=None):
 			exceptions.MethodNotAllowed("Method '{}' not implemented yet".format(method))
 
 	except Exception as error:
-		logger.error(error, extra=locals(), exc_info=True)
+		# logger.error(error, extra=locals(), exc_info=True)
+		raven.captureException()
 
 
-@api.scheduler.queue.task
+@scheduler.queue.task
 def email(job_key, to=None, subject=None, body=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		# logger.info('email', extra=locals())
 
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
 
 	except Exception as error:
-		logger.error(error, extra=locals(), exc_info=True)
+		# logger.error(error, extra=locals(), exc_info=True)
+		raven.captureException()
