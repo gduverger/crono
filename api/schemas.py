@@ -36,20 +36,21 @@ crontab = validators.Object(
 	]
 )
 
-get_params = validators.Object(
+request_params = validators.Object(
 	required=['url'],
 	additional_properties=False,
 	properties=[
+		('method', validators.String(enum=['GET', 'POST'])),
 		('url', validators.String(pattern=r'^http.*'))
 	]
 )
 
-get = validators.Object(
+request = validators.Object(
 	required=['name', 'params'],
 	additional_properties=False,
 	properties=[
-		('name', validators.String(enum=['get', 'BUG'])),
-		('params', get_params)
+		('name', validators.String(enum=['request'])),
+		('params', request_params)
 	]
 )
 
@@ -92,7 +93,7 @@ log = validators.Object(
 class Job(types.Type):
 
 	trigger = crontab | interval
-	task = get | log # | email
+	task = request | log # | email
 
 	def __init__(self, *args, **kwargs):
 		value = super().__init__(*args, **kwargs)
