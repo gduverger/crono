@@ -16,7 +16,6 @@ def log(job_key, message=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-		raven.captureMessage('log')
 
 	except Exception as error:
 		raven.captureException()
