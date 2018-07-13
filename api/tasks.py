@@ -47,7 +47,6 @@ def email(job_key, to=None, subject=None, body=None):
 
 	try:
 		models.Job.get_by_key(job_key).add_log()
-
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
 
 	except Exception as error:

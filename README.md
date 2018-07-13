@@ -16,7 +16,3 @@
 # Test
 
 	python -m pytest
-
-# Scale
-
-	heroku ps:scale web=1 clock=1
