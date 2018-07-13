@@ -1,7 +1,6 @@
 import os
 import requests
 import raven
-# import logging
 
 from postmarker.core import PostmarkClient
 from api import models, scheduler
@@ -10,7 +9,6 @@ from apistar import exceptions
 
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 raven = raven.Client(os.getenv('SENTRY_DSN'))
-# logger = logging.getLogger(__name__)
 
 
 @scheduler.queue.task
@@ -21,7 +19,6 @@ def log(job_key, message=None):
 		raven.captureMessage('log')
 
 	except Exception as error:
-		# logger.error(error, extra=locals(), exc_info=True)
 		raven.captureException()
 
 
@@ -42,7 +39,6 @@ def request(job_key, method='GET', url=None):
 			exceptions.MethodNotAllowed("Method '{}' not implemented yet".format(method))
 
 	except Exception as error:
-		# logger.error(error, extra=locals(), exc_info=True)
 		raven.captureException()
 
 
@@ -55,5 +51,4 @@ def email(job_key, to=None, subject=None, body=None):
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
 
 	except Exception as error:
-		# logger.error(error, extra=locals(), exc_info=True)
 		raven.captureException()
