@@ -16,3 +16,7 @@
 # Test
 
 	python -m pytest
+
+# Requirements
+
+	pipenv lock -r
