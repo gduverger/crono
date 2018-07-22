@@ -196,15 +196,15 @@ class User:
 			raise exceptions.NotFound('More than 1 user found')
 
 
-	@classmethod
-	def add(cls, email):
-		user = cls(email)
-		db.create(cls.table_name, {
-			'Email': user.email,
-			'Token': user.token,
-			'Active': user.is_active,
-		})
-		return user
+	# @classmethod
+	# def add(cls, email):
+	# 	user = cls(email)
+	# 	db.create(cls.table_name, {
+	# 		'Email': user.email,
+	# 		'Token': user.token,
+	# 		'Active': user.is_active,
+	# 	})
+	# 	return user
 
 
 	def get_jobs(self, is_active=True) -> list:

@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-07-12T12:01:00.487Z",
+	"__export_date": "2018-07-22T20:17:17.876Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -95,7 +95,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"* * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"request\",\n\t\t\"params\": {\n\t\t\t\"method\": \"POST\",\n\t\t\t\"url\": \"https://google.com\"\n\t\t}\n\t}\n}\n"
+				"text": "{\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"0 * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"request\",\n\t\t\"params\": {\n\t\t\t\"url\": \"https://cronhub.io/ping/5e477a80-700c-11e8-8586-09895642be7e\"\n\t\t}\n\t}\n}\n"
 			},
 			"created": 1516225625941,
 			"description": "",
@@ -110,7 +110,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.5,
 			"method": "POST",
-			"modified": 1531396811707,
+			"modified": 1531397198356,
 			"name": "/jobs (request)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -137,7 +137,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1531396799163,
+			"modified": 1531397115505,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -146,7 +146,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/1305f84b-dd65-4feb-9de4-4fc1c84c1014",
+			"url": "{{ base_url }}/jobs/a45f0c47-356c-4c86-b6e5-93fb41a31b07",
 			"_type": "request"
 		},
 		{
@@ -229,34 +229,6 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ base_url }}/user",
-			"_type": "request"
-		},
-		{
-			"_id": "req_fb8a2b7a7a0448768c8688959f23b3b8",
-			"authentication": {},
-			"body": {},
-			"created": 1529877831250,
-			"description": "",
-			"headers": [],
-			"isPrivate": false,
-			"metaSortKey": -1516419817065.1875,
-			"method": "POST",
-			"modified": 1531396848386,
-			"name": "/user",
-			"parameters": [
-				{
-					"id": "pair_98aebd86ac4d450799149a69d7535e46",
-					"name": "email",
-					"value": "test3@gmail.com"
-				}
-			],
-			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ base_url  }}/user",
 			"_type": "request"
 		},
 		{

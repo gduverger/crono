@@ -19,10 +19,6 @@ def get_user(user: models.User) -> dict:
 	return user.to_dict()
 
 
-def post_user(email: str) -> dict:
-	return models.User.add(email).to_dict()
-
-
 def get_jobs(user: models.User) -> list:
 	return [job.to_dict() for job in user.get_jobs()]
 
@@ -42,7 +38,6 @@ def delete_job(user: models.User, key: str) -> dict:
 routes = [
 	Route('/', method='GET', handler=get_index),
 	Route('/user', method='GET', handler=get_user),
-	# Route('/user', method='POST', handler=post_user), # NOTE admin only
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
 	Route('/jobs/{key}', method='GET', handler=get_job),
