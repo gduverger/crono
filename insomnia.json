@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-07-22T20:17:17.876Z",
+	"__export_date": "2018-07-24T12:00:23.430Z",
 	"__export_source": "insomnia.desktop.app:v5.16.6",
 	"resources": [
 		{
@@ -75,7 +75,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.75,
 			"method": "GET",
-			"modified": 1531395010827,
+			"modified": 1532432068471,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -84,7 +84,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/9b416b94-c3ee-49e2-aa62-cfc41e7b7a38",
+			"url": "{{ base_url }}/jobs/17d5bbac-e633-4d22-a98c-37ada9738d1a",
 			"_type": "request"
 		},
 		{
@@ -137,7 +137,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883312,
 			"method": "DELETE",
-			"modified": 1531397115505,
+			"modified": 1532433603020,
 			"name": "/jobs/{key}",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -146,7 +146,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ base_url }}/jobs/a45f0c47-356c-4c86-b6e5-93fb41a31b07",
+			"url": "{{ base_url }}/jobs/2fc8726a-e5e8-45a9-8ad6-051cbdcdede5",
 			"_type": "request"
 		},
 		{
@@ -179,7 +179,7 @@
 			},
 			"body": {
 				"mimeType": "application/json",
-				"text": " {\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"* * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"log\",\n\t\t\"params\": {\n\t\t\t\"message\": \"log (staging)\"\n\t\t}\n\t}\n}"
+				"text": " {\n\t\"trigger\": {\n\t\t\"name\": \"crontab\",\n\t\t\"params\": {\n\t\t\t\"expression\": \"* * * * *\"\n\t\t}\n\t},\n\t\"task\": {\n\t\t\"name\": \"log\",\n\t\t\"params\": {\n\t\t\t\"message\": \"log (local)\"\n\t\t}\n\t}\n}"
 			},
 			"created": 1522621027416,
 			"description": "",
@@ -194,7 +194,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1516219883313.625,
 			"method": "POST",
-			"modified": 1531394845659,
+			"modified": 1532433059326,
 			"name": "/jobs (log)",
 			"parameters": [],
 			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
@@ -232,6 +232,33 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_f6db5194d8cf4483bd2bcd8be85eb652",
+			"authentication": {
+				"token": "{{ api_token  }}",
+				"type": "bearer"
+			},
+			"body": {
+				"text": ""
+			},
+			"created": 1532432620633,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1516219883312.75,
+			"method": "DELETE",
+			"modified": 1532432649307,
+			"name": "/jobs",
+			"parameters": [],
+			"parentId": "wrk_e5d2bebfad204ccc9a9dc81dcbd750fa",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url }}/jobs",
+			"_type": "request"
+		},
+		{
 			"_id": "env_72577cb9b75246ce8b7686814066632a",
 			"color": null,
 			"created": 1516219942830,
@@ -254,7 +281,7 @@
 				"base_url": "https://crono-stag.herokuapp.com"
 			},
 			"isPrivate": false,
-			"modified": 1530275236250,
+			"modified": 1532298036607,
 			"name": "staging",
 			"parentId": "env_f33a247dc586416ea34442aa08a596c4",
 			"_type": "environment"
