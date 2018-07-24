@@ -23,6 +23,10 @@ def get_jobs(user: models.User) -> list:
 	return [job.to_dict() for job in user.get_jobs()]
 
 
+def delete_jobs(user: models.User) -> list:
+	return [job.to_dict() for job in user.remove_jobs()]
+
+
 def post_job(user: models.User, job: schemas.Job) -> dict:
 	return user.add_job(job).to_dict()
 
@@ -40,6 +44,7 @@ routes = [
 	Route('/user', method='GET', handler=get_user),
 	Route('/jobs', method='GET', handler=get_jobs),
 	Route('/jobs', method='POST', handler=post_job),
+	Route('/jobs', method='DELETE', handler=delete_jobs),
 	Route('/jobs/{key}', method='GET', handler=get_job),
 	Route('/jobs/{key}', method='DELETE', handler=delete_job),
 
