@@ -6,6 +6,7 @@ import celery
 import secrets
 import redbeat
 import datetime
+import raven
 
 from api import scheduler
 from apistar import exceptions
@@ -13,6 +14,7 @@ from airtable import airtable
 
 
 db = airtable.Airtable(os.getenv('AIRTABLE_BASE_ID'), os.getenv('AIRTABLE_API_KEY'))
+raven = raven.Client(os.getenv('SENTRY_DSN'))
 
 
 class Log:
@@ -138,8 +140,13 @@ class Job:
 		For removing, we start with the queue and end with the database.
 		"""
 
-		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=scheduler.queue)
-		entry.delete()
+		try:
+			entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=scheduler.queue)
+			entry.delete()
+
+		except Exception as error:
+			raven.captureException()
+
 
 		self.is_active = False
 		db.update(self.table_name, self.record_id, {'Active': self.is_active})
@@ -196,15 +203,15 @@ class User:
 			raise exceptions.NotFound('More than 1 user found')
 
 
-	@classmethod
-	def add(cls, email):
-		user = cls(email)
-		db.create(cls.table_name, {
-			'Email': user.email,
-			'Token': user.token,
-			'Active': user.is_active,
-		})
-		return user
+	# @classmethod
+	# def add(cls, email):
+	# 	user = cls(email)
+	# 	db.create(cls.table_name, {
+	# 		'Email': user.email,
+	# 		'Token': user.token,
+	# 		'Active': user.is_active,
+	# 	})
+	# 	return user
 
 
 	def get_jobs(self, is_active=True) -> list:
@@ -225,6 +232,15 @@ class User:
 		job = Job.add(self, data)
 		self.jobs.append(job)
 		return job
+
+
+	def remove_jobs(self, is_active=True) -> list:
+		jobs = []
+
+		for job in self.get_jobs(is_active=is_active):
+			jobs.append(self.remove_job(job.key))
+
+		return jobs
 
 
 	def remove_job(self, key) -> Job:
