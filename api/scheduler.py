@@ -14,7 +14,11 @@ queue.conf.redbeat_redis_url = os.getenv('REDIS_URL')
 # https://elements.heroku.com/addons/heroku-redis
 queue.conf.redis_max_connections = int(os.getenv('REDIS_MAX_CONNECTIONS', 18))
 
+# NOTE Celery seems to have a memory leak with redis broker
+# http://docs.celeryproject.org/en/3.1/configuration.html#celeryd-max-tasks-per-child
+# http://docs.celeryproject.org/en/latest/userguide/configuration.html#worker-max-memory-per-child
 queue.conf.worker_max_tasks_per_child = 100
+
 # queue.conf.broker_pool_limit = 1
 # queue.conf.beat_max_loop_interval = 5
 # queue.conf.redbeat_lock_timeout = 5
