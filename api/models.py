@@ -187,7 +187,7 @@ class User:
 			pass
 
 		if len(records) <= 0:
-			raise exceptions.NotFound('User not found')
+			raise exceptions.NotFound('User not found. Email {} for help.'.format(os.getenv('CRONO_SUPPORT_EMAIL')))
 
 		elif len(records) == 1:
 			fields = records[0]['fields']
@@ -201,17 +201,6 @@ class User:
 
 		else:
 			raise exceptions.NotFound('More than 1 user found')
-
-
-	# @classmethod
-	# def add(cls, email):
-	# 	user = cls(email)
-	# 	db.create(cls.table_name, {
-	# 		'Email': user.email,
-	# 		'Token': user.token,
-	# 		'Active': user.is_active,
-	# 	})
-	# 	return user
 
 
 	def get_jobs(self, is_active=True) -> list:
