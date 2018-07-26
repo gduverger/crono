@@ -75,7 +75,7 @@
 				Authentication
 			</h2>
 
-			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:crono@gduverger.com">crono@gduverger.com</a> to request a token.
+			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.
 
 			<h2>
 				<a id="example"></a>
@@ -83,9 +83,9 @@
 			</h2>
 
 <pre>
-<span style="color:#73705F">$</span> <span style="color:#82D5ED">curl</span> http://www.crono.com{{ reverse_url('post_job') }} \
+<span style="color:#73705F">$</span> <span style="color:#82D5ED">curl</span> {{ crono_base_url }}{{ reverse_url('post_job') }} \
   <span style="color:#F19C34">-X</span> POST \
-  <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Authorization: Bearer {token}" \</span>
+  <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Authorization: Bearer {{ crono_api_token }}" \</span>
   <span style="color:#F19C34">-H</span> <span style="color:#E6DD7D">"Content-Type: application/json" \</span>
   <span style="color:#F19C34">-d</span> <span style="color:#E6DD7D">'{
     "<a href="#triggers" class="sly">trigger</a>": {
@@ -98,9 +98,10 @@
       "name": "request",
       "params": {
         "method": "GET",
-        "url": "http://gduverger.com/"
+        "url": "https://www.crono.com/"
       }
-    }'</span>
+    }
+  }'</span>
 
 <span style="color:#73705F">HTTP/1.1 201 Created</span>
 </pre>
@@ -167,7 +168,7 @@
   "name": "request",
   "params": {
     "method": "GET",
-    "url": "http://gduverger.com/"
+    "url": "https://www.crono.com/"
   }
 }
 </pre>
@@ -177,7 +178,7 @@
 				Pricing
 			</h2>
 
-			<p>Crono costs $0.01/execution and your first 100 executions are free. Email <a href="mailto:crono@gduverger.com">crono@gduverger.com</a> to request a token.</p>
+			<p>Crono costs $0.01/execution and your first 100 executions are free. Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.</p>
 
 			<h2>
 				<a id="support"></a>

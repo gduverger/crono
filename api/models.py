@@ -187,7 +187,7 @@ class User:
 			pass
 
 		if len(records) <= 0:
-			raise exceptions.NotFound('User not found')
+			raise exceptions.NotFound('User not found. Email {} for help.'.format(os.getenv('CRONO_SUPPORT_EMAIL')))
 
 		elif len(records) == 1:
 			fields = records[0]['fields']

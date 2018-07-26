@@ -22,7 +22,7 @@ class AuthorizationComponent(Component):
 
 		user = models.User.get(token)
 
-		if not user:
-			raise exceptions.Forbidden('Incorrect token')
+		if not user or not user.is_active:
+			raise exceptions.Forbidden('Incorrect token. Email {} for help.'.format(os.getenv('CRONO_SUPPORT_EMAIL')))
 
 		return user
