@@ -228,13 +228,13 @@ class User:
 		jobs = []
 
 		for job in self.get_jobs(activity=activity):
-			jobs.append(self.remove_job(job.key))
+			jobs.append(self.remove_job(job.key, activity=activity))
 
 		return jobs
 
 
-	def remove_job(self, key) -> Job:
-		job = self.get_job(key)
+	def remove_job(self, key, activity=[True, False]) -> Job:
+		job = self.get_job(key, activity=activity)
 		job.remove()
 		return job
 
