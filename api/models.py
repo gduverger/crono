@@ -204,13 +204,13 @@ class User:
 			raise exceptions.NotFound('More than 1 user found')
 
 
-	def get_jobs(self, is_active=True) -> list:
-		return [job for job in self.jobs if job.is_active == is_active]
+	def get_jobs(self, activity=[True]) -> list:
+		return [job for job in self.jobs if job.is_active in activity]
 
 
-	def get_job(self, key, is_active=True) -> Job:
+	def get_job(self, key, activity=[True]) -> Job:
 
-		for job in self.get_jobs(is_active=is_active):
+		for job in self.get_jobs(activity=activity):
 
 			if job.key == key:
 				return job
@@ -224,10 +224,10 @@ class User:
 		return job
 
 
-	def remove_jobs(self, is_active=True) -> list:
+	def remove_jobs(self, activity=[True, False]) -> list:
 		jobs = []
 
-		for job in self.get_jobs(is_active=is_active):
+		for job in self.get_jobs(activity=activity):
 			jobs.append(self.remove_job(job.key))
 
 		return jobs
