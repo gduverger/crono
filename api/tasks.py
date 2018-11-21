@@ -36,6 +36,7 @@ def request(job_key, method='GET', url=None):
 			exceptions.MethodNotAllowed("Method '{}' not implemented yet".format(method))
 
 	except Exception as error:
+		# TODO
 		pass
 
 
@@ -47,4 +48,5 @@ def email(job_key, to=None, subject=None, body=None):
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
 
 	except Exception as error:
+		# TODO
 		pass
