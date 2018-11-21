@@ -6,7 +6,6 @@ import celery
 import secrets
 import redbeat
 import datetime
-import raven
 
 from api import scheduler
 from apistar import exceptions
@@ -14,7 +13,6 @@ from airtable import airtable
 
 
 db = airtable.Airtable(os.getenv('AIRTABLE_BASE_ID'), os.getenv('AIRTABLE_API_KEY'))
-raven = raven.Client(os.getenv('SENTRY_DSN'))
 
 
 class Log:
@@ -145,7 +143,7 @@ class Job:
 			entry.delete()
 
 		except Exception as error:
-			raven.captureException()
+			pass
 
 
 		self.is_active = False
