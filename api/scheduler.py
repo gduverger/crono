@@ -15,13 +15,14 @@ queue = celery.Celery('api', # DOC Name of the main module if running as __main_
 # NOTE Heroku Redis' Hobby Dev has a limit of 20 connections
 # https://elements.heroku.com/addons/heroku-redis
 queue.conf.redis_max_connections = int(os.getenv('REDIS_MAX_CONNECTIONS', 20))
+queue.conf.broker_pool_limit = None
+queue.conf.task_ignore_result = True
 
 # NOTE Celery seems to have a memory leak with redis broker
 # http://docs.celeryproject.org/en/3.1/configuration.html#celeryd-max-tasks-per-child
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#worker-max-memory-per-child
 queue.conf.worker_max_tasks_per_child = 100
 
-# queue.conf.broker_pool_limit = 1
 # queue.conf.result_backend = 'redis://localhost:6379/0'
 # queue.conf.beat_scheduler = 'redbeat.schedulers.RedBeatScheduler'
 
