@@ -24,7 +24,7 @@ class TestJob(object):
 
 		job = models.Job()
 		assert isinstance(job.key, str)
-		assert job.is_active == True
+		assert job.is_active == False
 		assert job.record_id == None
 
 
@@ -79,14 +79,14 @@ class TestUser(object):
 		python -m pytest tests/test_models.py::TestUser::test_user_get_job
 		"""
 
-		job = models.Job()
-		job2 = models.Job()
-		job3 = models.Job(key=job.key)
-		user = models.User('email', jobs=[job, job2, job3])
+		job1 = models.Job(is_active=True)
+		job2 = models.Job(is_active=True)
+		job3 = models.Job(is_active=True, key=job1.key)
+		user = models.User('email', jobs=[job1, job2, job3])
 
-		assert user.get_job(job.key) == job
-		assert user.get_job(job.key) != job2
-		assert user.get_job(job.key) != job3
+		assert user.get_job(job1.key) == job1
+		assert user.get_job(job1.key) != job2
+		assert user.get_job(job1.key) != job3
 
 
 class TestLog(object):
