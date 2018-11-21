@@ -42,7 +42,7 @@ class Job:
 	table_name = 'Jobs'
 
 
-	def __init__(self, key=None, data=None, is_active=True, record_id=None):
+	def __init__(self, key=None, data=None, is_active=False, record_id=None):
 		self.key = key or str(uuid.uuid4())
 		self.data = data
 		self.is_active = is_active
@@ -125,6 +125,9 @@ class Job:
 		task = 'api.tasks.{}'.format(data.task['name'])
 		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=job.key, task=task, schedule=schedule, args=(job.key,), kwargs=params, app=scheduler.queue)
 		entry.save()
+
+		job.is_active = True
+		db.update(cls.table_name, job.record_id, {'Active': job.is_active})
 
 		return job
 
