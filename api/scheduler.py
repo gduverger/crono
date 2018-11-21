@@ -4,11 +4,11 @@ import redbeat
 
 
 queue = celery.Celery('api', # NOTE Name of the main module if running as __main__
-		broker=os.getenv('REDIS_URL'),
-		backend=os.getenv('REDIS_URL'),
+		broker=os.getenv('REDIS_BROKER_URL'),
+		backend=os.getenv('REDIS_BACKEND_URL'),
 		include=['api.tasks'])
 
-queue.conf.redbeat_redis_url = os.getenv('REDIS_URL')
+# queue.conf.redbeat_redis_url = os.getenv('REDIS_URL')
 
 # NOTE Heroku Redis' Hobby Dev has a limit of 20 connections
 # https://elements.heroku.com/addons/heroku-redis
