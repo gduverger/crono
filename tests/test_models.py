@@ -44,6 +44,11 @@ class TestUser(object):
 	"""
 
 
+	@classmethod 
+	def setup_class(cls):
+		cls.user = models.User.get(os.getenv('CRONO_API_TOKEN_TEST'))
+
+
 	def test_user(self):
 		"""
 		python -m pytest tests/test_models.py::TestUser::test_user
@@ -87,6 +92,46 @@ class TestUser(object):
 		assert user.get_job(job1.key) == job1
 		assert user.get_job(job1.key) != job2
 		assert user.get_job(job1.key) != job3
+
+
+	def test_user_add_job(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_add_job
+		"""
+
+		for i in range(0, 50):
+			self.user.add_job({
+				"trigger": {
+					"name": "crontab",
+					"params": {
+						"expression": "* * * * *"
+					}
+				},
+				"task": {
+					"name": "log",
+					"params": {
+						"message": "Test {}".format(i)
+					}
+				}
+			})
+
+
+	def test_user_remove_job(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_remove_job
+		"""
+
+		# TODO
+		pass
+
+
+	def test_user_remove_jobs(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_remove_jobs
+		"""
+
+		jobs = self.user.get_jobs(activity=[True, False])
+		assert jobs == self.user.remove_jobs(activity=[True, False])
 
 
 class TestLog(object):
