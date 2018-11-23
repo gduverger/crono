@@ -15,6 +15,17 @@
 	hgetall {key}
 	// del/hdel
 
+# UUID
+
+	
+	# Job key
+	import uuid
+	str(uuid.uuid4())
+
+	# User token
+	import secrets
+	secrets.token_hex()
+
 # Test
 
 	python -m pytest
