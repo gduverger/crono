@@ -42,11 +42,12 @@ class Job:
 	table_name = 'Jobs'
 
 
-	def __init__(self, key=None, data=None, is_active=False, record_id=None):
+	def __init__(self, key=None, data=None, is_active=False, record_id=None, executions=0):
 		self.key = key or str(uuid.uuid4())
 		self.data = data
 		self.is_active = is_active
 		self.record_id = record_id
+		self.executions = executions
 
 
 	@classmethod
@@ -59,7 +60,8 @@ class Job:
 				key=fields.get('Key'),
 				data=fields.get('Data'),
 				is_active=fields.get('Active', False),
-				record_id=record['id']
+				record_id=record['id'],
+				executions=int(fields.get('Executions', 0))
 			)
 
 		else:
@@ -79,7 +81,8 @@ class Job:
 				key=fields.get('Key'),
 				data=fields.get('Data'),
 				is_active=fields.get('Active', False),
-				record_id=records[0]['id']
+				record_id=records[0]['id'],
+				executions=int(fields.get('Executions', 0))
 			)
 
 		else:
@@ -98,7 +101,8 @@ class Job:
 			'User': [user.record_id],
 			'Key': job.key,
 			'Data': str(job.data),
-			'Active': job.is_active
+			'Active': job.is_active,
+			'Executions': job.executions
 		})
 		job.record_id = job_record['id']
 
@@ -131,6 +135,12 @@ class Job:
 		db.update(cls.table_name, job.record_id, {'Active': job.is_active})
 
 		return job
+
+
+	def incr_exec(self):
+		self.executions += 1
+		db.update(self.table_name, self.record_id, {'Executions': self.executions})
+		return self
 
 
 	def add_log(self):
