@@ -114,7 +114,7 @@ class TestUser(object):
 		python -m pytest tests/test_models.py::TestUser::test_user_add_job
 		"""
 
-		for i in range(0, 50):
+		for _ in range(0, 50):
 			self.user.add_job(self.data)
 
 
@@ -124,11 +124,12 @@ class TestUser(object):
 		python -m pytest tests/test_models.py::TestUser::test_user_remove_job
 		"""
 
-		job1 = self.user.add_job(self.data)
-		assert job1.is_active == True
-		job2 = self.user.remove_job(key=job1.key)
-		assert job2.is_active == False
-		assert job1 == job2
+		job_added = self.user.add_job(self.data)
+		assert job_added.is_active == True
+		
+		job_removed = self.user.remove_job(key=job_added.key)
+		assert job_removed.is_active == False
+		assert job_added == job_removed
 
 
 	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
@@ -137,8 +138,13 @@ class TestUser(object):
 		python -m pytest tests/test_models.py::TestUser::test_user_remove_jobs
 		"""
 
-		jobs = self.user.get_jobs(activity=[True, False])
-		assert jobs == self.user.remove_jobs(activity=[True, False])
+		jobs_added = []
+
+		for i in range(0, 50):
+			jobs_added.append(self.user.add_job(self.data))
+
+		jobs_removed = self.user.remove_jobs(activity=[True])
+		assert all(job in jobs_removed for job in jobs_added)
 
 
 class TestLog(object):
