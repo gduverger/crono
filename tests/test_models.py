@@ -108,7 +108,7 @@ class TestUser(object):
 		assert user.get_job(job1.key) != job3
 
 
-	@pytest.mark.skipif(os.getenv('ENVIRONMENT'), reason='requires redis')
+	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
 	def test_user_add_job(self):
 		"""
 		python -m pytest tests/test_models.py::TestUser::test_user_add_job
@@ -118,7 +118,7 @@ class TestUser(object):
 			self.user.add_job(self.data)
 
 
-	@pytest.mark.skipif(os.getenv('ENVIRONMENT'), reason='requires redis')
+	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
 	def test_user_remove_job(self):
 		"""
 		python -m pytest tests/test_models.py::TestUser::test_user_remove_job
@@ -131,7 +131,7 @@ class TestUser(object):
 		assert job1 == job2
 
 
-	@pytest.mark.skipif(os.getenv('ENVIRONMENT'), reason='requires redis')
+	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
 	def test_user_remove_jobs(self):
 		"""
 		python -m pytest tests/test_models.py::TestUser::test_user_remove_jobs
