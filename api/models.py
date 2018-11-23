@@ -6,7 +6,6 @@ import celery
 import secrets
 import redbeat
 import datetime
-import raven
 
 from api import scheduler
 from apistar import exceptions
@@ -14,7 +13,6 @@ from airtable import airtable
 
 
 db = airtable.Airtable(os.getenv('AIRTABLE_BASE_ID'), os.getenv('AIRTABLE_API_KEY'))
-raven = raven.Client(os.getenv('SENTRY_DSN'))
 
 
 class Log:
@@ -44,11 +42,12 @@ class Job:
 	table_name = 'Jobs'
 
 
-	def __init__(self, key=None, data=None, is_active=True, record_id=None):
+	def __init__(self, key=None, data=None, is_active=False, record_id=None, executions=0):
 		self.key = key or str(uuid.uuid4())
 		self.data = data
 		self.is_active = is_active
 		self.record_id = record_id
+		self.executions = executions
 
 
 	@classmethod
@@ -61,7 +60,8 @@ class Job:
 				key=fields.get('Key'),
 				data=fields.get('Data'),
 				is_active=fields.get('Active', False),
-				record_id=record['id']
+				record_id=record['id'],
+				executions=int(fields.get('Executions', 0))
 			)
 
 		else:
@@ -81,7 +81,8 @@ class Job:
 				key=fields.get('Key'),
 				data=fields.get('Data'),
 				is_active=fields.get('Active', False),
-				record_id=records[0]['id']
+				record_id=records[0]['id'],
+				executions=int(fields.get('Executions', 0))
 			)
 
 		else:
@@ -94,41 +95,52 @@ class Job:
 		"""
 		For adding, we start with the database and end with the queue.
 		"""
-		job = cls(data=data)
 
-		db.create(cls.table_name, {
+		job = cls(data=data)
+		job_record = db.create(cls.table_name, {
 			'User': [user.record_id],
 			'Key': job.key,
 			'Data': str(job.data),
-			'Active': job.is_active
+			'Active': job.is_active,
+			'Executions': job.executions
 		})
+		job.record_id = job_record['id']
 
 		schedule = None
-		if data.trigger['name'] == 'crontab':
-			minute, hour, day_of_month, month_of_year, day_of_week = data.trigger['params']['expression'].split(' ')
+		if data['trigger']['name'] == 'crontab':
+			minute, hour, day_of_month, month_of_year, day_of_week = data['trigger']['params']['expression'].split(' ')
 			schedule = celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=scheduler.queue)
 
-		elif data.trigger['name'] == 'interval':
-			# seconds = datetime.timedelta(seconds=data.trigger['params']['seconds'])
+		elif data['trigger']['name'] == 'interval':
+			# seconds = datetime.timedelta(seconds=data['trigger']['params']['seconds'])
 			# schedule = celery.schedules.schedule(run_every=seconds, app=scheduler.queue)
 			raise exceptions.MethodNotAllowed("Trigger 'interval' not implemented yet")
 
-		elif data.trigger['name'] == 'eta':
-			# datetime_ = dateparser.parse(data.trigger['params']['datetime'])
+		elif data['trigger']['name'] == 'eta':
+			# datetime_ = dateparser.parse(data['trigger']['params']['datetime'])
 			# schedule = redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=scheduler.queue) # HACK
 			raise exceptions.MethodNotAllowed("Trigger 'ETA' not implemented yet")
 
-		elif data.trigger['name'] == 'countdown':
-			# seconds = data.trigger['params']['seconds']
+		elif data['trigger']['name'] == 'countdown':
+			# seconds = data['trigger']['params']['seconds']
 			# schedule = redbeat.schedules.rrule('SECONDLY', interval=seconds, count=1, app=scheduler.queue)
 			raise exceptions.MethodNotAllowed("Trigger 'countdown' not implemented yet")
 
-		params = data.task['params']
-		task = 'api.tasks.{}'.format(data.task['name'])
+		params = data['task']['params']
+		task = 'api.tasks.{}'.format(data['task']['name'])
 		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=job.key, task=task, schedule=schedule, args=(job.key,), kwargs=params, app=scheduler.queue)
 		entry.save()
 
+		job.is_active = True
+		db.update(cls.table_name, job.record_id, {'Active': job.is_active})
+
 		return job
+
+
+	def incr_exec(self):
+		self.executions += 1
+		db.update(self.table_name, self.record_id, {'Executions': self.executions})
+		return self
 
 
 	def add_log(self):
@@ -140,13 +152,8 @@ class Job:
 		For removing, we start with the queue and end with the database.
 		"""
 
-		try:
-			entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=scheduler.queue)
-			entry.delete()
-
-		except Exception as error:
-			raven.captureException()
-
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=scheduler.queue)
+		entry.delete()
 
 		self.is_active = False
 		db.update(self.table_name, self.record_id, {'Active': self.is_active})
@@ -203,13 +210,13 @@ class User:
 			raise exceptions.NotFound('More than 1 user found')
 
 
-	def get_jobs(self, is_active=True) -> list:
-		return [job for job in self.jobs if job.is_active == is_active]
+	def get_jobs(self, activity=[True]) -> list:
+		return [job for job in self.jobs if job.is_active in activity]
 
 
-	def get_job(self, key, is_active=True) -> Job:
+	def get_job(self, key, activity=[True]) -> Job:
 
-		for job in self.get_jobs(is_active=is_active):
+		for job in self.get_jobs(activity=activity):
 
 			if job.key == key:
 				return job
@@ -223,17 +230,17 @@ class User:
 		return job
 
 
-	def remove_jobs(self, is_active=True) -> list:
+	def remove_jobs(self, activity=[True, False]) -> list:
 		jobs = []
 
-		for job in self.get_jobs(is_active=is_active):
-			jobs.append(self.remove_job(job.key))
+		for job in self.get_jobs(activity=activity):
+			jobs.append(self.remove_job(job.key, activity=activity))
 
 		return jobs
 
 
-	def remove_job(self, key) -> Job:
-		job = self.get_job(key)
+	def remove_job(self, key, activity=[True, False]) -> Job:
+		job = self.get_job(key, activity=activity)
 		job.remove()
 		return job
 

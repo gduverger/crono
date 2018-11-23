@@ -24,7 +24,7 @@ class TestJob(object):
 
 		job = models.Job()
 		assert isinstance(job.key, str)
-		assert job.is_active == True
+		assert job.is_active == False
 		assert job.record_id == None
 
 
@@ -42,6 +42,25 @@ class TestUser(object):
 	"""
 	python -m pytest tests/test_models.py::TestUser
 	"""
+
+
+	@classmethod 
+	def setup_class(cls):
+		cls.user = models.User.get(os.getenv('CRONO_API_TOKEN_TEST'))
+		cls.data = {
+			"trigger": {
+				"name": "crontab",
+				"params": {
+					"expression": "* * * * *"
+				}
+			},
+			"task": {
+				"name": "log",
+				"params": {
+					"message": "test"
+				}
+			}
+		}
 
 
 	def test_user(self):
@@ -79,14 +98,53 @@ class TestUser(object):
 		python -m pytest tests/test_models.py::TestUser::test_user_get_job
 		"""
 
-		job = models.Job()
-		job2 = models.Job()
-		job3 = models.Job(key=job.key)
-		user = models.User('email', jobs=[job, job2, job3])
+		job1 = models.Job(is_active=True)
+		job2 = models.Job(is_active=True)
+		job3 = models.Job(is_active=True, key=job1.key)
+		user = models.User('email', jobs=[job1, job2, job3])
 
-		assert user.get_job(job.key) == job
-		assert user.get_job(job.key) != job2
-		assert user.get_job(job.key) != job3
+		assert user.get_job(job1.key) == job1
+		assert user.get_job(job1.key) != job2
+		assert user.get_job(job1.key) != job3
+
+
+	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
+	def test_user_add_job(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_add_job
+		"""
+
+		for _ in range(0, 50):
+			self.user.add_job(self.data)
+
+
+	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
+	def test_user_remove_job(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_remove_job
+		"""
+
+		job_added = self.user.add_job(self.data)
+		assert job_added.is_active == True
+		
+		job_removed = self.user.remove_job(key=job_added.key)
+		assert job_removed.is_active == False
+		assert job_added == job_removed
+
+
+	@pytest.mark.skipif(os.getenv('ENVIRONMENT') == 'CI', reason='requires redis')
+	def test_user_remove_jobs(self):
+		"""
+		python -m pytest tests/test_models.py::TestUser::test_user_remove_jobs
+		"""
+
+		jobs_added = []
+
+		for i in range(0, 50):
+			jobs_added.append(self.user.add_job(self.data))
+
+		jobs_removed = self.user.remove_jobs(activity=[True])
+		assert all(job in jobs_removed for job in jobs_added)
 
 
 class TestLog(object):

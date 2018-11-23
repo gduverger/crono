@@ -1,6 +1,5 @@
 import os
 import requests
-import raven
 
 from postmarker.core import PostmarkClient
 from api import models, scheduler
@@ -8,24 +7,24 @@ from apistar import exceptions
 
 
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
-raven = raven.Client(os.getenv('SENTRY_DSN'))
 
 
 @scheduler.queue.task
 def log(job_key, message=None):
 
 	try:
-		models.Job.get_by_key(job_key).add_log()
+		job = models.Job.get_by_key(job_key)
+		job.add_log()
+		job.incr_exec()
 
 	except Exception as error:
-		raven.captureException()
+		pass
 
 
 @scheduler.queue.task
 def request(job_key, method='GET', url=None):
 
 	try:
-		models.Job.get_by_key(job_key).add_log()
 		
 		if method in ['GET', 'get']:
 			requests.get(url, timeout=60) # 1 minute
@@ -37,16 +36,20 @@ def request(job_key, method='GET', url=None):
 			# TODO surface this exception
 			exceptions.MethodNotAllowed("Method '{}' not implemented yet".format(method))
 
+		models.Job.get_by_key(job_key).incr_exec()
+
 	except Exception as error:
-		raven.captureException()
+		# TODO
+		pass
 
 
 @scheduler.queue.task
 def email(job_key, to=None, subject=None, body=None):
 
 	try:
-		models.Job.get_by_key(job_key).add_log()
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)
+		models.Job.get_by_key(job_key).incr_exec()
 
 	except Exception as error:
-		raven.captureException()
+		# TODO
+		pass
