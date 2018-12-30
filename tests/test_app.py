@@ -26,5 +26,5 @@ def test_jobs_authenticated():
 	"""
 	python -m pytest tests/test_app.py::test_jobs_authenticated
 	"""
-	response = client.get('/jobs', auth=auth.HTTPBearerAuth(os.getenv('CRONO_API_TOKEN')))
+	response = client.get('/jobs', auth=auth.HTTPBearerAuth(os.getenv('CRONO_API_TOKEN_TEST')))
 	assert response.status_code == 200
