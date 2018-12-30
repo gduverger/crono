@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+pytest = "==3.3.2"
 
 [packages]
 celery = "==4.1.1"
