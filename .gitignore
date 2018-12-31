@@ -1,4 +1,5 @@
 .env
+misc
 *.pyc
 *.rdb
 *.pid
