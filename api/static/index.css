@@ -81,6 +81,12 @@ ol ol {
 	margin-left: 20px;
 }
 
+.icon {
+	height: 14px;
+	line-height: 21px;
+	/*vertical-align: baseline;*/
+}
+
 .quiet {
 	color: #999;
 }
