@@ -27,7 +27,7 @@ html>body {
 }
 
 a {
-	color: #007bff; /* rgba(3, 102, 214, 1) */
+	color: #007bff;
 	text-decoration: none;
 	border-bottom: 1px solid;
 }
