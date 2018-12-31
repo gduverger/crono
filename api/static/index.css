@@ -2,30 +2,27 @@
 16 (1), 18 (1.125), 21 (1.3125), 24 (1.5), 36 (2.25), 48 (3), 60 (3.75), 72 (4.5)  px (em) */
 
 @import url('https://rsms.me/inter/inter-ui.css');
-@import url('https://meyerweb.com/eric/tools/css/reset/reset.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700');
 
 html {
 	background-color: #fff;
 }
 
 body {
-	font-size: 87.5%; /* 14px */
-	*font-size: small;
+	font-size: 100%;
+	*font-size: normal;
 	color: #111;
-	font-family: 'Roboto Mono', monospace;
+	font-family: 'Inter UI', sans-serif;
 	font-size-adjust: none;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
-	line-height: 21px;
-	margin: 21px 20px;
+	line-height: 24px;
+	margin: 24px 20px;
 	max-width: 800px;
 }
 
 html>body {
-	font-size: 14px;
+	font-size: 16px;
 }
 
 a {
@@ -49,6 +46,11 @@ a.sly:hover
 	/*border-bottom-color: #000;*/
 }
 
+p,
+.p {
+	margin: 24px 0;
+}
+
 h1,
 h2 {
 	font-weight: 700;
@@ -58,7 +60,7 @@ h3 {
 	/*font-weight: 500;*/
 }
 
-pre,
+/*pre,
 code {
 	padding: 0 5px;
 	border: 1px solid #333;
@@ -69,10 +71,7 @@ code {
 	background-color: #282923;
 	color: #F8F8F2;
 }
-
-h2 {
-	margin-top: 21px;
-}
+*/
 
 ul ul,
 ul ol,
@@ -82,9 +81,10 @@ ol ol {
 }
 
 .icon {
-	height: 14px;
-	line-height: 21px;
-	/*vertical-align: baseline;*/
+	height: 48px;
+	line-height: 48px;
+	float: left;
+	margin-right: 10px;
 }
 
 .quiet {
