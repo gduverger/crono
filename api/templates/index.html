@@ -31,15 +31,18 @@
 # $ pip install crono-python
 
 import crono
+import datetime
+
 scheduler = crono.Scheduler(token='{token}')
 
 # Timer (once)
-scheduler.in(seconds=60).email('hello', to='')
+scheduler.in(seconds=60).email('hello', from='', to='')
 
 # Datetime (once)
 scheduler.on(scheduler.THANKSGIVING).request('http://google.com')
-scheduler.on('tomorrow').request('http://google.com')
-scheduler.on('5:00', timezone='America/New_York').request('http://google.com')
+scheduler.on(datetime.datetime()).request('http://google.com')
+scheduler.on('5:00', timezone='America/New_York') \
+  .request('http://google.com', headers={})
 
 # Interval (recurring)
 scheduler.every(minutes=5).run('hello', args=['42'], kwargs={'foo': 'bar'})
