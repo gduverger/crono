@@ -6,7 +6,7 @@
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="A web-hosted API replacement for cron (a.k.a., cron as a service 🤓).">
+		<meta name="description" content="Programming in the future">
 		<meta name="keywords" content="cron, crontab, cron job, cronjob, cron expression, cron as a service, cron-as-as-service, cron jobs, cron job syntax, cron job linux, cron job example, scheduled tasks">
 
 		<link rel="shortcut icon" type="image/png" href="/static/crystal-ball-3.png">
@@ -31,14 +31,16 @@
 # $ pip install crono-python
 
 import crono
-schedule = crono.Schedule(token='{token}')
+scheduler = crono.Scheduler(token='{token}')
 
-@schedule.at()
+@scheduler.at()
 def test('5', a=1):
-	schedule.at()
+	scheduler.at()
 
-schedule.every()
-schedule.on()</code></pre>
+scheduler.every(minutes=5)
+scheduler.every(hours=1)
+scheduler.crontab('* * * * *')
+scheduler.at('Monday, January 4th')</code></pre>
 
 			<p>Here is the thing: implementing time is hard. It's more complicated to give your application a sense of timing than geolocalizing it. A lot of companies still rely on cron, the Unix utility for time-based job scheduling. It's simple to set up but it doesn't scale; it's error-prone; and it's hard to debug.</p>
 
