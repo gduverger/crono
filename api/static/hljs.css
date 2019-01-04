@@ -21,7 +21,6 @@
 	white-space: pre-wrap;
 }
 
-.hljs-meta,
 .hljs-comment {
 	color: #A59FCD;
 }
@@ -31,6 +30,7 @@
 .hljs-string,
 .hljs-number { color: #F1C45F; }
 
+/*.hljs-meta,*/
 .hljs-class,
 .hljs-title,
 .hljs-attribute {

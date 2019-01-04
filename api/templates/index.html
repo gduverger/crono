@@ -33,18 +33,28 @@
 import crono
 scheduler = crono.Scheduler(token='{token}')
 
-@scheduler.at()
-def test('5', a=1):
-	# TODO
-	pass
+# Timer (once)
+scheduler.in(seconds=60).email('hello', to='')
 
-scheduler.every(minutes=5).run('test', args=[], kwargs={})
-scheduler.every(hours=1).email('Hello.', to='')
-# scheduler.crontab('* * * * *').text('Hi.', to='')
-scheduler.in(seconds=60).email('Hello.', to='')
-scheduler.on('Monday, January 4th').request('http://google.com')
+# Datetime (once)
+scheduler.on(scheduler.THANKSGIVING).request('http://google.com')
+scheduler.on('tomorrow').request('http://google.com')
+scheduler.on('5:00', timezone='America/New_York').request('http://google.com')
 
-scheduler.delete()</code></pre>
+# Interval (recurring)
+scheduler.every(minutes=5).run('hello', args=['42'], kwargs={'foo': 'bar'})
+scheduler.every(hours=1).email('hello', from='', to='')
+scheduler.every(hours=1).call('hello', from='', to='')
+
+# Crontab (recurring)
+scheduler.every(minute=0, hour=6, day_week='*', month='*', day_week=2)
+scheduler.every('0 6 * * 2').text('hello', from='', to='')
+
+# Decorator
+@scheduler.every(scheduler.MORNING, timezone='America/New_York')
+def hello('42', foo='bar'):
+  print('hello')
+</code></pre>
 
 			<p>Here is the thing: implementing time is hard. It's more complicated to give your application a sense of timing than geolocalizing it. A lot of companies still rely on cron, the Unix utility for time-based job scheduling. It's simple to set up but it doesn't scale; it's error-prone; and it's hard to debug.</p>
 
