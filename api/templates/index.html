@@ -31,49 +31,33 @@
 # $ pip install crono-python
 
 import crono
-import datetime
-
 scheduler = crono<span class="br"> \
   </span>.Scheduler(token='{token}')
 
-# Timer (once)
+# Timer (single occurrence)
 scheduler<span class="br"> \
   </span>.in(seconds=60)<span class="br"> \
-  </span>.email('hello', from='{email}', to='{email}')
+  </span>.request('{url}')
 
-# Datetime (once)
+# Datetime (single occurrence)
 scheduler<span class="br"> \
-  </span>.on(scheduler.THANKSGIVING)<span class="br"> \
-  </span>.request('http://google.com')
-scheduler<span class="br"> \
-  </span>.on(datetime.datetime())<span class="br"> \
-  </span>.request('http://google.com')
-scheduler<span class="br"> \
-  </span>.on('5:00', timezone='America/New_York')<span class="br"> \
-  </span>.request('http://google.com', headers={})
+  </span>.on(&lt;datetime&gt;)<span class="br"> \
+  </span>.text('hello', from='{phone}', to='{phone}')
 
-# Interval (recurring)
+# Interval (recurring job)
 scheduler<span class="br"> \
   </span>.every(minutes=5)<span class="br"> \
-  </span>.run('hello', args=['42'], kwargs={'foo': 'bar'})
-scheduler<span class="br"> \
-  </span>.every(hours=1)<span class="br"> \
   </span>.email('hello', from='{email}', to='{email}')
-scheduler<span class="br"> \
-  </span>.every(hours=1)<span class="br"> \
-  </span>.call('hello', from='', to='')
 
-# Crontab (recurring)
-scheduler<span class="br"> \
-  </span>.every(minute=0, hour=6, day_week='*', month='*', day_week=2)
+# Crontab (recurring job)
 scheduler<span class="br"> \
   </span>.every('0 6 * * 2')<span class="br"> \
-  </span>.text('hello', from='', to='')
+  </span>.run('hello', args=[], kwargs={})
 
 # Decorator
 @scheduler<span class="br"> \
-  </span>.every(scheduler.MORNING, timezone='America/New_York')
-def hello('42', foo='bar'):
+  </span>.every(hours=1)
+def hello(args, **kwargs):
   print('hello')
 </code></pre>
 
