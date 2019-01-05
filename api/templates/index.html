@@ -27,19 +27,19 @@
 			<h1>Crono</h1>
 			<div>Programming in the future</div>
 
-<pre class="br"><code class="p python"># First, you'll have to install the Crono Python library:
+<pre class="pp"><code class="p python"># First, you'll have to install the Crono Python library:
 # $ pip install crono-python
 
 import crono
 import datetime
 
-scheduler = crono<div class="responsive"> \
-  </div>.Scheduler(token='{token}')
+scheduler = crono<span class="br"> \
+  </span>.Scheduler(token='{token}')
 
 # Timer (once)
-scheduler<div class="responsive"> \
-  </div>.in(seconds=60)<div class="responsive"> \
-  </div>.email('hello', from='', to='')
+scheduler<span class="br"> \
+  </span>.in(seconds=60)<span class="br"> \
+  </span>.email('hello', from='{email}', to='{email}')
 
 # Datetime (once)
 scheduler.on(scheduler.THANKSGIVING).request('http://google.com')
@@ -49,7 +49,7 @@ scheduler.on('5:00', timezone='America/New_York') \
 
 # Interval (recurring)
 scheduler.every(minutes=5).run('hello', args=['42'], kwargs={'foo': 'bar'})
-scheduler.every(hours=1).email('hello', from='', to='')
+scheduler.every(hours=1).email('hello', from='{email}', to='{email}')
 scheduler.every(hours=1).call('hello', from='', to='')
 
 # Crontab (recurring)

@@ -47,13 +47,13 @@ a.sly:hover
 	/*border-bottom-color: #000;*/
 }
 
-.br {
-	margin: 21px 0;
-}
-
 p,
 .p {
 	margin: 14px 0;
+}
+
+.pp {
+	margin: 21px 0;
 }
 
 h1 {
@@ -104,14 +104,13 @@ ol ol {
 .http-post { color: #8bcd3b; }
 .http-delete { color: #ec5948; }
 
-
-.responsive {
+.br {
 	display: none;
 }
 
 @media screen and (max-width: 500px) {
 
-	.responsive {
+	.br {
 		display: inline;
 	}
 }
