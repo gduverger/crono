@@ -103,3 +103,15 @@ ol ol {
 .http-get { color: #a795fc; }
 .http-post { color: #8bcd3b; }
 .http-delete { color: #ec5948; }
+
+
+.responsive {
+	display: none;
+}
+
+@media screen and (max-width: 500px) {
+
+	.responsive {
+		display: inline;
+	}
+}
