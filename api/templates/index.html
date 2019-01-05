@@ -29,15 +29,16 @@
 			<div>Programming in the future</div>
 
 			<ol class="pp">
-				<li><a href="">Getting Started</a></li>
-				<li><a href="">Triggers</a></li>
-				<li><a href="">Tasks</a></li>
-				<li><a href="">API</a></li>
-				<li><a href="">Authentication</a></li>
-				<li><a href="">Pricing</a></li>
-				<li><a href="">Support</a></li>
+				<li><a href="#getting-started">Getting Started</a></li>
+				<li><a href="#triggers">Triggers</a></li>
+				<li><a href="#tasks">Tasks</a></li>
+				<li><a href="#api">API</a></li>
+				<li><a href="#authentication">Authentication</a></li>
+				<li><a href="#pricing">Pricing</a></li>
+				<li><a href="#support">Support</a></li>
 			</ol>
 
+			<a name="getting-started"></a>
 			<h2>Getting Started</h2>
 
 <p>1. Install the Crono Python client library:</p>
@@ -51,30 +52,30 @@ scheduler = crono<span class="br"> \
 
 # Timer (single occurrence)
 scheduler<span class="br"> \
-  </span>.<a href="" class="hljs-keyword-in">in</a>(seconds=60)<span class="br"> \
-  </span>.<a href="">request</a>('{url}')
+  </span>.<a href="#triggers" class="hljs-keyword-in">in</a>(seconds=60)<span class="br"> \
+  </span>.<a href="#tasks">request</a>('{url}')
 
 # Datetime (single occurrence)
 scheduler<span class="br"> \
-  </span>.<a href="">on</a>(&lt;datetime&gt;)<span class="br"> \
-  </span>.<a href="">text</a>('hello', <span class="br">
+  </span>.<a href="#triggers">on</a>(&lt;datetime&gt;)<span class="br"> \
+  </span>.<a href="#tasks">text</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{phone}', <span class="br">
     </span>to='{phone}')
 
 # Interval (recurring job)
 scheduler<span class="br"> \
-  </span>.<a href="">every</a>(minutes=5)<span class="br"> \
-  </span>.<a href="">email</a>('hello', <span class="br">
+  </span>.<a href="#triggers">every</a>(minutes=5)<span class="br"> \
+  </span>.<a href="#tasks">email</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{email}', <span class="br">
     </span>to='{email}')
 
 # Crontab (recurring job)
 scheduler<span class="br"> \
-  </span>.<a href="">every</a>('0 6 * * 2')<span class="br"> \
-  </span>.<a href="">run</a>('hello', args=[], kwargs={})
+  </span>.<a href="#triggers">every</a>('0 6 * * 2')<span class="br"> \
+  </span>.<a href="#tasks">run</a>('hello', args=[], kwargs={})
 
 # Decorator
-@scheduler.<a href="">every</a>(hours=1)
+@scheduler.<a href="#triggers">every</a>(hours=1)
 def hello(args, **kwargs):
   print('hello')
 </code></pre>
@@ -82,12 +83,14 @@ def hello(args, **kwargs):
 <p>3. Run the Crono server:</p>
 <pre><code class="p bash">crono app:scheduler</code></pre>
 
+			<a name="triggers"></a>
 			<h2>Triggers</h2>
 
 			<p><code>in</code></p>
 			<p><code>on</code></p>
 			<p><code>every</code></p>
 
+			<a name="tasks"></a>
 			<h2>Tasks</h2>
 
 			<p><code>request</code></p>
@@ -95,6 +98,7 @@ def hello(args, **kwargs):
 			<p><code>email</code></p>
 			<p><code>run</code></p>
 
+			<a name="api"></a>
 			<h2>
 				API
 			</h2>
@@ -120,14 +124,17 @@ Authorization: Bearer {token}
   }
 }</code></pre>
 
+			<a name="authentication"></a>
 			<h2>Authentication</h2>
 
-			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.
+			<p>Requests to all endpoints have to be authenticated with a <code>Authorization: Bearer {token}</code> header (see an example in <a href="#api">API</a>). To request a token, email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a>.
 
+			<a name="pricing"></a>
 			<h2>Pricing</h2>
 
-			<p>Crono costs $0.01/execution and your first 1,000 executions are free (no payment information required). Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.</p>
+			<p>Crono costs $0.001/execution and your first 100 executions are free (no payment information required).
 
+			<a name="support"></a>
 			<h2>Support</h2>
 
 			<p>Email <a href="mailto:crono@gduverger.com">crono@gduverger.com</a> for help.</p>
