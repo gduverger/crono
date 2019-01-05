@@ -102,7 +102,7 @@ def hello(args, **kwargs):
 <pre class="p"><code class="http">POST {{ reverse_url('post_job') }} HTTP/1.1
 Host: {{ crono_base_url }}
 Content-Type: application/json; charset=utf-8
-Authorization: Bearer {{ crono_api_token }}
+Authorization: Bearer {token}
 
 {
   "trigger": {
