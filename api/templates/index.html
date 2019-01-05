@@ -51,30 +51,30 @@ scheduler = crono<span class="br"> \
 
 # Timer (single occurrence)
 scheduler<span class="br"> \
-  </span>.in(seconds=60)<span class="br"> \
-  </span>.request('{url}')
+  </span>.<a href="" class="hljs-keyword-in">in</a>(seconds=60)<span class="br"> \
+  </span>.<a href="">request</a>('{url}')
 
 # Datetime (single occurrence)
 scheduler<span class="br"> \
-  </span>.on(&lt;datetime&gt;)<span class="br"> \
-  </span>.text('hello', <span class="br">
-    </span>from='{phone}', <span class="br">
+  </span>.<a href="">on</a>(&lt;datetime&gt;)<span class="br"> \
+  </span>.<a href="">text</a>('hello', <span class="br">
+    </span><span class="hljs-keyword-from">from</span>='{phone}', <span class="br">
     </span>to='{phone}')
 
 # Interval (recurring job)
 scheduler<span class="br"> \
-  </span>.every(minutes=5)<span class="br"> \
-  </span>.email('hello', <span class="br">
-    </span>from='{email}', <span class="br">
+  </span>.<a href="">every</a>(minutes=5)<span class="br"> \
+  </span>.<a href="">email</a>('hello', <span class="br">
+    </span><span class="hljs-keyword-from">from</span>='{email}', <span class="br">
     </span>to='{email}')
 
 # Crontab (recurring job)
 scheduler<span class="br"> \
-  </span>.every('0 6 * * 2')<span class="br"> \
-  </span>.run('hello', args=[], kwargs={})
+  </span>.<a href="">every</a>('0 6 * * 2')<span class="br"> \
+  </span>.<a href="">run</a>('hello', args=[], kwargs={})
 
 # Decorator
-@scheduler.every(hours=1)
+@scheduler.<a href="">every</a>(hours=1)
 def hello(args, **kwargs):
   print('hello')
 </code></pre>

@@ -21,7 +21,10 @@
 	white-space: pre-wrap;
 }
 
-.hljs a,
+.hljs a {
+	color: inherit;
+}
+
 .hljs-comment {
 	color: #A59FCD;
 }
@@ -73,4 +76,11 @@
 .hljs-emphasis,
 .hljs-strong {
 	/* TODO */
+}
+
+/* HACK */
+.hljs-keyword-in .hljs-keyword,
+.hljs-keyword-from .hljs-keyword {
+	color: inherit;
+	font-weight: inherit;
 }
