@@ -23,11 +23,20 @@
 
 	</head>
 		<body>
-			<div class="pp">
-				<img src="/static/crystal-ball-3.png" class="icon">
-				<h1>Crono</h1>
-				<div>Programming in the future</div>
-			</div>
+
+			<img src="/static/crystal-ball-3.png" class="icon">
+			<h1>Crono</h1>
+			<div>Programming in the future</div>
+
+			<ol class="pp">
+				<li><a href="">Getting Started</a></li>
+				<li><a href="">Triggers</a></li>
+				<li><a href="">Tasks</a></li>
+				<li><a href="">API</a></li>
+				<li><a href="">Authentication</a></li>
+				<li><a href="">Pricing</a></li>
+				<li><a href="">Support</a></li>
+			</ol>
 
 			<h2>Getting Started</h2>
 
@@ -36,6 +45,7 @@
 
 <p>2. Schedule recurring or single occurence jobs in your application (in <code>app.py</code> for example):</p>
 <pre><code class="p python">import crono
+
 scheduler = crono<span class="br"> \
   </span>.Scheduler(token='{token}')
 
@@ -72,37 +82,21 @@ def hello(args, **kwargs):
 <p>3. Run the Crono server:</p>
 <pre><code class="p bash">crono app:scheduler</code></pre>
 
-			<p>Here is the thing: implementing time is hard. It's more complicated to give your application a sense of timing than geolocalizing it. A lot of companies still rely on cron, the Unix utility for time-based job scheduling. It's simple to set up but it doesn't scale; it's error-prone; and it's hard to debug.</p>
+			<h2>Triggers</h2>
 
-			<p>More sophisticated tech companies have replaced cron with their own solution: Airbnb’s Chronos, Yelp’s Tron, NextDoor’s NDScheduler. They are distributed and more reliable but deploying and maintaining a 3rd-party library can be very expensive for your engineering team.</p>
+			<p><code>in</code></p>
+			<p><code>on</code></p>
+			<p><code>every</code></p>
 
-			<p>Crono is the best of both worlds: reliable and easy-to-use. <a href="#example">Try it yourself.</a></p>
+			<h2>Tasks</h2>
 
-			<ol class="p">
-				<li><a href="#authentication">Authentication</a></li>
-				<li><a href="#example">Example</a></li>
-				<li><a href="#triggers">Triggers</a></li>
-				<ul>
-					<li><a href="#crontab">Crontab</a></li>
-				</ul>
-				<li><a href="#tasks">Tasks</a></li>
-				<ul>
-					<li><a href="#request">Request</a></li>
-				</ul>
-				<li><a href="#pricing">Pricing</a></li>
-				<li><a href="#support">Support</a></li>
-			</ol>
+			<p><code>request</code></p>
+			<p><code>text</code></p>
+			<p><code>email</code></p>
+			<p><code>run</code></p>
 
 			<h2>
-				<a id="authentication"></a>
-				Authentication
-			</h2>
-
-			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.
-
-			<h2>
-				<a id="example"></a>
-				Example
+				API
 			</h2>
 
 <pre class="p"><code class="http">POST {{ reverse_url('post_job') }} HTTP/1.1
@@ -126,52 +120,15 @@ Authorization: Bearer {{ crono_api_token }}
   }
 }</code></pre>
 
-			<h2 class="p">
-				<a id="triggers"></a>
-				Triggers
-			</h2>
+			<h2>Authentication</h2>
 
-			<h3>
-				<a id="crontab"></a>
-				Crontab
-			</h3>
+			<p>Requests to all <a href="#endpoints">endpoints</a> have to be authenticated with a <code>Authorization: Bearer {token}</code> header. See the <a href="#example">example</a> below for more details. Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.
 
-<pre><code class="json">{
-  "name": "crontab",
-  "params": {
-	"expression": "0 * * * *"
-  }
-}</code></pre>
-
-			<h2 class="p">
-				<a id="tasks"></a>
-				Tasks
-			</h2>
-
-			<h3>
-				<a id="request"></a>
-				Request
-			</h3>
-
-<pre><code class="json">{
-  "name": "request",
-  "params": {
-	"method": "GET",
-	"url": "https://www.crono.com/"
-  }
-}</code></pre>
-
-			<h2 class="p">
-				<a id="pricing"></a>
-				Pricing
-			</h2>
+			<h2>Pricing</h2>
 
 			<p>Crono costs $0.01/execution and your first 1,000 executions are free (no payment information required). Email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a> to request a token.</p>
 
-			<h2>
-				<a id="support"></a>
-				Support
-			</h2>
+			<h2>Support</h2>
 
 			<p>Email <a href="mailto:crono@gduverger.com">crono@gduverger.com</a> for help.</p>
 
