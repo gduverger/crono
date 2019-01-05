@@ -21,6 +21,7 @@
 	white-space: pre-wrap;
 }
 
+.hljs a,
 .hljs-comment {
 	color: #A59FCD;
 }

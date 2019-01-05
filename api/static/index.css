@@ -114,3 +114,13 @@ ol ol {
 		display: inline;
 	}
 }
+
+code,
+.code {
+	background-color: #ddd;
+	color: #111;
+	padding: 0 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 12px;
+}

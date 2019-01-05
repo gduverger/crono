@@ -23,16 +23,21 @@
 
 	</head>
 		<body>
-			<img src="/static/crystal-ball-3.png" class="icon">
-			<h1>Crono</h1>
-			<div>Programming in the future</div>
+			<div class="p">
+				<img src="/static/crystal-ball-3.png" class="icon">
+				<h1>Crono</h1>
+				<div>Programming in the future</div>
+			</div>
 
-<pre class="pp"><code class="p python"># First, you'll have to install the Crono Python library:
-# $ pip install crono-python
+			<h2>Getting Started</h2>
 
-import crono
+<p>1. Install the Crono Python client library:</p>
+<pre><code class="p bash">pip install crono-python</code></pre>
+
+<p>2. Schedule recurring or single occurence jobs in your application (in <code>app.py</code> for example):</p>
+<pre><code class="p python">import crono
 scheduler = crono<span class="br"> \
-  </span>.Scheduler(token='{token}')
+  </span>.Scheduler(token='{token}') # <a href="">sign up now</a>
 
 # Timer (single occurrence)
 scheduler<span class="br"> \
@@ -60,6 +65,9 @@ scheduler<span class="br"> \
 def hello(args, **kwargs):
   print('hello')
 </code></pre>
+
+<p>3. Run the Crono server:</p>
+<pre><code class="p bash">crono app:scheduler</code></pre>
 
 			<p>Here is the thing: implementing time is hard. It's more complicated to give your application a sense of timing than geolocalizing it. A lot of companies still rely on cron, the Unix utility for time-based job scheduling. It's simple to set up but it doesn't scale; it's error-prone; and it's hard to debug.</p>
 
