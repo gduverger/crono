@@ -42,22 +42,37 @@ scheduler<span class="br"> \
   </span>.email('hello', from='{email}', to='{email}')
 
 # Datetime (once)
-scheduler.on(scheduler.THANKSGIVING).request('http://google.com')
-scheduler.on(datetime.datetime()).request('http://google.com')
-scheduler.on('5:00', timezone='America/New_York') \
-  .request('http://google.com', headers={})
+scheduler<span class="br"> \
+  </span>.on(scheduler.THANKSGIVING)<span class="br"> \
+  </span>.request('http://google.com')
+scheduler<span class="br"> \
+  </span>.on(datetime.datetime())<span class="br"> \
+  </span>.request('http://google.com')
+scheduler<span class="br"> \
+  </span>.on('5:00', timezone='America/New_York')<span class="br"> \
+  </span>.request('http://google.com', headers={})
 
 # Interval (recurring)
-scheduler.every(minutes=5).run('hello', args=['42'], kwargs={'foo': 'bar'})
-scheduler.every(hours=1).email('hello', from='{email}', to='{email}')
-scheduler.every(hours=1).call('hello', from='', to='')
+scheduler<span class="br"> \
+  </span>.every(minutes=5)<span class="br"> \
+  </span>.run('hello', args=['42'], kwargs={'foo': 'bar'})
+scheduler<span class="br"> \
+  </span>.every(hours=1)<span class="br"> \
+  </span>.email('hello', from='{email}', to='{email}')
+scheduler<span class="br"> \
+  </span>.every(hours=1)<span class="br"> \
+  </span>.call('hello', from='', to='')
 
 # Crontab (recurring)
-scheduler.every(minute=0, hour=6, day_week='*', month='*', day_week=2)
-scheduler.every('0 6 * * 2').text('hello', from='', to='')
+scheduler<span class="br"> \
+  </span>.every(minute=0, hour=6, day_week='*', month='*', day_week=2)
+scheduler<span class="br"> \
+  </span>.every('0 6 * * 2')<span class="br"> \
+  </span>.text('hello', from='', to='')
 
 # Decorator
-@scheduler.every(scheduler.MORNING, timezone='America/New_York')
+@scheduler<span class="br"> \
+  </span>.every(scheduler.MORNING, timezone='America/New_York')
 def hello('42', foo='bar'):
   print('hello')
 </code></pre>
