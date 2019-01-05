@@ -23,7 +23,7 @@
 
 	</head>
 		<body>
-			<div class="p">
+			<div class="pp">
 				<img src="/static/crystal-ball-3.png" class="icon">
 				<h1>Crono</h1>
 				<div>Programming in the future</div>
@@ -37,7 +37,7 @@
 <p>2. Schedule recurring or single occurence jobs in your application (in <code>app.py</code> for example):</p>
 <pre><code class="p python">import crono
 scheduler = crono<span class="br"> \
-  </span>.Scheduler(token='{token}') # <a href="">sign up now</a>
+  </span>.Scheduler(token='{token}')
 
 # Timer (single occurrence)
 scheduler<span class="br"> \
@@ -47,12 +47,16 @@ scheduler<span class="br"> \
 # Datetime (single occurrence)
 scheduler<span class="br"> \
   </span>.on(&lt;datetime&gt;)<span class="br"> \
-  </span>.text('hello', from='{phone}', to='{phone}')
+  </span>.text('hello', <span class="br">
+    </span>from='{phone}', <span class="br">
+    </span>to='{phone}')
 
 # Interval (recurring job)
 scheduler<span class="br"> \
   </span>.every(minutes=5)<span class="br"> \
-  </span>.email('hello', from='{email}', to='{email}')
+  </span>.email('hello', <span class="br">
+    </span>from='{email}', <span class="br">
+    </span>to='{email}')
 
 # Crontab (recurring job)
 scheduler<span class="br"> \
@@ -60,8 +64,7 @@ scheduler<span class="br"> \
   </span>.run('hello', args=[], kwargs={})
 
 # Decorator
-@scheduler<span class="br"> \
-  </span>.every(hours=1)
+@scheduler.every(hours=1)
 def hello(args, **kwargs):
   print('hello')
 </code></pre>
