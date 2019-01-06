@@ -17,9 +17,10 @@ body {
 	font-variant: normal;
 	font-weight: normal;
 	line-height: 21px;
-	margin: 21px 20px;
+	/*margin: 21px 20px;*/
 	/*max-width: 800px;*/
 	max-width: 720px;
+	margin: 42px auto;
 }
 
 html > body {
@@ -65,15 +66,18 @@ p,
 }
 
 h1 {
-	font-size: 18px;
-}
-
-h1,
-h2 {
+	font-size: 36px;
+	line-height: 42px;
 	font-weight: 700;
 }
 
+.sub {
+	font-size: 18px;
+}
+
 h2 {
+	font-size: 18px;
+	font-weight: 700;
 	margin: 42px 0 21px 0;
 }
 
@@ -89,11 +93,33 @@ strong {
 	font-weight: 700;
 }
 
-.icon {
-	height: 42px;
-	line-height: 42px;
+.menu {
+	width: 200px;
+	text-align: right;
 	float: left;
-	margin-right: 10px;
+	margin: 42px 0 0 -242px;
+}
+
+@media screen and (max-width: 1004px) {
+	/* 720 + 242 + (21 * 2) */
+
+	body {
+		margin: 21px;
+	}
+
+	.menu {
+		float: none;
+		margin: 21px 0;
+		text-align: left;
+		width: auto;
+	}
+}
+
+.icon {
+	height: 63px;
+	line-height: 63px;
+	float: left;
+	margin-right: 14px;
 }
 
 .quiet {
