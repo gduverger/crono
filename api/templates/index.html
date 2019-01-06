@@ -88,9 +88,21 @@ def hello(args, **kwargs):
 
 			<p>There are 4 types of triggers: Timer, Datetime, Interval, and Crontab.</p>
 
-			<p><b>Timer</b> represents a countdown until the execution of the task. The execution will only occur once. It is instantiated in the Crono Python client library by calling the method <code>in</code> on the Scheduler object. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>. Those parameters are cumulative.</p>
+			<p><b>Timer</b> represents a countdown until the execution of the task. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>. Those parameters are cumulative.</p>
 
-<pre><code class="python">scheduler.<b class="hljs-keyword-in">in</b>(hours=1, minutes=2, <s>seconds=3</s>)…</code></pre>
+Python:
+<pre class="bp"><code class="python">scheduler.<b class="hljs-keyword-in">in</b>(hours=1, minutes=2, <s>seconds=3</s>)…</code></pre>
+
+API:
+<pre><code class="json">{
+  "trigger": {
+    "type": "timer",
+    "kwargs": {
+      "hours": 1,
+      "minutes": 2
+    }
+  }
+}</code></pre>
 
 			<p><b>Datetime</b> specifies the execution of a task at a specific date and time. It only occur once. It is instantiated in the Crono Python client library by calling the method <code>on</code> on the Scheduler object. It takes 1 argument: <code>datetime</code>.</p>
 

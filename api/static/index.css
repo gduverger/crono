@@ -56,6 +56,14 @@ p,
 	margin: 21px 0;
 }
 
+.tp {
+	margin-top: 14px;
+}
+
+.bp {
+	margin-bottom: 14px;
+}
+
 h1 {
 	font-size: 18px;
 }
