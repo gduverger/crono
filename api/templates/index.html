@@ -92,7 +92,8 @@ def hello(args, **kwargs):
 
 Python:
 <pre class="bp"><code class="python">scheduler<span class="br"> \
-  </span>.<b class="hljs-keyword-in">in</b>(hours=1, minutes=2, <s>seconds=3</s>)…</code></pre>
+  </span>.<b class="hljs-keyword-in">in</b>(hours=1, minutes=2)<span class="br">
+  </span>.<span class="quiet">&hellip;</span></code></pre>
 
 API:
 <pre><code class="json">{
@@ -111,15 +112,16 @@ API:
 independence_day = datetime<span class="br"> \
   </span>.datetime(2019, 7, 4)
 scheduler<span class="br"> \
-  </span>.<b>on</b>(datetime=independence_day)…</code></pre>
+  </span>.<b>on</b>(datetime=independence_day)<span class="br">
+  </span>.<span class="quiet">&hellip;</span></code></pre>
 
 			<p><b>Interval</b> specifies a frequency at which to execute a task. It occurs multiple times. It is instantiated in the Crono Python client library by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>.</p>
 
-<pre><code class="python">scheduler.<b>every</b>(hours=1)…</code></pre>
+<pre><code class="python">scheduler.<b>every</b>(hours=1).<span class="quiet">&hellip;</span></code></pre>
 
 			<p><b>Crontab</b> takes a crontab expression to specify the execution time. It is instantiated in the Crono Python client library by calling the method <code>every</code> on the Scheduler object.</p>
 
-<pre><code class="python">scheduler.<b>every</b>('0 6 * * 2')…</code></pre>
+<pre><code class="python">scheduler.<b>every</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
 
 			<a name="tasks"></a>
 			<h2>Tasks</h2>
