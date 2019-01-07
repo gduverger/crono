@@ -52,29 +52,29 @@
 scheduler = crono<span class="br"> \
   </span>.Scheduler(token='{token}')
 
-# Timer (single occurrence)
+# Timer
 scheduler<span class="br"> \
-  </span>.<a href="#triggers" class="hljs-keyword-in">in</a>(seconds=60)<span class="br"> \
-  </span>.<a href="#tasks">request</a>('{url}')
+  </span>.<a href="#tasks">request</a>('{url}')<span class="br"> \
+  </span>.<a href="#triggers" class="hljs-keyword-in">in</a>(seconds=60)
 
-# Datetime (single occurrence)
+# Datetime
 scheduler<span class="br"> \
-  </span>.<a href="#triggers">on</a>(&lt;datetime&gt;)<span class="br"> \
   </span>.<a href="#tasks">text</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{phone}', <span class="br">
-    </span>to='{phone}')
+    </span>to='{phone}')<span class="br"> \
+  </span>.<a href="#triggers">on</a>(&lt;datetime&gt;)
 
-# Interval (recurring job)
+# Interval
 scheduler<span class="br"> \
-  </span>.<a href="#triggers">every</a>(minutes=5)<span class="br"> \
   </span>.<a href="#tasks">email</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{email}', <span class="br">
-    </span>to='{email}')
+    </span>to='{email}')<span class="br"> \
+  </span>.<a href="#triggers">every</a>(minutes=5)
 
-# Crontab (recurring job)
+# Crontab
 scheduler<span class="br"> \
-  </span>.<a href="#triggers">every</a>('0 6 * * 2')<span class="br"> \
-  </span>.<a href="#tasks">run</a>('hello', args=[], kwargs={})
+  </span>.<a href="#tasks">run</a>('hello', args=[], kwargs={})<span class="br"> \
+  </span>.<a href="#triggers">every</a>('0 6 * * 2')
 
 # Decorator
 @scheduler.<a href="#triggers">every</a>(hours=1)
