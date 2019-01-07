@@ -43,7 +43,7 @@
 			<a name="getting-started"></a>
 			<h2>Getting Started</h2>
 
-<p>1. Install the Crono client:</p>
+<p>1. Install the Crono Python client:</p>
 <pre><code class="p bash">pip install crono-python</code></pre>
 
 <p>2. Schedule recurring or single occurence jobs in your application (in <code>app.py</code> for example):</p>
@@ -92,9 +92,9 @@ def hello(args, **kwargs):
 
 			<p><b>Timer</b> represents a countdown until the execution of the task. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>. Those parameters are cumulative.</p>
 
-Python:
+Client:
 <pre class="bp"><code class="python">scheduler<span class="br"> \
-  </span>.<b class="hljs-keyword-in">in</b>(hours=1, minutes=2)<span class="br">
+  </span>.<b class="hljs-keyword-in">in</b>(hours=1, minutes=2)<span class="br"> \
   </span>.<span class="quiet">&hellip;</span></code></pre>
 
 API:
@@ -114,7 +114,7 @@ API:
 independence_day = datetime<span class="br"> \
   </span>.datetime(2019, 7, 4)
 scheduler<span class="br"> \
-  </span>.<b>on</b>(datetime=independence_day)<span class="br">
+  </span>.<b>on</b>(datetime=independence_day)<span class="br"> \
   </span>.<span class="quiet">&hellip;</span></code></pre>
 
 			<p><b>Interval</b> specifies a frequency at which to execute a task. It occurs multiple times. It is instantiated in the Crono Python client library by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>.</p>
