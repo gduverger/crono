@@ -152,13 +152,13 @@ Authorization: Bearer {token}
 {
   "trigger": {
     "type": "crontab",
-    "params": {
+    "kwargs": {
       "expression": "0 * * * *"
     }
   },
   "task": {
     "type": "request",
-    "params": {
+    "kwargs": {
       "method": "GET",
       "url": "https://www.crono.com/"
     }
