@@ -55,7 +55,7 @@ scheduler = crono<span class="br"> \
 # Timer
 scheduler<span class="br"> \
   </span>.<a href="#tasks">request</a>('{url}')<span class="br"> \
-  </span>.<a href="#triggers" class="hljs-keyword-in">in</a>(seconds=60)
+  </span>.<a href="#triggers" class="hljs-keyword-in">in</a>(minutes=1)
 
 # Datetime
 scheduler<span class="br"> \
@@ -69,7 +69,7 @@ scheduler<span class="br"> \
   </span>.<a href="#tasks">email</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{email}', <span class="br">
     </span>to='{email}')<span class="br"> \
-  </span>.<a href="#triggers">every</a>(minutes=5)
+  </span>.<a href="#triggers">every</a>(hours=1)
 
 # Crontab
 scheduler<span class="br"> \
@@ -77,7 +77,7 @@ scheduler<span class="br"> \
   </span>.<a href="#triggers">every</a>('0 6 * * 2')
 
 # Decorator
-@scheduler.<a href="#triggers">every</a>(hours=1)
+@scheduler.<a href="#triggers">every</a>(days=1)
 def hello(args, **kwargs):
   print('hello')
 </code></pre>
@@ -90,7 +90,7 @@ def hello(args, **kwargs):
 
 			<p>There are 4 types of triggers: Timer, Datetime, Interval, and Crontab.</p>
 
-			<p><b>Timer</b> represents a countdown until the execution of the task. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>. Those parameters are cumulative.</p>
+			<p><b>Timer</b> represents a countdown until the execution of the task. It takes at least 1 keyword argument: <code>hours</code>, and /or <code>minutes</code>. Those parameters are cumulative.</p>
 
 Client:
 <pre class="bp"><code class="python">scheduler<span class="br"> \
@@ -117,7 +117,7 @@ scheduler<span class="br"> \
   </span>.<b>on</b>(datetime=independence_day)<span class="br"> \
   </span>.<span class="quiet">&hellip;</span></code></pre>
 
-			<p><b>Interval</b> specifies a frequency at which to execute a task. It occurs multiple times. It is instantiated in the Crono Python client library by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument: <code>hours</code>, <code>minutes</code>, and/or <s><code>seconds</code></s>.</p>
+			<p><b>Interval</b> specifies a frequency at which to execute a task. It occurs multiple times. It is instantiated in the Crono Python client library by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument: <code>hours</code>, and/or <code>minutes</code>.</p>
 
 <pre><code class="python">scheduler.<b>every</b>(hours=1).<span class="quiet">&hellip;</span></code></pre>
 
