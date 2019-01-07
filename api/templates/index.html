@@ -162,7 +162,15 @@ Authorization: Bearer {token}
 			<a name="authentication"></a>
 			<h2>Authentication</h2>
 
-			<p>Requests to all endpoints have to be authenticated with a <code>Authorization: Bearer {token}</code> header (see an example in <a href="#api">API</a>). To request a token, email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a>.
+			<p>All requests have to be authenticated.To request a token, email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a>.</p>
+
+			Client:
+<pre class="bp"><code class="python">scheduler = crono<span class="br"> \
+  </span>.Scheduler(token='{token}')
+</code></pre>
+
+			API:
+<pre><code class="http">Authorization: Bearer {token}</code></pre>
 
 			<a name="pricing"></a>
 			<h2>Pricing</h2>
