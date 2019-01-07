@@ -152,8 +152,7 @@ Authorization: Bearer {token}
 {
   "trigger": {
     "type": "crontab",
-    "kwargs": {
-      "expression": "0 * * * *"
+    "args": ["0 6 * * 2"]
     }
   },
   "task": {
