@@ -136,8 +136,14 @@ strong {
 		display: inline;
 	}
 
+	.header,
 	.menu {
 		text-align: center;
+	}
+
+	.icon {
+		float: none;
+		margin: 0;
 	}
 }
 
