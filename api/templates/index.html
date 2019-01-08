@@ -56,26 +56,26 @@ scheduler = crono<span class="br"> \
 # Timer
 scheduler<span class="br"> \
   </span>.<a href="#tasks">request</a>('{url}')<span class="br"> \
-  </span>.<a href="#triggers" class="hljs-keyword-in">in</a>(minutes=1)
+  </span>.<a href="#triggers-timer" class="hljs-keyword-in">in</a>(minutes=1)
 
 # Datetime
 scheduler<span class="br"> \
   </span>.<a href="#tasks">text</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{phone}', <span class="br">
     </span>to='{phone}')<span class="br"> \
-  </span>.<a href="#triggers">on</a>(&lt;datetime&gt;)
+  </span>.<a href="#triggers-datetime">on</a>(&lt;datetime&gt;)
 
 # Interval
 scheduler<span class="br"> \
   </span>.<a href="#tasks">email</a>('hello', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{email}', <span class="br">
     </span>to='{email}')<span class="br"> \
-  </span>.<a href="#triggers">every</a>(hours=1)
+  </span>.<a href="#triggers-interval">every</a>(hours=1)
 
 # Crontab
 scheduler<span class="br"> \
   </span>.<a href="#tasks">run</a>('hello', args=[], kwargs={})<span class="br"> \
-  </span>.<a href="#triggers">every</a>('0 6 * * 2')
+  </span>.<a href="#triggers-crontab">every</a>('0 6 * * 2')
 
 # Decorator
 @scheduler.<a href="#triggers">every</a>(days=1)
@@ -91,6 +91,7 @@ def hello(args, **kwargs):
 
 			<p>A trigger is what defines when a job will be executed. There are 4 types of triggers: Timer, Datetime, Interval, and Crontab.</p>
 
+			<a name="triggers-timer"></a>
 			<p><b>Timer</b> specifies a countdown until the execution of a task. It will only occur once. It is instantiated in the Python client by calling the method <code>in</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (same for the interval type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
 
 Python client:
@@ -108,6 +109,7 @@ API:
   }
 }</code></pre>
 
+			<a name="triggers-datetime"></a>
 			<p><b>Datetime</b> specifies the execution of a task at a specific date and time. It will only occur once. It is instantiated in the Python client by calling the method <code>on</code> on the Scheduler object. It takes 1 argument of type <code>&lt;datetime.datetime&gt;</code>.</p>
 
 Python client:
@@ -126,6 +128,7 @@ API:
   }
 }</code></pre>
 
+			<a name="triggers-interval"></a>
 			<p><b>Interval</b> specifies a frequency at which to execute a task. It will occur multiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (similarly to the timer type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
 
 Python client:
@@ -141,9 +144,19 @@ API:
   }
 }</code></pre>
 
-			<p><b>Crontab</b> uses an expression to specify the execution time. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object.</p>
+			<a name="triggers-crontab"></a>
+			<p><b>Crontab</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes exactly 1 argument of type <code>&lt;str&gt;</code>.</p>
 
-<pre><code class="python">scheduler.<b>every</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
+Python client:
+<pre class="bp"><code class="python">scheduler.<b>every</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
+
+API:
+<pre><code class="json">{
+  "trigger": {
+    "type": "interval",
+    "args": ["0 6 * * 2"]
+  }
+}</code></pre>
 
 			<a name="tasks"></a>
 			<h2>Tasks</h2>
