@@ -89,7 +89,13 @@ def hello(args, **kwargs):
 			<a name="triggers"></a>
 			<h2>Triggers</h2>
 
-			<p>A trigger is what defines when a job will be executed. There are 4 types of triggers: Timer, Datetime, Interval, and Crontab.</p>
+			<p class="no-bp">A trigger is what defines when a job will be executed. There are 4 types of triggers:</p>
+			<ul>
+				<li>Timer</li>
+				<li>Datetime</li>
+				<li>Interval</li>
+				<li>Crontab</li>
+			</ul>
 
 			<a name="triggers-timer"></a>
 			<p><b>Timer</b> specifies a countdown until the execution of a task. It will only occur once. It is instantiated in the Python client by calling the method <code>in</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (same for the interval type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
@@ -176,7 +182,7 @@ API:
 				API
 			</h2>
 
-			<p>The Crono API is exposed as an HTTP/1 service over SSL. All endpoints live under the URL <a href="{{ crono_base_url }}">{{ crono_base_url }}</a> and generally follow the REST architecture. All requests must be encoded as JSON with the <code>Content-Type: application/json</code> header.</p>
+			<p>Endpoints live under the URL <a href="{{ crono_base_url }}">{{ crono_base_url }}</a> and generally follow the REST architecture. All requests must be encoded as JSON with the <code>Content-Type: application/json</code> header.</p>
 
 <pre class="p"><code class="http">POST {{ reverse_url('post_job') }} HTTP/1.1
 Host: {{ crono_base_url }}

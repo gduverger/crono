@@ -27,6 +27,15 @@ html > body {
 	font-size: 14px;
 }
 
+ul {
+	margin: 7px;
+}
+
+ul li {
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
 a {
 	color: #007bff;
 	text-decoration: none;
@@ -63,6 +72,10 @@ p,
 
 .bp {
 	margin-bottom: 14px;
+}
+
+.no-bp {
+	margin-bottom: 0;
 }
 
 h1 {
