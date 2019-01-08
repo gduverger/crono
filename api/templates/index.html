@@ -116,7 +116,7 @@ API:
 }</code></pre>
 
 			<a name="triggers-datetime"></a>
-			<p class="tpp"><b>Datetime</b> specifies the execution of a task at a specific date and time. It will only occur once. It is instantiated in the Python client by calling the method <code>on</code> on the Scheduler object. It takes 1 argument of type <code>&lt;datetime.datetime&gt;</code>.</p>
+			<p class="tpp"><b>Datetime</b> specifies the execution of a task at a specific date and time. It will only occur once. It is instantiated in the Python client by calling the method <code>on</code> on the Scheduler object. It takes 1 positional argument of type <code>&lt;datetime.datetime&gt;</code>.</p>
 
 Python client:
 <pre class="bp"><code class="python">import datetime
@@ -151,7 +151,7 @@ API:
 }</code></pre>
 
 			<a name="triggers-crontab"></a>
-			<p class="tpp"><b>Crontab</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes exactly 1 argument of type <code>&lt;str&gt;</code>.</p>
+			<p class="tpp"><b>Crontab</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes exactly 1 positional argument of type <code>&lt;str&gt;</code>.</p>
 
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>every</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
