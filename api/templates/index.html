@@ -98,7 +98,7 @@ def hello(args, **kwargs):
 			</ul>
 
 			<a name="triggers-timer"></a>
-			<p><b>Timer</b> specifies a countdown until the execution of a task. It will only occur once. It is instantiated in the Python client by calling the method <code>in</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (same for the interval type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
+			<p class="tpp"><b>Timer</b> specifies a countdown until the execution of a task. It will only occur once. It is instantiated in the Python client by calling the method <code>in</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (same for the interval type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
 
 Python client:
 <pre class="bp"><code class="python">scheduler<span class="br"> \
@@ -116,7 +116,7 @@ API:
 }</code></pre>
 
 			<a name="triggers-datetime"></a>
-			<p><b>Datetime</b> specifies the execution of a task at a specific date and time. It will only occur once. It is instantiated in the Python client by calling the method <code>on</code> on the Scheduler object. It takes 1 argument of type <code>&lt;datetime.datetime&gt;</code>.</p>
+			<p class="tpp"><b>Datetime</b> specifies the execution of a task at a specific date and time. It will only occur once. It is instantiated in the Python client by calling the method <code>on</code> on the Scheduler object. It takes 1 argument of type <code>&lt;datetime.datetime&gt;</code>.</p>
 
 Python client:
 <pre class="bp"><code class="python">import datetime
@@ -135,7 +135,7 @@ API:
 }</code></pre>
 
 			<a name="triggers-interval"></a>
-			<p><b>Interval</b> specifies a frequency at which to execute a task. It will occur multiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (similarly to the timer type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
+			<p class="tpp"><b>Interval</b> specifies a frequency at which to execute a task. It will occur multiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes at least 1 keyword argument, <code>hours</code> and/or <code>minutes</code>, of type <code>&lt;int&gt;</code>. Those keywords arguments are cumulative (similarly to the timer type). For example, <code>hours=1, minutes=30</code> results in <code>minutes=90</code>.</p>
 
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>every</b>(hours=1, minutes=30).<span class="quiet">&hellip;</span></code></pre>
@@ -151,7 +151,7 @@ API:
 }</code></pre>
 
 			<a name="triggers-crontab"></a>
-			<p><b>Crontab</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes exactly 1 argument of type <code>&lt;str&gt;</code>.</p>
+			<p class="tpp"><b>Crontab</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes exactly 1 argument of type <code>&lt;str&gt;</code>.</p>
 
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>every</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
