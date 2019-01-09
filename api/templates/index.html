@@ -37,6 +37,7 @@
 				<li><a href="#api">API</a></li>
 				<li><a href="#advanced">Advanced</a></li>
 				<li><a href="#authentication">Authentication</a></li>
+				<li><a href="#errors">Errors</a></li>
 				<li><a href="#pricing">Pricing</a></li>
 				<li><a href="#support">Support</a></li>
 			</ol>
@@ -207,7 +208,18 @@ Authorization: Bearer {token}
 			<a name="advanced"></a>
 			<h2>Advanced</h2>
 
-			<p>Commutative, name/unique, GET&hellip;</p>
+			<p>Methods in the Python client are <b>commutative</b>, meaning the trigger can come before or after the task.</p>
+
+<pre><code class="python">scheduler<span class="br"> \
+  </span>.<b>request</b>('{url}')<span class="br"> \
+  </span>.<b class="hljs-keyword-in">in</b>(minutes=1)
+# is equivalent to&hellip;
+scheduler<span class="br"> \
+  </span>.<b class="hljs-keyword-in">in</b>(minutes=1)<span class="br"> \
+  </span>.<b>request</b>('{url}')
+</code></pre>
+
+			<p class="todo">TODO: name/unique</p>
 
 			<a name="authentication"></a>
 			<h2>Authentication</h2>
@@ -221,6 +233,15 @@ Authorization: Bearer {token}
 
 			API:
 <pre><code class="http">Authorization: Bearer {token}</code></pre>
+
+			<a name="errors"></a>
+			<h2>Errors</h2>
+
+			<p><code>WrongArguments</code></p>
+			<p><code>WrongParamaters</code></p>
+			<p><code>UserNotAuthenticated</code></p>
+			<p><code>UserNotAllowed</code></p>
+			<p><code>InsufficientBalance</code></p>
 
 			<a name="pricing"></a>
 			<h2>Pricing</h2>

@@ -124,6 +124,7 @@ strong {
 	line-height: 63px;
 }
 
+.todo,
 .quiet {
 	color: #999; /*#ccc*/
 }
