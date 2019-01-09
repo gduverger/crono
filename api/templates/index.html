@@ -109,7 +109,7 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "timer",
-    "kwargs": {
+    "params": {
       "minutes": 30
     }
   }
@@ -130,7 +130,9 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "datetime",
-    "args": ["2019-07-04T00:00:00"]
+    "params": {
+      "datetime": "2019-07-04T00:00:00"
+    }
   }
 }</code></pre>
 
@@ -144,7 +146,7 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "interval",
-    "kwargs": {
+    "params": {
       "minutes": 90
     }
   }
@@ -159,8 +161,10 @@ Python client:
 API:
 <pre><code class="json">{
   "trigger": {
-    "type": "interval",
-    "args": ["0 6 * * 2"]
+    "type": "crontab",
+    "params": {
+      "expression": "0 6 * * 2"
+    }
   }
 }</code></pre>
 
@@ -187,11 +191,13 @@ Authorization: Bearer {token}
 {
   "trigger": {
     "type": "crontab",
-    "args": ["0 6 * * 2"]
+    "params": {
+      "expression": "0 6 * * 2"
+    }
   },
   "task": {
     "type": "request",
-    "kwargs": {
+    "params": {
       "method": "GET",
       "url": "https://www.crono.com/"
     }
