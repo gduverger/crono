@@ -110,9 +110,7 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "timer",
-    "params": {
-      "minutes": 30
-    }
+    "minutes": 30
   }
 }</code></pre>
 
@@ -131,9 +129,7 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "datetime",
-    "params": {
-      "datetime": "2019-07-04T00:00:00"
-    }
+    "datetime": "2019-07-04T00:00:00"
   }
 }</code></pre>
 
@@ -147,9 +143,7 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "interval",
-    "params": {
-      "minutes": 90
-    }
+    "minutes": 90
   }
 }</code></pre>
 
@@ -163,9 +157,7 @@ API:
 <pre><code class="json">{
   "trigger": {
     "type": "crontab",
-    "params": {
-      "expression": "0 6 * * 2"
-    }
+    "expression": "0 6 * * 2"
   }
 }</code></pre>
 
@@ -201,16 +193,12 @@ Authorization: Bearer {token}
 {
   "trigger": {
     "type": "crontab",
-    "params": {
-      "expression": "0 6 * * 2"
-    }
+    "expression": "0 6 * * 2"
   },
   "task": {
     "type": "request",
-    "params": {
-      "method": "GET",
-      "url": "https://www.crono.com/"
-    }
+    "method": "GET",
+    "url": "https://www.crono.com/"
   }
 }</code></pre>
 
