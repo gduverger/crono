@@ -184,6 +184,15 @@ API:
 
 			<p>Endpoints live under the URL <a href="{{ crono_api_url }}">{{ crono_api_url }}</a> and generally follow the REST architecture. All requests must be encoded as JSON with the <code>Content-Type: application/json</code> header.</p>
 
+			<p>There are 5 endpoints available:</p>
+			<ul>
+				<li><a href="#api-get-user">GET {{ reverse_url('get_user') }}</a></li>
+				<li><a href="#api-get-jobs">GET {{ reverse_url('get_jobs') }}</a></li>
+				<li><a href="#api-post-job">POST {{ reverse_url('post_job') }}</a></li>
+				<li><a href="#api-get-job">GET {{ reverse_url('get_job', key='key') }}</a></li>
+				<li><a href="#api-delete-job">DELETE {{ reverse_url('delete_job', key='key') }}</a></li>
+			</ul>
+
 <pre class="p"><code class="http">POST {{ reverse_url('post_job') }} HTTP/1.1
 Host: {{ crono_api_url }}
 Content-Type: application/json; charset=utf-8
