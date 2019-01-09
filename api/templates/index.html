@@ -182,10 +182,10 @@ API:
 				API
 			</h2>
 
-			<p>Endpoints live under the URL <a href="{{ crono_base_url }}">{{ crono_base_url }}</a> and generally follow the REST architecture. All requests must be encoded as JSON with the <code>Content-Type: application/json</code> header.</p>
+			<p>Endpoints live under the URL <a href="{{ crono_api_url }}">{{ crono_api_url }}</a> and generally follow the REST architecture. All requests must be encoded as JSON with the <code>Content-Type: application/json</code> header.</p>
 
 <pre class="p"><code class="http">POST {{ reverse_url('post_job') }} HTTP/1.1
-Host: {{ crono_base_url }}
+Host: {{ crono_api_url }}
 Content-Type: application/json; charset=utf-8
 Authorization: Bearer {token}
 
