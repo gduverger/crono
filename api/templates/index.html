@@ -85,13 +85,13 @@ def hello_world(args, **kwargs):
   print('hello world')
 </code></pre>
 
-<p>3. <i>(Optional)</i> Run the Crono server if you use the <code>run</code> task as it requires to call back your application:</p>
+<p>3. <em>(Optional)</em> Run the Crono server if you use the <code>run</code> task as it requires to call back your application:</p>
 <pre><code class="p bash">crono app:scheduler</code></pre>
 
 			<a name="triggers"></a>
 			<h2>Triggers</h2>
 
-			<p class="no-bp">A trigger is what defines when a task will be executed. There are 4 types of triggers:</p>
+			<p class="no-bp">A trigger defines <em>when</em> a job will be executed. There are 4 types of triggers:</p>
 			<ul>
 				<li><a href="#triggers-timer">Timer</a></li>
 				<li><a href="#triggers-datetime">Datetime</a></li>
@@ -165,7 +165,16 @@ API:
 			<a name="tasks"></a>
 			<h2>Tasks</h2>
 
-			<p><code>request</code> sends an HTTP request. It is powered by the <a href="http://docs.python-requests.org/en/master/">Requests</a> library.</p>
+			<p class="no-bp">A task defines <em>what</em> a job will do. There are 4 types of tasks:</p>
+			<ul>
+				<li><a href="#tasks-request">request</a></li>
+				<li><a href="#tasks-text">text</a></li>
+				<li><a href="#tasks-email">email</a></li>
+				<li><a href="#tasks-run">run</a></li>
+			</ul>
+
+			<a name="tasks-request"></a>
+			<p class="tpp"><code>request</code> sends an HTTP request. It is powered by the <a href="http://docs.python-requests.org/en/master/">Requests</a> library.</p>
 
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>request</b>(method='HEAD|GET|POST&hellip;', <span class="br">
@@ -196,6 +205,7 @@ API:
   }
 }</code></pre>
 
+			<a name="tasks-text"></a>
 			<p><code>text</code> sends an SMS. It is powered by <a href="https://www.twilio.com/">Twilio</a>. To use it, you have to specify <code>TWILIO_ACCOUNT_SID</code> and <code>TWILIO_AUTH_ID</code> when you instantiate the Scheduler object.</p>
 
 <pre><code class="python">scheduler = crono<span class="br"> \
@@ -204,6 +214,7 @@ API:
     </span><b>twilio_auth_id</b>='{id}')
 </code></pre>
 
+			<a name="tasks-email"></a>
 			<p><code>email</code> sends an email. It is powered by <a href="https://postmarkapp.com/">Postmark</a>. To use it, you have to specify <code>POSTMARK_API_KEY</code> and <code>POSTMARK_SENDER</code> when you instantiate the Scheduler object.</p>
 
 <pre><code class="python">scheduler = crono<span class="br"> \
@@ -212,6 +223,7 @@ API:
     </span><b>postmark_sender</b>='{email}')
 </code></pre>
 
+			<a name="tasks-run"></a>
 			<p><code>run</code> calls a method in your application.</p>
 
 			<a name="api"></a>
