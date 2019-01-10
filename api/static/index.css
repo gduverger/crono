@@ -110,6 +110,10 @@ strong {
 	font-weight: 700;
 }
 
+i {
+	font-style: italic;
+}
+
 .menu {
 	margin: 21px 0;
 	text-align: center;

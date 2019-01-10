@@ -74,10 +74,10 @@ scheduler<span class="br"> \
     </span>to='{email}')<span class="br"> \
   </span>.<a href="#triggers-interval">every</a>(hours=1)
 
-# Crontab
+# Cron
 scheduler<span class="br"> \
   </span>.<a href="#tasks">run</a>('hello', args=[], kwargs={})<span class="br"> \
-  </span>.<a href="#triggers-crontab">every</a>('0 6 * * 2')
+  </span>.<a href="#triggers-cron">at</a>('0 6 * * 2')
 
 # Decorator
 @scheduler.<a href="#triggers">every</a>(days=1)
@@ -85,7 +85,7 @@ def hello(args, **kwargs):
   print('hello')
 </code></pre>
 
-<p>3. Run the Crono server:</p>
+<p>3. <i>(Optional)</i> Run the Crono server if you use the <code>run</code> task as it requires to callback your application:</p>
 <pre><code class="p bash">crono app:scheduler</code></pre>
 
 			<a name="triggers"></a>
@@ -96,7 +96,7 @@ def hello(args, **kwargs):
 				<li><a href="#triggers-timer">Timer</a></li>
 				<li><a href="#triggers-datetime">Datetime</a></li>
 				<li><a href="#triggers-interval">Interval</a></li>
-				<li><a href="#triggers-crontab">Crontab</a></li>
+				<li><a href="#triggers-cron">Cron</a></li>
 			</ul>
 
 			<a name="triggers-timer"></a>
@@ -148,16 +148,16 @@ API:
   }
 }</code></pre>
 
-			<a name="triggers-crontab"></a>
-			<p class="tpp"><b>Crontab</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>every</code> on the Scheduler object. It takes exactly 1 positional argument of type <code>&lt;str&gt;</code>.</p>
+			<a name="triggers-cron"></a>
+			<p class="tpp"><b>Cron</b> uses an expression to specify the execution time. It will occur mutiple times. It is instantiated in the Python client by calling the method <code>at</code> on the Scheduler object. It takes exactly 1 positional argument of type <code>&lt;str&gt;</code>.</p>
 
 Python client:
-<pre class="bp"><code class="python">scheduler.<b>every</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
+<pre class="bp"><code class="python">scheduler.<b>at</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
 
 API:
 <pre><code class="json">{
   "trigger": {
-    "type": "crontab",
+    "type": "cron",
     "expression": "0 6 * * 2"
   }
 }</code></pre>
@@ -165,7 +165,26 @@ API:
 			<a name="tasks"></a>
 			<h2>Tasks</h2>
 
-			<p><code>request</code></p>
+			<p><code>request</code> sends an HTTP request. It is powered by the <a href="http://docs.python-requests.org/en/master/">Requests</a> library.</p>
+
+Python client:
+<pre><code class="python">scheduler.<b>request</b>(method='HEAD|GET|POST|PUT|PATCH|DELETE', <span class="br">
+  </span>url=&lt;str&gt;, <span class="br">
+  </span>params=&lt;dict|list(tuple)|byte&gt;, <span class="br">
+  </span>data=&lt;dict|list(tuple)|byte|file&gt;, <span class="br">
+  </span>json=&lt;dict&gt;, <span class="br">
+  </span>headers=&lt;dict&gt;, <span class="br">
+  </span>cookies=&lt;dict&gt;, <span class="br">
+  </span>files=&lt;dict&gt;, <span class="br">
+  </span>auth=&lt;tuple&gt;, <span class="br">
+  </span>timeout=&lt;float|tuple&gt;, <span class="br">
+  </span>allow_redirects=&lt;bool&gt;)<span class="br">
+  </span>proxy=&lt;dict&gt;, <span class="br">
+  </span>verify=&lt;bool|str&gt;, <span class="br">
+  </span>stream=&lt;bool&gt;, <span class="br">
+  </span>cert=&lt;str|tuple&gt;)<span class="br"> \
+  </span>.<span class="quiet">&hellip;</span></code></pre>
+
 			<p><code>text</code></p>
 			<p><code>email</code></p>
 			<p><code>run</code></p>
@@ -195,7 +214,7 @@ Authorization: Bearer {token}
 
 {
   "trigger": {
-    "type": "crontab",
+    "type": "cron",
     "expression": "0 6 * * 2"
   },
   "task": {
@@ -237,11 +256,13 @@ scheduler<span class="br"> \
 			<a name="errors"></a>
 			<h2>Errors</h2>
 
-			<p><code>WrongArguments</code></p>
-			<p><code>WrongParamaters</code></p>
-			<p><code>UserNotAuthenticated</code></p>
-			<p><code>UserNotAllowed</code></p>
-			<p><code>InsufficientBalance</code></p>
+			<p><code>TriggerTypeInvalid</code></p>
+			<p><code>TriggerParametersInvalid</code></p>
+			<p><code>TaskTypeInvalid</code></p>
+			<p><code>TaskParametersInvalid</code></p>
+			<p><code>AuthenticationTokenInvalid</code></p>
+			<p><code>UserAuthorizationInvalid</code></p>
+			<!-- <p><code>JobInvalid</code></p> -->
 
 			<a name="pricing"></a>
 			<h2>Pricing</h2>
