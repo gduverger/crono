@@ -169,7 +169,7 @@ API:
 
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>request</b>(method='HEAD|GET|POST&hellip;', <span class="br">
-  </span>url=&lt;str&gt;, <span class="br">
+  </span>url='{url}', <span class="br">
   </span>params=&lt;dict|list(tuple)|byte&gt;, <span class="br">
   </span>data=&lt;dict|list(tuple)|byte|file&gt;, <span class="br">
   </span>json=&lt;dict&gt;, <span class="br">
@@ -191,12 +191,27 @@ API:
   "task": {
     "type": "request",
     "method": "HEAD|GET|POST&hellip;",
+    "url": "https://gduverger.com/"
     <span class="quiet">&hellip;</span>
   }
 }</code></pre>
 
-			<p><code>text</code></p>
-			<p><code>email</code></p>
+			<p><code>text</code> sends an SMS. It is powered by <a href="https://www.twilio.com/">Twilio</a>. To use it, you have to specify <code>TWILIO_ACCOUNT_SID</code> and <code>TWILIO_AUTH_ID</code> when you instantiate the Scheduler object.</p>
+
+<pre><code class="python">scheduler = crono<span class="br"> \
+  </span>.Scheduler(token='{token}', <span class="br">
+    </span><b>twilio_account_id</b>='{id}', <span class="br">
+    </span><b>twilio_auth_id</b>='{id}')
+</code></pre>
+
+			<p><code>email</code> sends an email. It is powered by <a href="https://postmarkapp.com/">Postmark</a>. To use it, you have to specify <code>POSTMARK_API_KEY</code> and <code>POSTMARK_SENDER</code> when you instantiate the Scheduler object.</p>
+
+<pre><code class="python">scheduler = crono<span class="br"> \
+  </span>.Scheduler(token='{token}', <span class="br">
+    </span><b>postmark_api_key</b>='{key}', <span class="br">
+    </span><b>postmark_sender</b>='{email}')
+</code></pre>
+
 			<p><code>run</code></p>
 
 			<a name="api"></a>
@@ -270,6 +285,7 @@ scheduler<span class="br"> \
 			<p><code>InvalidTriggerParameters</code></p>
 			<p><code>InvalidTaskType</code></p>
 			<p><code>InvalidTaskParameters</code></p>
+			<p><code>MissingToken</code></p>
 			<p><code>InvalidToken</code></p>
 			<p><code>InsufficientBalance</code></p>
 
