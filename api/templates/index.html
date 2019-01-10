@@ -120,17 +120,17 @@ API:
 
 Python client:
 <pre class="bp"><code class="python">import datetime
-independence_day = datetime<span class="br"> \
+day = datetime<span class="br"> \
   </span>.datetime(2019, 7, 4)
 scheduler<span class="br"> \
-  </span>.<b>on</b>(independence_day)<span class="br"> \
+  </span>.<b>on</b>(day)<span class="br"> \
   </span>.<span class="quiet">&hellip;</span></code></pre>
 
 API:
 <pre><code class="json">{
   "trigger": {
     "type": "datetime",
-    "datetime": "2019-07-04T00:00:00"
+    "iso": "2019-07-04T00:00:00"
   }
 }</code></pre>
 
