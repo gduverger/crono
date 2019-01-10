@@ -85,7 +85,7 @@ def hello(args, **kwargs):
   print('hello')
 </code></pre>
 
-<p>3. <i>(Optional)</i> Run the Crono server if you use the <code>run</code> task as it requires to callback your application:</p>
+<p>3. <i>(Optional)</i> Run the Crono server if you use the <code>run</code> task as it requires to call back your application:</p>
 <pre><code class="p bash">crono app:scheduler</code></pre>
 
 			<a name="triggers"></a>
@@ -266,13 +266,12 @@ scheduler<span class="br"> \
 			<a name="errors"></a>
 			<h2>Errors</h2>
 
-			<p><code>TriggerTypeInvalid</code></p>
-			<p><code>TriggerParametersInvalid</code></p>
-			<p><code>TaskTypeInvalid</code></p>
-			<p><code>TaskParametersInvalid</code></p>
-			<p><code>AuthenticationTokenInvalid</code></p>
-			<p><code>UserAuthorizationInvalid</code></p>
-			<!-- <p><code>JobInvalid</code></p> -->
+			<p><code>InvalidTriggerType</code></p>
+			<p><code>InvalidTriggerParameters</code></p>
+			<p><code>InvalidTaskType</code></p>
+			<p><code>InvalidTaskParameters</code></p>
+			<p><code>InvalidToken</code></p>
+			<p><code>InsufficientBalance</code></p>
 
 			<a name="pricing"></a>
 			<h2>Pricing</h2>
