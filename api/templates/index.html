@@ -168,7 +168,7 @@ API:
 			<p><code>request</code> sends an HTTP request. It is powered by the <a href="http://docs.python-requests.org/en/master/">Requests</a> library.</p>
 
 Python client:
-<pre><code class="python">scheduler.<b>request</b>(method='HEAD|GET|POST|PUT|PATCH|DELETE', <span class="br">
+<pre class="bp"><code class="python">scheduler.<b>request</b>(method='HEAD|GET|POST&hellip;', <span class="br">
   </span>url=&lt;str&gt;, <span class="br">
   </span>params=&lt;dict|list(tuple)|byte&gt;, <span class="br">
   </span>data=&lt;dict|list(tuple)|byte|file&gt;, <span class="br">
@@ -183,7 +183,17 @@ Python client:
   </span>verify=&lt;bool|str&gt;, <span class="br">
   </span>stream=&lt;bool&gt;, <span class="br">
   </span>cert=&lt;str|tuple&gt;)<span class="br"> \
-  </span>.<span class="quiet">&hellip;</span></code></pre>
+  </span>.<span class="quiet">&hellip;</span>
+</code></pre>
+
+API:
+<pre><code class="json">{
+  "task": {
+    "type": "request",
+    "method": "HEAD|GET|POST&hellip;",
+    <span class="quiet">&hellip;</span>
+  }
+}</code></pre>
 
 			<p><code>text</code></p>
 			<p><code>email</code></p>
