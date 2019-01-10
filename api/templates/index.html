@@ -206,16 +206,16 @@ API:
 }</code></pre>
 
 			<a name="tasks-text"></a>
-			<p><code>text</code> sends an SMS. It is powered by <a href="https://www.twilio.com/">Twilio</a>. To use it, you have to specify <code>TWILIO_ACCOUNT_SID</code> and <code>TWILIO_AUTH_ID</code> when you instantiate the Scheduler object.</p>
+			<p><code>text</code> sends an SMS. It is powered by <a href="https://www.twilio.com/">Twilio</a>. To use it, you have to specify <code>twilio_account_sid</code> and <code>twilio_auth_id</code> when you instantiate the Scheduler object.</p>
 
 <pre><code class="python">scheduler = crono<span class="br"> \
   </span>.Scheduler(token='{token}', <span class="br">
-    </span><b>twilio_account_id</b>='{id}', <span class="br">
+    </span><b>twilio_account_sid</b>='{sid}', <span class="br">
     </span><b>twilio_auth_id</b>='{id}')
 </code></pre>
 
 			<a name="tasks-email"></a>
-			<p><code>email</code> sends an email. It is powered by <a href="https://postmarkapp.com/">Postmark</a>. To use it, you have to specify <code>POSTMARK_API_KEY</code> and <code>POSTMARK_SENDER</code> when you instantiate the Scheduler object.</p>
+			<p><code>email</code> sends an email. It is powered by <a href="https://postmarkapp.com/">Postmark</a>. To use it, you have to specify <code>postmark_api_key</code> and <code>postmark_sender</code> when you instantiate the Scheduler object.</p>
 
 <pre><code class="python">scheduler = crono<span class="br"> \
   </span>.Scheduler(token='{token}', <span class="br">
