@@ -63,27 +63,29 @@ scheduler<span class="br"> \
 
 # Datetime
 scheduler<span class="br"> \
-  </span>.<a href="#tasks">text</a>('hello world', <span class="br">
+  </span>.<a href="#tasks">text</a>('Hello, Future!', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{phone}', <span class="br">
     </span>to='{phone}')<span class="br"> \
   </span>.<a href="#triggers-datetime">on</a>(&lt;datetime&gt;)
 
 # Interval
 scheduler<span class="br"> \
-  </span>.<a href="#tasks">email</a>('hello world', <span class="br">
+  </span>.<a href="#tasks">email</a>('Hello, Future!', <span class="br">
     </span><span class="hljs-keyword-from">from</span>='{email}', <span class="br">
     </span>to='{email}')<span class="br"> \
   </span>.<a href="#triggers-interval">every</a>(hours=1)
 
 # Cron
 scheduler<span class="br"> \
-  </span>.<a href="#tasks">run</a>('hello_world', args=[], kwargs={})<span class="br"> \
+  </span>.<a href="#tasks">run</a>('hello_future', <span class="br">
+    </span>args=[], <span class="br">
+    </span>kwargs={})<span class="br"> \
   </span>.<a href="#triggers-cron">at</a>('0 6 * * 2')
 
 # Decorator
 @scheduler.<a href="#triggers">every</a>(days=1)
-def hello_world(args, **kwargs):
-  print('hello world')
+def hello_future(args, **kwargs):
+  print('Hello, Future!')
 </code></pre>
 
 <p>3. <em>(Optional)</em> Run the Crono server if you use the <code>run</code> task as it requires to call back your application:</p>
