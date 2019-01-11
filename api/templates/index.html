@@ -110,7 +110,7 @@ Python client:
   </span>.<b class="hljs-keyword-in">in</b>(minutes=30)<span class="br"> \
   </span>.<span class="quiet">&hellip;</span></code></pre>
 
-API:
+Request body:
 <pre><code class="json">{
   "trigger": {
     "type": "timer",
@@ -129,7 +129,7 @@ scheduler<span class="br"> \
   </span>.<b>on</b>(day)<span class="br"> \
   </span>.<span class="quiet">&hellip;</span></code></pre>
 
-API:
+Request body:
 <pre><code class="json">{
   "trigger": {
     "type": "datetime",
@@ -143,7 +143,7 @@ API:
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>every</b>(hours=1, minutes=30).<span class="quiet">&hellip;</span></code></pre>
 
-API:
+Request body:
 <pre><code class="json">{
   "trigger": {
     "type": "interval",
@@ -157,7 +157,7 @@ API:
 Python client:
 <pre class="bp"><code class="python">scheduler.<b>at</b>('0 6 * * 2').<span class="quiet">&hellip;</span></code></pre>
 
-API:
+Request body:
 <pre><code class="json">{
   "trigger": {
     "type": "cron",
@@ -198,7 +198,7 @@ Python client:
   </span>.<span class="quiet">&hellip;</span>
 </code></pre>
 
-API:
+Request body:
 <pre><code class="json">{
   "task": {
     "type": "request",
@@ -288,7 +288,7 @@ scheduler<span class="br"> \
   </span>.Scheduler(token='{token}')
 </code></pre>
 
-			API:
+			Request header:
 <pre><code class="http">Authorization: Bearer {token}</code></pre>
 
 			<a name="errors"></a>
