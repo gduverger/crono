@@ -39,6 +39,7 @@
 				<li><a href="#advanced">Advanced</a></li>
 				<li><a href="#authentication">Authentication</a></li>
 				<li><a href="#errors">Errors</a></li>
+				<li><a href="#todo">TODO</a></li>
 				<li><a href="#pricing">Pricing</a></li>
 				<li><a href="#support">Support</a></li>
 			</ol>
@@ -177,7 +178,7 @@ API:
 			<p class="tpp"><code>request</code> sends an HTTP request. It is powered by the <a href="http://docs.python-requests.org/en/master/">Requests</a> library.</p>
 
 Python client:
-<pre class="bp"><code class="python">scheduler.<b>request</b>(method='HEAD|GET|POST&hellip;', <span class="br">
+<pre class="bp"><code class="python">scheduler.<b>request</b>(method='GET|POST&hellip;', <span class="br">
   </span>url='{url}', <span class="br">
   </span>params=&lt;dict|list(tuple)|byte&gt;, <span class="br">
   </span>data=&lt;dict|list(tuple)|byte|file&gt;, <span class="br">
@@ -199,7 +200,7 @@ API:
 <pre><code class="json">{
   "task": {
     "type": "request",
-    "method": "HEAD|GET|POST&hellip;",
+    "method": "GET|POST&hellip;",
     "url": "https://gduverger.com/"
     <span class="quiet">&hellip;</span>
   }
@@ -227,9 +228,7 @@ API:
 			<p><code>run</code> calls a method in your application.</p>
 
 			<a name="api"></a>
-			<h2>
-				API
-			</h2>
+			<h2>API</h2>
 
 			<p>Endpoints live under the URL <a href="{{ crono_api_url }}">{{ crono_api_url }}</a> and generally follow the REST architecture. All requests must be encoded as JSON with the <code>Content-Type: application/json</code> header.</p>
 
@@ -293,13 +292,25 @@ scheduler<span class="br"> \
 			<a name="errors"></a>
 			<h2>Errors</h2>
 
+			<p><code>MissingTrigger</code></p>
 			<p><code>InvalidTriggerType</code></p>
 			<p><code>InvalidTriggerParameters</code></p>
+			<p><code>MissingTask</code></p>
 			<p><code>InvalidTaskType</code></p>
 			<p><code>InvalidTaskParameters</code></p>
 			<p><code>MissingToken</code></p>
 			<p><code>InvalidToken</code></p>
 			<p><code>InsufficientBalance</code></p>
+
+			<a name="todo"></a>
+			<h2>TODO</h2>
+
+			<p class="no-bp">Crono is always improving. Here are some of the features coming soon:</p>
+			<ul>
+				<li>Execution log</li>
+				<li>Error notification</li>
+				<li class="quiet">&hellip;</li>
+			</ul>
 
 			<a name="pricing"></a>
 			<h2>Pricing</h2>
