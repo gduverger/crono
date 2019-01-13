@@ -15,7 +15,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 def get_index(app: App):
 	return app.render_template('index.html',
 		crono_api_token=os.getenv('CRONO_API_TOKEN'),
-		crono_base_url=os.getenv('CRONO_BASE_URL'),
+		crono_api_url=os.getenv('CRONO_API_URL'),
 		crono_support_email=os.getenv('CRONO_SUPPORT_EMAIL'),
 		heap_analytics_id=os.getenv('HEAP_ANALYTICS_ID'))
 

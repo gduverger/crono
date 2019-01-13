@@ -1,38 +1,9 @@
 {
-  "name": "crono-api",
-  "scripts": {
-  },
-  "env": {
-    "REDISTOGO_URL": {
-      "required": true
-    },
-    "RPYC_CLIENT_HOSTNAME": {
-      "required": true
-    },
-    "RPYC_CLIENT_PORT": {
-      "required": true
-    },
-    "RPYC_SERVER_HOSTNAME": {
-      "required": true
-    },
-    "RPYC_SERVER_PORT": {
-      "required": true
-    }
-  },
-  "formation": {
-    "clock": {
-      "quantity": 1
-    },
-    "web": {
-      "quantity": 1
-    }
-  },
-  "addons": [
-    "redistogo"
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/python"
-    }
-  ]
+	"environments": {
+		"test": {
+			"scripts": {
+				"test": "python -m pytest"
+			}
+		}
+	}
 }

@@ -1,6 +1,6 @@
-[![Build Status](https://semaphoreci.com/api/v1/projects/6f456841-4428-4dcd-ad8c-f7034330b7de/2099247/badge.svg)](https://semaphoreci.com/gduverger-65/crono)
+# Crono
 
-# Redis
+## Redis
 
 	https://redis.io/download
 	// export PATH=$PATH:~/Sites/redis-4.0.6/src
@@ -15,7 +15,7 @@
 	hgetall {key}
 	// del/hdel
 
-# UUID
+## UUID
 
 	
 	# Job key
@@ -26,10 +26,10 @@
 	import secrets
 	secrets.token_hex()
 
-# Test
+## Test
 
 	python -m pytest
 
-# Requirements
+## Requirements
 
 	pipenv lock -r
