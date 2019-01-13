@@ -1,4 +1,6 @@
-# Redis
+# Crono
+
+## Redis
 
 	https://redis.io/download
 	// export PATH=$PATH:~/Sites/redis-4.0.6/src
@@ -13,7 +15,7 @@
 	hgetall {key}
 	// del/hdel
 
-# UUID
+## UUID
 
 	
 	# Job key
@@ -24,10 +26,10 @@
 	import secrets
 	secrets.token_hex()
 
-# Test
+## Test
 
 	python -m pytest
 
-# Requirements
+## Requirements
 
 	pipenv lock -r
