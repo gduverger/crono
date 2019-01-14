@@ -44,6 +44,11 @@ def delete_job(user: models.User, key: str) -> dict:
 	return user.remove_job(key).to_dict()
 
 
+def get_signup():
+	return app.render_template('signup.html', 
+		heap_analytics_id=os.getenv('HEAP_ANALYTICS_ID'))
+
+
 routes = [
 	Route('/', method='GET', handler=get_index),
 	Route('/user', method='GET', handler=get_user),
@@ -52,6 +57,8 @@ routes = [
 	Route('/jobs', method='DELETE', handler=delete_jobs),
 	Route('/jobs/{key}', method='GET', handler=get_job),
 	Route('/jobs/{key}', method='DELETE', handler=delete_job),
+
+	Route('/signup', method='GET', handler=get_signup),
 
 	# TODO
 	# Route('/logs', method='GET', handler=get_logs),
