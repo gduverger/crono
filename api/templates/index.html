@@ -28,7 +28,11 @@
 				<img src="/static/crystal-ball-3.png" class="icon">
 				<h1>Crono</h1>
 				<div class="sub">Programming in the future</div>
-				<!-- <div class="sub"><code>scheduler.run('method').every(hours=1)</code></div> -->
+
+<pre style="display: inline-block; margin-top: 10px"><code class="python">scheduler<span class="br"> \
+  </span>.run('hello_future')<span class="br"> \
+  </span>.every(hours=1)</code></pre>
+
 			</div>
 
 			<ol class="menu">
@@ -47,7 +51,7 @@
 			<a name="getting-started"></a>
 			<h2>Getting Started</h2>
 
-<p>1. Install the Crono Python client:</p>
+<p>1. <a href="{{ reverse_url('get_signup') }}?from=start">Sign up</a> and install the Crono Python client:</p>
 <pre><code class="p bash">pip install crono-python</code></pre>
 
 <p>2. Schedule recurring or single occurence jobs in your application (in <code>app.py</code> for example):</p>
@@ -277,7 +281,7 @@ scheduler<span class="br"> \
 			<a name="authentication"></a>
 			<h2>Authentication</h2>
 
-			<p>Requests to the Crono API must provide an API token through the <code>Authorization</code> header. To request a token, email <a href="mailto:{{ crono_support_email }}">{{ crono_support_email }}</a>.</p>
+			<p>Requests to the Crono API must provide an API token through the <code>Authorization</code> header. <a href="{{ reverse_url('get_signup') }}?from=auth">Sign up</a> to request a token.</p>
 
 			Python client:
 <pre class="bp"><code class="python">scheduler = crono<span class="br"> \
@@ -318,7 +322,7 @@ scheduler<span class="br"> \
 			<a name="support"></a>
 			<h2>Support</h2>
 
-			<p>Email <a href="mailto:crono@gduverger.com">crono@gduverger.com</a> for help.</p>
+			<p>Email <a href="mailto:georges.duverger@gmail.com">georges.duverger@gmail.com</a> for help.</p>
 
 		</body>
 </html>
