@@ -1,11 +1,11 @@
 import os
 import requests
-import postmarker
+# import postmarker
 
 from crono import queue
 
 
-postmark = postmarker.core.PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
+# postmark = postmarker.core.PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 
 
 @queue.queue.task
