@@ -64,7 +64,3 @@ class Job:
 	def email(self):
 		self.task = 'crono.tasks.email'
 		return self.save()
-
-	def run(self):
-		self.task = 'crono.tasks.run'
-		return self.save()

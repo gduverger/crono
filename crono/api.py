@@ -28,6 +28,3 @@ def message(text):
 
 def email():
 	return job.Job(task='crono.tasks.email')
-
-def run():
-	return job.Job(task='crono.tasks.run')
