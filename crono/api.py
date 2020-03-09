@@ -3,28 +3,28 @@ from crono import triggers
 
 # Triggers
 
-def on(datetime):
-	return job.Job(trigger=triggers.datetime(datetime))
+def on(*args, **kwargs):
+	return job.Job(trigger=triggers.datetime(*args, **kwargs))
 
-def in_(**kwargs):
-	return job.Job(trigger=triggers.timer(**kwargs))
+def in_(*args, **kwargs):
+	return job.Job(trigger=triggers.timer(*args, **kwargs))
 
-def every(**kwargs):
-	return job.Job(trigger=triggers.interval(**kwargs))
+def every(*args, **kwargs):
+	return job.Job(trigger=triggers.interval(*args, **kwargs))
 
-def at(string):
-	return job.Job(trigger=triggers.crontab(string))
+def at(*args, **kwargs):
+	return job.Job(trigger=triggers.crontab(*args, **kwargs))
 
 # Tasks
 
-def log(string):
-	return job.Job(task='crono.tasks.log')
+def log(*args, **kwargs):
+	return job.Job(task='crono.tasks.log', args=args, kwargs=kwargs)
 
-def request():
-	return job.Job(task='crono.tasks.request')
+def request(*args, **kwargs):
+	return job.Job(task='crono.tasks.request', args=args, kwargs=kwargs)
 
-def message(text):
-	return job.Job(task='crono.tasks.message')
+def message(*args, **kwargs):
+	return job.Job(task='crono.tasks.message', args=args, kwargs=kwargs)
 
-def email():
-	return job.Job(task='crono.tasks.email')
+def email(*args, **kwargs):
+	return job.Job(task='crono.tasks.email', args=args, kwargs=kwargs)
