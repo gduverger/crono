@@ -2,15 +2,14 @@ import os
 import requests
 
 from postmarker.core import PostmarkClient
-from api import models, scheduler
-from apistar import exceptions
+from api import models, queue
 
 
 postmark = PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
 
 
-@scheduler.queue.task
-def log(job_key, message=None):
+@queue.queue.task
+def log(message=None):
 
 	try:
 		job = models.Job.get_by_key(job_key)
@@ -21,8 +20,13 @@ def log(job_key, message=None):
 		pass
 
 
-@scheduler.queue.task
-def request(job_key, method='GET', url=None):
+@queue.queue.task
+def message():
+	pass
+
+
+@queue.queue.task
+def request(method='GET', url=None):
 
 	try:
 		
@@ -43,8 +47,8 @@ def request(job_key, method='GET', url=None):
 		pass
 
 
-@scheduler.queue.task
-def email(job_key, to=None, subject=None, body=None):
+@queue.queue.task
+def email(to=None, subject=None, body=None):
 
 	try:
 		postmark.emails.send(From=os.getenv('FROM_EMAIL_ADDRESS'), To=to, Subject=subject, TextBody=body)

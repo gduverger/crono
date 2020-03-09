@@ -5,6 +5,7 @@ name = "pypi"
 
 [dev-packages]
 pytest = "==3.3.2"
+attrs = "==19.1.0"
 
 [packages]
 celery = "==4.1.1"

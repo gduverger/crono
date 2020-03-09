@@ -1,5 +1,17 @@
 # Crono
 
+## Environmental variables
+	
+	# REDIS_URL
+	REDIS_BROKER_URL
+	REDIS_BACKEND_URL
+	REDIS_MAX_CONNECTIONS
+
+	POSTMARK_SERVER_TOKEN
+	FROM_EMAIL_ADDRESS
+	CRONO_API_TOKEN_TEST
+	ENVIRONMENT
+
 ## Redis
 
 	https://redis.io/download
@@ -29,7 +41,3 @@
 ## Test
 
 	python -m pytest
-
-## Requirements
-
-	pipenv lock -r
