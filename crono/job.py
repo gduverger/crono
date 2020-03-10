@@ -1,6 +1,7 @@
 import os
 import uuid
 import redbeat
+import logging
 
 from crono import queue, triggers
 
@@ -14,10 +15,11 @@ class Job:
 		self.kwargs = kwargs
 
 	def save(self):
-		if self.task and self.trigger:
-			name = str(uuid.uuid4())
-			# entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
-			# entry.save()
+		# if self.task and self.trigger: # TODO
+		name = str(uuid.uuid4())
+		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
+		logging.debug(entry)
+		entry.save()
 
 		return self
 

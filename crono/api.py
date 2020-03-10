@@ -1,3 +1,5 @@
+import logging
+
 from crono import job
 from crono import triggers
 

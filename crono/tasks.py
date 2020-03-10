@@ -5,18 +5,18 @@ import requests
 from crono import queue
 
 
-# postmark = postmarker.core.PostmarkClient(server_token=os.getenv('POSTMARK_SERVER_TOKEN'))
-
-
 @queue.queue.task
 def log(string):
-	print(string)
+	if string:
+		print(string)
+
+	raise Exception('log task not valid')
 
 
 @queue.queue.task
 def message(**kwargs):
 	# TODO Twilio integration
-	raise Exception('Not implemented')
+	raise Exception('message task not implemented')
 
 
 @queue.queue.task
@@ -26,5 +26,5 @@ def request(method, url, **kwargs):
 
 @queue.queue.task
 def email(**kwargs):
-	#postmark.emails.send(**kwargs)
-	raise Exception('Not implemented')
+	# TODO Postmark integration
+	raise Exception('email task not implemented')
