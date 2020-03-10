@@ -18,17 +18,20 @@ def timer(seconds=None, minutes=None):
 
 	raise Exception('timer trigger not valid')
 
+
 def datetime(datetime_):
 	if datetime_:
 		return redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=queue.queue) # HACK
 
 	raise Exception('datetime trigger not valid')
 
+
 def interval(seconds=None):
 	if seconds:
 		return celery.schedules.schedule(run_every=seconds, app=queue.queue)
 
 	raise Exception('interval trigger not valid')
+
 
 def crontab(string):
 	if string:

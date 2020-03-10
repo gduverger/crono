@@ -1,6 +1,5 @@
 import os
 import requests
-# import postmarker
 
 from crono import queue
 
