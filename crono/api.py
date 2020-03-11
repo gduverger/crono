@@ -17,6 +17,9 @@ def every(*args, **kwargs):
 def at(*args, **kwargs):
 	return job.Job(trigger=triggers.crontab(*args, **kwargs))
 
+def when(*args, **kwargs):
+	return job.Job(trigger=triggers.solar(*args, **kwargs))
+
 # Tasks
 
 def log(*args, **kwargs):

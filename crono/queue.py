@@ -3,13 +3,14 @@ import celery
 import redbeat
 
 
-queue = celery.Celery('crono', # DOC Name of the main module if running as __main__. This is used as the prefix for auto-generated task names.
-		broker=os.getenv('REDIS_BROKER_URL'),
-		backend=os.getenv('REDIS_BACKEND_URL'),
-		include=['crono.tasks'])
+# DOC Name of the main module if running as __main__. This is used as the prefix for auto-generated task names.
+queue = celery.Celery('crono',
+	broker=os.getenv('REDIS_BROKER_URL'),
+	backend=os.getenv('REDIS_BACKEND_URL'),
+	include=['crono.tasks'])
 
 # queue.conf.redbeat_redis_url = os.getenv('REDIS_URL')
-queue.conf.beat_max_loop_interval = os.getenv('BEAT_MAX_LOOP_INTERVAL') # in seconds
+queue.conf.beat_max_loop_interval = int(os.getenv('BEAT_MAX_LOOP_INTERVAL', 300)) # in seconds (5 by default)
 # queue.conf.redbeat_lock_timeout = 5
 
 # NOTE Heroku Redis' Hobby Dev has a limit of 20 connections

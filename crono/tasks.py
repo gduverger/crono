@@ -6,8 +6,8 @@ from crono import queue
 
 
 @queue.queue.task
-def log(msg, *args, **kwargs):
-	logging.info(msg, *args, **kwargs)
+def log(level, msg, *args, **kwargs):
+	logging.log(level, msg, *args, **kwargs)
 
 
 @queue.queue.task

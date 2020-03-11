@@ -15,11 +15,12 @@ class Job:
 		self.kwargs = kwargs
 
 	def save(self):
-		# if self.task and self.trigger: # TODO
-		name = str(uuid.uuid4())
-		entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
-		logging.debug(entry)
-		entry.save()
+
+		if self.task and self.trigger != None:
+			name = str(uuid.uuid4())
+			entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
+			logging.debug(entry)
+			entry.save()
 
 		return self
 
@@ -44,6 +45,10 @@ class Job:
 
 	def at(self, *args, **kwargs):
 		self.trigger = triggers.crontab(*args, **kwargs)
+		return self.save()
+
+	def when(self, *args, **kwargs):
+		self.trigger = triggers.solar(*args, **kwargs)
 		return self.save()
 
 	# Tasks

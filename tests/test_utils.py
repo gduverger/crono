@@ -1,11 +1,8 @@
-import pytest
-
-from crono import utils
-
-
 """
 python -m pytest tests/test_utils.py
 """
+
+from crono import utils
 
 
 def test_seconds():
@@ -25,24 +22,24 @@ def test_class():
 	python -m pytest tests/test_utils.py::test_class
 	"""
 
-	a = [1, 2, 3]
+	bar = [1, 2, 3]
 
-	class O:
+	class Foo:
 
-		def __init__(self, a=None):
-			self.a = a
+		def __init__(self, bar=None):
+			self.bar = bar
 
-	o = O(a=a)
-	assert a == [1, 2, 3]
-	assert o.a == [1, 2, 3]
+	foo = Foo(bar=bar)
+	assert bar == [1, 2, 3]
+	assert foo.bar == [1, 2, 3]
 
-	a = [4, 5, 6]
-	assert a == [4, 5, 6]
-	assert o.a != [4, 5, 6] # !
+	bar = [4, 5, 6]
+	assert bar == [4, 5, 6]
+	assert foo.bar == [1, 2, 3]
 
-	o.a = [7, 8, 9]
-	assert a != [7, 8, 9] # !
-	assert o.a == [7, 8, 9]
+	foo.bar = [7, 8, 9]
+	assert bar == [4, 5, 6]
+	assert foo.bar == [7, 8, 9]
 
 
 def test_list():

@@ -7,23 +7,16 @@
 	REDIS_BACKEND_URL
 	REDIS_MAX_CONNECTIONS
 
-	ENVIRONMENT
-
-## Redis
-
-	https://redis.io/download
-	// export PATH=$PATH:~/Sites/redis-4.0.6/src
+## How to start
 
 	redis-server &
-	// redis-cli shutdown
+	celery worker --app=crono.queue:queue --hostname=worker1@%h --loglevel=DEBUG
+	celery beat --app=crono.queue:queue --scheduler=redbeat.schedulers.RedBeatScheduler --loglevel=DEBUG
 
-	heroku redis:cli
-	flushall
+## How to stop
 
-	scan 0 match redbeat* // count 100
-	hgetall {key}
-	// del/hdel
+	redis-cli shutdown
 
-## Test
+## How to test
 
 	python -m pytest
