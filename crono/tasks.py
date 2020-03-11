@@ -29,5 +29,5 @@ def email(*args, **kwargs):
 
 @queue.queue.task
 def printf(*args, **kwargs):
-	# TODO printf integration
-	raise Exception('printf task not implemented')
+	data = {'args': args, 'kwargs': kwargs}
+	return requests.post('https://printf.app/' + os.getenv('PRINTF_CHANNEL', 'all'), data=data)
