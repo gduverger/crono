@@ -7,8 +7,8 @@ from crono import utils
 
 # TODO error handling
 
-def timer(hours=None, minutes=None, seconds=None):
-	time = utils.seconds(hours=hours, minutes=minutes, seconds=seconds)
+def timer(hours=None, minutes=None):
+	time = utils.seconds(hours=hours, minutes=minutes, seconds=0)
 	return celery.schedules.maybe_schedule(time, app=queue.queue)
 	# return redbeat.schedules.rrule('SECONDLY', interval=time, count=1, app=queue.queue) # HACK
 
@@ -19,8 +19,8 @@ def datetime(datetime_):
 	# return redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=queue.queue) # HACK
 
 
-def interval(hours=None, minutes=None, seconds=None):
-	time = utils.seconds(hours=hours, minutes=minutes, seconds=seconds)
+def interval(hours=None, minutes=None):
+	time = utils.seconds(hours=hours, minutes=minutes, seconds=0)
 	return celery.schedules.schedule(run_every=time, app=queue.queue)
 
 
