@@ -76,3 +76,9 @@ class Job:
 		self.args = args
 		self.kwargs = kwargs
 		return self.save()
+
+	def printf(self, *args, **kwargs):
+		self.task = 'crono.tasks.printf'
+		self.args = args
+		self.kwargs = kwargs
+		return self.save()

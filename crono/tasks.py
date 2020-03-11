@@ -25,3 +25,9 @@ def request(method, url, **kwargs):
 def email(*args, **kwargs):
 	# TODO Postmark integration
 	raise Exception('email task not implemented')
+
+
+@queue.queue.task
+def printf(*args, **kwargs):
+	# TODO printf integration
+	raise Exception('printf task not implemented')

@@ -33,3 +33,6 @@ def message(*args, **kwargs):
 
 def email(*args, **kwargs):
 	return job.Job(task='crono.tasks.email', args=args, kwargs=kwargs)
+
+def printf(*args, **kwargs):
+	return job.Job(task='crono.tasks.printf', args=args, kwargs=kwargs)
