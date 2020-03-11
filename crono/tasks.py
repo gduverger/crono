@@ -1,19 +1,17 @@
 import os
 import requests
+import logging
 
 from crono import queue
 
 
 @queue.queue.task
-def log(string):
-	if string:
-		print(string)
-
-	raise Exception('log task not valid')
+def log(msg, *args, **kwargs):
+	logging.info(msg, *args, **kwargs)
 
 
 @queue.queue.task
-def message(**kwargs):
+def message(*args, **kwargs):
 	# TODO Twilio integration
 	raise Exception('message task not implemented')
 
@@ -24,6 +22,6 @@ def request(method, url, **kwargs):
 
 
 @queue.queue.task
-def email(**kwargs):
+def email(*args, **kwargs):
 	# TODO Postmark integration
 	raise Exception('email task not implemented')

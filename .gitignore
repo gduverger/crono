@@ -8,4 +8,6 @@ misc
 *.DS_Store
 *__pycache__
 .pytest_cache
+dump.rdb
 celeryd.pid
+celerybeat.pid

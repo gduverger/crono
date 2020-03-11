@@ -1,5 +1,4 @@
 import crono
-import logging
 
 
 """
@@ -22,5 +21,5 @@ class TestApi(object):
 		assert isinstance(job, crono.job.Job)
 		assert job.task == 'crono.tasks.log'
 
-		job = job.in_(minutes=7)
+		job = job.every(minutes=1)
 		assert isinstance(job, crono.job.Job)

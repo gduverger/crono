@@ -1,9 +1,23 @@
 import pytest
 
+from crono import utils
+
 
 """
 python -m pytest tests/test_utils.py
 """
+
+
+def test_seconds():
+	"""
+	python -m pytest tests/test_utils.py::test_seconds
+	"""
+
+	assert utils.seconds(seconds=42) == 42
+	assert utils.seconds(minutes=42) == 42 * 60
+	assert utils.seconds(hours=42) == 42 * 60 * 60
+	assert utils.seconds(minutes=42, seconds=42) == 42 + (42 * 60)
+	assert utils.seconds(hours=42, minutes=42, seconds=42) == 42 + (42 * 60) + (42 * 60 * 60)
 
 
 def test_class():
