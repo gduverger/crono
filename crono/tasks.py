@@ -29,5 +29,5 @@ def email(*args, **kwargs):
 
 @queue.queue.task
 def printf(text, *args, **kwargs):
-	data = {'text': text, 'args': args, 'kwargs': kwargs}
-	return requests.post('https://printf-prod.herokuapp.com/' + os.getenv('PRINTF_ROOM', 'crono'), data=data)
+	data = {'text': text} # TODO args, kwargs
+	response = requests.post('http://printf-prod.herokuapp.com/' + os.getenv('PRINTF_ROOM', 'crono'), json=data)
