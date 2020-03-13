@@ -44,7 +44,11 @@ class Job:
 		return self.save()
 
 	def at(self, *args, **kwargs):
-		self.trigger = triggers.crontab(*args, **kwargs)
+		# TODO https://en.wikipedia.org/wiki/At_(command)
+		raise Exception('not implemented')
+
+	def cron(self, *args, **kwargs)
+		self.trigger = triggers.cron(*args, **kwargs)
 		return self.save()
 
 	def when(self, *args, **kwargs):
@@ -77,8 +81,8 @@ class Job:
 		self.kwargs = kwargs
 		return self.save()
 
-	def printf(self, *args, **kwargs):
-		self.task = 'crono.tasks.printf'
+	def print_(self, *args, **kwargs):
+		self.task = 'crono.tasks.print'
 		self.args = args
 		self.kwargs = kwargs
 		return self.save()

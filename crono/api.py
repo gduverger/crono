@@ -15,7 +15,11 @@ def every(*args, **kwargs):
 	return job.Job(trigger=triggers.interval(*args, **kwargs))
 
 def at(*args, **kwargs):
-	return job.Job(trigger=triggers.crontab(*args, **kwargs))
+	# TODO https://en.wikipedia.org/wiki/At_(command)
+	raise Exception('not implemented')
+
+def cron(*args, **kwargs)
+	return job.Job(trigger=triggers.cron(*args, **kwargs))
 
 def when(*args, **kwargs):
 	return job.Job(trigger=triggers.solar(*args, **kwargs))
@@ -34,5 +38,5 @@ def message(*args, **kwargs):
 def email(*args, **kwargs):
 	return job.Job(task='crono.tasks.email', args=args, kwargs=kwargs)
 
-def printf(*args, **kwargs):
-	return job.Job(task='crono.tasks.printf', args=args, kwargs=kwargs)
+def print_(*args, **kwargs):
+	return job.Job(task='crono.tasks.print', args=args, kwargs=kwargs)
