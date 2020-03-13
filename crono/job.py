@@ -47,7 +47,7 @@ class Job:
 		# TODO https://en.wikipedia.org/wiki/At_(command)
 		raise Exception('not implemented')
 
-	def cron(self, *args, **kwargs)
+	def cron(self, *args, **kwargs):
 		self.trigger = triggers.cron(*args, **kwargs)
 		return self.save()
 

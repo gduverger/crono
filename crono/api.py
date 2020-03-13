@@ -18,7 +18,7 @@ def at(*args, **kwargs):
 	# TODO https://en.wikipedia.org/wiki/At_(command)
 	raise Exception('not implemented')
 
-def cron(*args, **kwargs)
+def cron(*args, **kwargs):
 	return job.Job(trigger=triggers.cron(*args, **kwargs))
 
 def when(*args, **kwargs):

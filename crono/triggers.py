@@ -26,7 +26,7 @@ def interval(hours=None, minutes=None):
 
 def cron(string):
 	minute, hour, day_of_week, day_of_month, month_of_year = string.split(' ')
-	return celery.schedules.cron(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=queue.queue)
+	return celery.schedules.crontab(minute=minute, hour=hour, day_of_week=day_of_week, day_of_month=day_of_month, month_of_year=month_of_year, app=queue.queue)
 
 
 def solar(event, lat, lon):
