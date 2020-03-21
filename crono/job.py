@@ -35,7 +35,7 @@ class Job:
 		self.trigger = triggers.datetime(*args, **kwargs)
 		return self.save()
 
-	def in_(self, *args, **kwargs):
+	def after(self, *args, **kwargs):
 		self.trigger = triggers.timer(*args, **kwargs)
 		return self.save()
 

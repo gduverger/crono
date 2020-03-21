@@ -8,7 +8,7 @@ from crono import triggers
 def on(*args, **kwargs):
 	return job.Job(trigger=triggers.datetime(*args, **kwargs))
 
-def in_(*args, **kwargs):
+def after(*args, **kwargs):
 	return job.Job(trigger=triggers.timer(*args, **kwargs))
 
 def every(*args, **kwargs):
