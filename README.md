@@ -13,6 +13,7 @@
 ## Module dependencies
 
 	celery-redbeat = "==0.13.0"
+	requests = "==2.23.0"
 
 ## How to start
 
