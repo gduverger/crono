@@ -15,6 +15,7 @@
 
 ## How to stop
 
+	redis-cli flushall
 	redis-cli shutdown
 
 ## How to test

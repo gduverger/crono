@@ -2,6 +2,7 @@
 python -m pytest tests/test_api.py
 """
 
+import os
 import crono
 import logging
 import celery
@@ -11,6 +12,15 @@ class TestApi(object):
 	"""
 	python -m pytest tests/test_api.py::TestApi
 	"""
+
+
+	def test_request(self):
+		"""
+		python -m pytest tests/test_api.py::TestApi::test_request --capture=sys --log-cli-level=DEBUG
+		"""
+
+		json = {'text': 'test2', 'token': os.getenv('PRINT_API_TOKEN')}
+		job = crono.request('POST', 'https://print-gduverger.herokuapp.com/crono', json=json).after(minutes=1)
 
 
 	def test_api(self):

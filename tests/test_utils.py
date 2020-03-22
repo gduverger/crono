@@ -2,7 +2,10 @@
 python -m pytest tests/test_utils.py
 """
 
+import datetime
+
 from crono import utils
+from dateutil.rrule import *
 
 
 def test_seconds():
@@ -52,3 +55,23 @@ def test_list():
 
 	assert all(x in [0, 1, 2] for x in [0, 1, 2])
 	assert all(x in [0, 1, 2] for x in [2, 1, 0])
+
+
+def test_rrule():
+	"""
+	python -m pytest tests/test_utils.py::test_rrule
+	"""
+
+	seconds = 60 * 60 # 1 hour
+	start = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
+
+	hourly = rrule(HOURLY, dtstart=start, count=1)
+	secondly = rrule(SECONDLY, dtstart=start, count=1)
+
+	assert len(list(hourly)) == 1
+	assert len(list(secondly)) == 1
+
+	assert hourly[0] == secondly[0]
+	assert hourly[0].hour == start.hour
+	assert hourly[0].minute == start.minute
+	assert hourly[0].second == start.second

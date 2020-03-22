@@ -1,3 +1,4 @@
+import datetime
 import redbeat
 import celery
 
@@ -7,16 +8,16 @@ from crono import utils
 
 # TODO error handling
 
-def timer(hours=None, minutes=None):
-	time = utils.seconds(hours=hours, minutes=minutes, seconds=0)
-	return celery.schedules.maybe_schedule(time, app=queue.queue)
-	# return redbeat.schedules.rrule('SECONDLY', interval=time, count=1, app=queue.queue) # HACK
+def timer(hours=None, minutes=None, seconds=None):
+	seconds_ = utils.seconds(hours=hours, minutes=minutes, seconds=seconds)
+	start = datetime.datetime.utcnow() + datetime.timedelta(seconds=seconds_)
+	return redbeat.schedules.rrule(redbeat.schedules.SECONDLY, dtstart=start, count=1, app=queue.queue)
 
 
-def datetime(datetime_):
-	now = datetime.datetime.utcnow()
-	return celery.schedules.maybe_schedule(datetime_ - now, app=queue.queue)
-	# return redbeat.schedules.rrule('SECONDLY', dtstart=datetime_, count=1, app=queue.queue) # HACK
+def date(_datetime):
+	# now = datetime.datetime.utcnow()
+	# return celery.schedules.maybe_schedule(_datetime - now, app=queue.queue)
+	return redbeat.schedules.rrule(redbeat.schedules.SECONDLY, dtstart=_datetime, count=1, app=queue.queue)
 
 
 def interval(hours=None, minutes=None):

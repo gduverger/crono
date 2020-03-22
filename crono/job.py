@@ -32,7 +32,7 @@ class Job:
 	# Triggers
 
 	def on(self, *args, **kwargs):
-		self.trigger = triggers.datetime(*args, **kwargs)
+		self.trigger = triggers.date(*args, **kwargs)
 		return self.save()
 
 	def after(self, *args, **kwargs):

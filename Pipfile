@@ -6,6 +6,7 @@ name = "pypi"
 [dev-packages]
 pytest = "==3.3.2"
 attrs = "==19.1.0"
+python-dateutil = "==2.8.1"
 
 [packages]
 requests = "==2.18.4"

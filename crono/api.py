@@ -6,7 +6,7 @@ from crono import triggers
 # Triggers
 
 def on(*args, **kwargs):
-	return job.Job(trigger=triggers.datetime(*args, **kwargs))
+	return job.Job(trigger=triggers.date(*args, **kwargs))
 
 def after(*args, **kwargs):
 	return job.Job(trigger=triggers.timer(*args, **kwargs))
