@@ -4,8 +4,9 @@ import celery
 # NOTE
 # Name of the main module if running as __main__.
 # This is used as the prefix for auto-generated task names.
-queue = celery.Celery('crono', include=['crono.tasks'])
+queue = celery.Celery('crono')
 
+queue.conf.include = ['crono.tasks']
 queue.conf.broker_url = os.getenv('CELERY_BROKER')
 queue.conf.result_backend = os.getenv('CELERY_RESULT_BACKEND')
 queue.conf.beat_scheduler = 'redbeat.schedulers.RedBeatScheduler'
