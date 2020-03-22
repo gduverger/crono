@@ -21,9 +21,6 @@ def at(*args, **kwargs):
 def cron(*args, **kwargs):
 	return job.Job(trigger=triggers.cron(*args, **kwargs))
 
-def when(*args, **kwargs):
-	return job.Job(trigger=triggers.solar(*args, **kwargs))
-
 # Tasks
 
 def log(*args, **kwargs):

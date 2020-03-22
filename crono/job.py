@@ -51,10 +51,6 @@ class Job:
 		self.trigger = triggers.cron(*args, **kwargs)
 		return self.save()
 
-	def when(self, *args, **kwargs):
-		self.trigger = triggers.solar(*args, **kwargs)
-		return self.save()
-
 	# Tasks
 
 	def log(self, *args, **kwargs):
