@@ -11,3 +11,6 @@ misc
 dump.rdb
 celeryd.pid
 celerybeat.pid
+build
+dist
+crono.egg-info

@@ -7,9 +7,12 @@ name = "pypi"
 pytest = "==3.3.2"
 python-dateutil = "==2.8.1"
 attrs = "==19.1.0"
+setuptools = "==46.0.0"
+wheel = "==0.34.2"
+twine = "==3.1.1"
 
 [packages]
-requests = "==2.18.4"
+requests = "==2.23.0"
 dateparser = "==0.7.0"
 pytz = "==2018.5"
 celery = "==4.4.1"

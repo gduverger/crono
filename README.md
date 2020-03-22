@@ -10,6 +10,10 @@
 	CELERY_BEAT_MAX_LOOP_INTERVAL (default: 300)
 	CELERY_WORKER_MAX_TASKS_PER_CHILD (default: 100)
 
+## Module dependencies
+
+	celery-redbeat = "==0.13.0"
+
 ## How to start
 
 	redis-server &
