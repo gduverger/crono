@@ -24,3 +24,7 @@
 ## How to test
 
 	python -m pytest
+
+## Runtime
+
+	python-3.7
