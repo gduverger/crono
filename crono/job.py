@@ -80,9 +80,3 @@ class Job:
 		self.args = args
 		self.kwargs = kwargs
 		return self.save()
-
-	def print_(self, *args, **kwargs):
-		self.task = 'crono.tasks.print'
-		self.args = args
-		self.kwargs = kwargs
-		return self.save()

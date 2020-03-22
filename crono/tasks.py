@@ -25,9 +25,3 @@ def request(method, url, **kwargs):
 def email(*args, **kwargs):
 	# TODO Postmark integration
 	raise Exception('email task not implemented')
-
-
-@queue.queue.task
-def print(text, *args, **kwargs):
-	data = {'text': text} # TODO args, kwargs
-	response = requests.post('http://printf-prod.herokuapp.com/' + os.getenv('PRINTF_ROOM', 'crono'), json=data)
