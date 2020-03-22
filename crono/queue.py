@@ -4,10 +4,9 @@ import celery
 # NOTE
 # Name of the main module if running as __main__.
 # This is used as the prefix for auto-generated task names.
-queue = celery.Celery('crono',
-	broker=os.getenv('CELERY_BROKER'), # URL of the default broker used.
-	include=['crono.tasks']) # List of modules every worker should import.
+queue = celery.Celery('crono', include=['crono.tasks'])
 
+queue.conf.broker_url = os.getenv('CELERY_BROKER')
 queue.conf.result_backend = os.getenv('CELERY_RESULT_BACKEND')
 queue.conf.beat_scheduler = 'redbeat.schedulers.RedBeatScheduler'
 queue.conf.broker_pool_limit = int(os.getenv('CELERY_BROKER_POOL_LIMIT', 0))
