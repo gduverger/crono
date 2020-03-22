@@ -24,6 +24,7 @@ class Job:
 
 		return self
 
+	# TODO
 	# def delete(self):
 	# 	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=queue.queue)
 	# 	entry.delete()

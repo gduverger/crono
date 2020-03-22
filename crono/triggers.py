@@ -2,9 +2,7 @@ import datetime
 import redbeat
 import celery
 
-from crono import queue
-from crono import utils
-
+from crono import queue, utils
 
 # TODO error handling
 
