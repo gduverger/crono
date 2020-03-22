@@ -1,5 +1,4 @@
-from crono import job
-from crono import triggers
+from crono import job, triggers
 
 # Triggers
 
@@ -13,8 +12,7 @@ def every(*args, **kwargs):
 	return job.Job(trigger=triggers.interval(*args, **kwargs))
 
 def at(*args, **kwargs):
-	# TODO https://en.wikipedia.org/wiki/At_(command)
-	raise Exception('not implemented')
+	raise Exception('`at` trigger not implemented')
 
 def cron(*args, **kwargs):
 	return job.Job(trigger=triggers.cron(*args, **kwargs))

@@ -16,15 +16,14 @@ class Job:
 
 	def save(self):
 
-		if self.task and self.trigger != None:
-			name = str(uuid.uuid4())
-			entry = redbeat.schedulers.RedBeatSchedulerEntry(name=name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
-			logging.debug(entry)
-			entry.save()
+		if self.task != None and self.trigger != None:
+			self.name = str(uuid.uuid4())
+			self.entry = redbeat.schedulers.RedBeatSchedulerEntry(name=self.name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
+			self.entry.save()
+			logging.debug(self.entry)
 
 		return self
 
-	# TODO
 	# def delete(self):
 	# 	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=queue.queue)
 	# 	entry.delete()
@@ -45,8 +44,7 @@ class Job:
 		return self.save()
 
 	def at(self, *args, **kwargs):
-		# TODO https://en.wikipedia.org/wiki/At_(command)
-		raise Exception('not implemented')
+		raise Exception('`at` trigger not implemented')
 
 	def cron(self, *args, **kwargs):
 		self.trigger = triggers.cron(*args, **kwargs)
