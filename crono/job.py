@@ -32,22 +32,23 @@ class Job:
 	# Triggers
 
 	def on(self, *args, **kwargs):
-		self.trigger = triggers.date(*args, **kwargs)
+		self.trigger = triggers.on(*args, **kwargs)
 		return self.save()
 
 	def after(self, *args, **kwargs):
-		self.trigger = triggers.timer(*args, **kwargs)
+		self.trigger = triggers.after(*args, **kwargs)
 		return self.save()
 
 	def every(self, *args, **kwargs):
-		self.trigger = triggers.interval(*args, **kwargs)
+		self.trigger = triggers.every(*args, **kwargs)
 		return self.save()
-
-	def at(self, *args, **kwargs):
-		raise Exception('`at` trigger not implemented')
 
 	def cron(self, *args, **kwargs):
 		self.trigger = triggers.cron(*args, **kwargs)
+		return self.save()
+
+	def at(self, *args, **kwargs):
+		self.trigger = triggers.at(*args, **kwargs)
 		return self.save()
 
 	# Tasks

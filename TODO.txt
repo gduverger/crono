@@ -1,5 +1,6 @@
+[ ] list jobs
 [ ] delete job
-[ ] better error handling
+[ ] error handling
 [ ] `message` task implementation (Twilio)
 [ ] `email` task implementation (Postmark)
 [ ] `at` trigger implementation (https://en.wikipedia.org/wiki/At_(command))

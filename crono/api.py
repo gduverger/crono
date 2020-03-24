@@ -3,19 +3,19 @@ from crono import job, triggers
 # Triggers
 
 def on(*args, **kwargs):
-	return job.Job(trigger=triggers.date(*args, **kwargs))
+	return job.Job(trigger=triggers.on(*args, **kwargs))
 
 def after(*args, **kwargs):
-	return job.Job(trigger=triggers.timer(*args, **kwargs))
+	return job.Job(trigger=triggers.after(*args, **kwargs))
 
 def every(*args, **kwargs):
-	return job.Job(trigger=triggers.interval(*args, **kwargs))
-
-def at(*args, **kwargs):
-	raise Exception('`at` trigger not implemented')
+	return job.Job(trigger=triggers.every(*args, **kwargs))
 
 def cron(*args, **kwargs):
 	return job.Job(trigger=triggers.cron(*args, **kwargs))
+
+def at(*args, **kwargs):
+	return job.Job(trigger=triggers.at(*args, **kwargs))
 
 # Tasks
 
