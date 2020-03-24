@@ -13,10 +13,11 @@ class Job:
 		self.task = task
 		self.args = args
 		self.kwargs = kwargs
+		self.entry = None
 
 	def save(self):
 
-		if self.task != None and self.trigger != None:
+		if self.entry == None and self.task != None and self.trigger != None:
 			self.name = str(uuid.uuid4())
 			self.entry = redbeat.schedulers.RedBeatSchedulerEntry(name=self.name, task=self.task, schedule=self.trigger, args=self.args, kwargs=self.kwargs, app=queue.queue)
 			self.entry.save()
