@@ -14,21 +14,15 @@ pip install crono
 Run the servers:
 ```bash
 redis-server &
-celery worker --app=crono.queue:queue --hostname=worker1@%h --loglevel=DEBUG
-celery beat --app=crono.queue:queue --loglevel=DEBUG
-```
-
-Stop the (redis) server and reset it, if necessary:
-```
-redis-cli flushall
-redis-cli shutdown
+celery worker --app=crono.queue:queue --hostname=worker1@%h
+celery beat --app=crono.queue:queue
 ```
 
 ## Usage
 
 ### Triggers
 
-A trigger defines when a job will be executed. There are 5 types of triggers: `after`, `on`, `every`, `cron`, and `at`\*. 
+A trigger defines when a job will be executed. There are 4 types of triggers: `after`, `on`, `every`, and `cron`. 
 
 **after**
 
@@ -66,8 +60,35 @@ crono.cron('0 6 * * 2').…
 
 ### Tasks
 
-There are 4 tasks you can perform with Crono: `log`, `request`, `message`\*, and `email`\*.  
-\* not implemented (yet)
+A task defines what a job will do. There are 4 types of tasks: `log`, `request`, `message`, and `email`.
+
+**log**
+
+`log` uses the standard [`logging`](https://docs.python.org/3.8/library/logging.html) Python library.
+
+```python
+crono.log('DEBUG', '{text}', *args, **kwargs)
+```
+
+**request**
+
+`request` sends an HTTP request. It is powered by the [Requests](http://docs.python-requests.org/en/master/) library.
+
+```python
+crono.request(method='POST', url='{url}', **kwargs).…
+```
+
+**message**
+
+`message` sends an SMS. It is powered by [Twilio](https://www.twilio.com/). To use it, you will have to specify `twilio_account_sid` and `twilio_auth_id`.
+
+_Not implemented, yet._
+
+**email**
+
+`email` sends an email. It is powered by [Postmark](https://postmarkapp.com/). To use it, you will have to specify `postmark_api_key` and `postmark_sender`.
+
+_Not implemented, yet._
 
 ### Examples
 
