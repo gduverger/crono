@@ -26,21 +26,20 @@ redis-cli shutdown
 
 ## Usage
 
-```
+```python
 import crono
 
 # Timer
 crono.request('POST', '{url}').after(minutes=1)
 
 # Datetime
-crono.message('hello', from='{phone}', to='{phone}').on(<datetime>)
-crono.message('hello', from='{phone}', to='{phone}').at('1145 jan 31')
+crono.log('{text}').on(<datetime>)
 
 # Interval
-crono.email('hello', from='{email}', to='{email}').every(hours=1)
+crono.email(…).every(hours=1) # `email` task not implemented (yet)
 
 # Cron
-crono.email('hello').cron('0 6 * * 2')
+crono.message(…).cron('0 6 * * 2') # `message` task not implemented (yet)
 ```
 
 ## Configuration
