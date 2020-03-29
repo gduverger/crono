@@ -1,5 +1,5 @@
-[ ] list jobs
-[ ] delete job
+[x] list jobs
+[x] delete job
 [ ] error handling
 [ ] `message` task implementation (Twilio)
 [ ] `email` task implementation (Postmark)

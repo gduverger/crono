@@ -19,15 +19,15 @@ class TestApi(object):
 		"""
 
 		job = crono.log(logging.DEBUG, 'foo')
-		assert isinstance(job, crono.job.Job)
+		assert isinstance(job, crono.Job)
 		assert isinstance(job.task, str)
 		assert job.task == 'crono.tasks.log'
 		assert job.args == (logging.DEBUG, 'foo')
 		assert job.kwargs == {}
 
 		job = job.every(minutes=1)
-		assert isinstance(job, crono.job.Job)
+		assert isinstance(job, crono.Job)
 		assert isinstance(job.trigger, celery.schedules.schedule)
 
 		job = crono.log(logging.DEBUG, 'bar').every(minutes=1)
-		assert isinstance(job, crono.job.Job)
+		assert isinstance(job, crono.Job)
