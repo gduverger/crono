@@ -4,6 +4,11 @@ Crono is a programmatic time-based job scheduler so you can give your applicatio
 
 [Read more](https://twitter.com/gduverger/status/1236054680133922816)
 
+```python
+import crono
+crono.request('GET', 'https://www.google.com/').after(minutes=15)
+```
+
 ## Install
 
 Install the library:
@@ -64,7 +69,7 @@ A task defines what a job will do. There are 4 types of tasks: `log`, `request`,
 
 **log**
 
-`log` uses the standard [`logging`](https://docs.python.org/3.8/library/logging.html) Python library.
+`log` uses the standard [logging](https://docs.python.org/3.8/library/logging.html) Python library.
 
 ```python
 crono.log('DEBUG', '{text}', *args, **kwargs)
@@ -75,7 +80,7 @@ crono.log('DEBUG', '{text}', *args, **kwargs)
 `request` sends an HTTP request. It is powered by the [Requests](http://docs.python-requests.org/en/master/) library.
 
 ```python
-crono.request(method='POST', url='{url}', **kwargs).…
+crono.request('POST', '{url}', **kwargs).…
 ```
 
 **message**
