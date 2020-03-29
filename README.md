@@ -24,10 +24,24 @@ redis-cli flushall
 redis-cli shutdown
 ```
 
-## Dependencies
+## Usage
 
-	celery-redbeat = "==0.13.0"
-	requests = "==2.23.0"
+```
+import crono
+
+# Timer
+crono.request('POST', '{url}').after(minutes=1)
+
+# Datetime
+crono.message('hello', from='{phone}', to='{phone}').on(<datetime>)
+crono.message('hello', from='{phone}', to='{phone}').at('1145 jan 31')
+
+# Interval
+crono.email('hello', from='{email}', to='{email}').every(hours=1)
+
+# Cron
+crono.email('hello').cron('0 6 * * 2')
+```
 
 ## Configuration
 
