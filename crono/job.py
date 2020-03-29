@@ -14,18 +14,6 @@ class Job:
 		self.kwargs = kwargs
 		self.entry = None
 
-	@classmethod
-	def jobs(cls):
-		# BUG
-		# scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
-		# return scheduler.schedule
-		raise Exception('not implemented')
-
-	@classmethod
-	def job(cls, key):
-		# return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
-		raise Exception('not implemented')
-
 	def save(self):
 
 		if self.entry == None and self.task != None and self.trigger != None:
@@ -90,3 +78,23 @@ class Job:
 		self.args = args
 		self.kwargs = kwargs
 		return self.save()
+
+	# Jobs
+
+	@classmethod
+	def jobs(cls):
+
+		# BUG
+		# scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
+		# return scheduler.schedule
+
+		# HACK
+		# https://github.com/sibson/redbeat/issues/155
+		redis = redbeat.schedulers.get_redis(queue.queue)
+		conf = redbeat.schedulers.RedBeatConfig(queue.queue)
+		keys = redis.zrange(conf.schedule_key, 0, -1)
+		return [redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue) for key in keys]
+
+	@classmethod
+	def job(cls, key):
+		return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
