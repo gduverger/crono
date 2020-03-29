@@ -17,7 +17,7 @@ def message(self, *args, **kwargs):
 	raise Exception('`message` task not implemented')
 
 @queue.queue.task(bind=True, name='crono.tasks.request')
-def request(self, method, url, **kwargs, name='crono.tasks.request'):
+def request(self, method, url, **kwargs):
 	requests.request(method, url, **kwargs)
 
 @queue.queue.task(bind=True, name='crono.tasks.email')

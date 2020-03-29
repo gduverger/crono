@@ -29,6 +29,7 @@
 ## How to test
 
 	python -m pytest
+	celery flower -app=crono.queue:queue --address=127.0.0.1 --port=5555 --broker=redis://localhost:6379/0
 
 ## Runtime
 

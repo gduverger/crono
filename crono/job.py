@@ -5,7 +5,6 @@ import logging
 
 from crono import queue, triggers
 
-
 class Job:
 
 	def __init__(self, trigger=None, task=None, args=None, kwargs=None):
@@ -14,6 +13,17 @@ class Job:
 		self.args = args
 		self.kwargs = kwargs
 		self.entry = None
+
+	@classmethod
+	def jobs(cls):
+		# BUG
+		scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
+		return scheduler.schedule
+
+	@classmethod
+	def job(cls, key):
+		# return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
+		raise Exception('not implemented')
 
 	def save(self):
 
@@ -25,10 +35,12 @@ class Job:
 
 		return self
 
-	# def delete(self):
-	# 	entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key('redbeat:{}'.format(self.key), app=queue.queue)
-	# 	entry.delete()
-	# 	return entry
+	def delete(self):
+		# DOC http://docs.celeryproject.org/en/latest/faq.html#can-i-cancel-the-execution-of-a-task
+		# queue.queue.control.revoke(task_id)
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.entry.key, app=queue.queue)
+		entry.delete()
+		return entry
 
 	# Triggers
 
