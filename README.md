@@ -2,12 +2,12 @@
 
 Crono is a programmatic time-based job scheduler so you can give your application a sense of timing.
 
-[Read more](https://twitter.com/gduverger/status/1236054680133922816)
-
 ```python
 import crono
 crono.request('GET', 'https://www.google.com/').after(minutes=15)
 ```
+
+[Read more](https://twitter.com/gduverger/status/1236054680133922816)
 
 ## Install
 
