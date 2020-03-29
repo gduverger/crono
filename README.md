@@ -1,6 +1,6 @@
 # 🔮 Crono
 
-Crono is a _programmatic_ time-based job scheduler so you can give your application a sense of timing.
+Crono is a **_programmatic_ time-based job scheduler** that gives your application a sense of timing.
 
 ```python
 import crono
