@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
 	name='crono',
-	version='0.1.0',
+	version='0.1.1',
 	author='Georges Duverger',
 	author_email='georges.duverger@gmail.com',
 	description='Programmatic time-based job scheduler',
