@@ -26,6 +26,11 @@ redis-cli shutdown
 
 ## Usage
 
+There are 5 ways to trigger a job with Crono: `on`, `after`, `every`, `cron`, and `at`\*.  
+There are 4 tasks you can perform with Crono: `log`, `request`, `message`\*, and `email`\*.  
+\* not implemented (yet)
+
+Examples:
 ```python
 import crono
 
