@@ -1,4 +1,4 @@
-# Crono
+# 🔮 Crono
 
 Crono is a programmatic time-based job scheduler so you can give your application a sense of timing.
 
