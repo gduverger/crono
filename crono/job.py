@@ -17,8 +17,9 @@ class Job:
 	@classmethod
 	def jobs(cls):
 		# BUG
-		scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
-		return scheduler.schedule
+		# scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
+		# return scheduler.schedule
+		raise Exception('not implemented')
 
 	@classmethod
 	def job(cls, key):
