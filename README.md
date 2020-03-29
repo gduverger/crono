@@ -26,11 +26,51 @@ redis-cli shutdown
 
 ## Usage
 
-There are 5 ways to trigger a job with Crono: `on`, `after`, `every`, `cron`, and `at`\*.  
+### Triggers
+
+A trigger defines when a job will be executed. There are 5 types of triggers: `after`, `on`, `every`, `cron`, and `at`\*. 
+
+**after**
+
+`after` specifies a countdown until the execution of a task. It will only occur once. It takes at least 1 keyword argument: hours, minutes, and/or seconds, of type <int>. Those keywords arguments are cumulative (same for the `every` trigger). For example, `hours=1, minutes=30` equals `minutes=90`.
+
+```python
+crono.after(minutes=30).…
+```
+
+**on**
+
+`on` specifies the execution of a task at a specific date and time. It will only occur once. It takes 1 positional argument of type `<datetime.datetime>`.
+
+```python
+import datetime
+date = datetime.datetime(2019, 7, 4)
+crono.on(date).…
+```
+
+**every**
+
+`every` specifies a frequency at which to execute a task. It will occur multiple times. It takes at least 1 keyword argument: hours, minutes, and/or seconds, of type <int>. Those keywords arguments are cumulative (similarly to the `after` trigger). For example, `hours=1, minutes=30` equals `minutes=90`.
+
+```python
+crono.every(hours=1, minutes=30).…
+```
+
+**cron**
+
+`cron` uses an expression to specify the execution time. It will occur mutiple times. It takes exactly 1 positional argument of type `<str>`.
+
+```python
+crono.cron('0 6 * * 2').…
+```
+
+### Tasks
+
 There are 4 tasks you can perform with Crono: `log`, `request`, `message`\*, and `email`\*.  
 \* not implemented (yet)
 
-Examples:
+### Examples
+
 ```python
 import crono
 
