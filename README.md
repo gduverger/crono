@@ -33,7 +33,7 @@ import crono
 crono.request('POST', '{url}').after(minutes=1)
 
 # Datetime
-crono.log('{text}').on(<datetime>)
+crono.log('DEBUG', '{text}').on(<datetime>)
 
 # Interval
 crono.email(…).every(hours=1) # `email` task not implemented (yet)
