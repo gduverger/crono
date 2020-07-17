@@ -97,4 +97,9 @@ class Job:
 
 	@classmethod
 	def job(cls, key):
-		return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
+
+		try:
+			return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
+
+		except KeyError:
+			return None
