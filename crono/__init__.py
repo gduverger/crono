@@ -1,4 +1,8 @@
-from .api import on, after, every, cron, at
+# Jobs
+from .api import jobs, job, delete
+
+# Tasks
 from .api import log, request, message, email
-from .api import jobs, job
-from .job import Job
+
+# Triggers
+from .api import on, after, every, cron, at

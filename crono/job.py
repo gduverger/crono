@@ -1,5 +1,6 @@
 import os
 import uuid
+import redis
 import redbeat
 import logging
 
@@ -24,34 +25,38 @@ class Job:
 
 		return self
 
-	def delete(self):
+	# Jobs
+
+	@classmethod
+	def jobs(cls):
+
+		# BUG
+		# scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
+		# return scheduler.schedule
+
+		# HACK
+		# https://github.com/sibson/redbeat/issues/155
+		redis = redbeat.schedulers.get_redis(queue.queue)
+		conf = redbeat.schedulers.RedBeatConfig(queue.queue)
+		keys = redis.zrange(conf.schedule_key, 0, -1)
+		return [redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue) for key in keys]
+
+	@classmethod
+	def job(cls, key):
+
+		try:
+			return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
+
+		except KeyError:
+			return None
+
+	@classmethod
+	def delete(cls, key):
 		# DOC http://docs.celeryproject.org/en/latest/faq.html#can-i-cancel-the-execution-of-a-task
 		# queue.queue.control.revoke(task_id)
-		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(self.entry.key, app=queue.queue)
+		entry = redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
 		entry.delete()
 		return entry
-
-	# Triggers
-
-	def on(self, *args, **kwargs):
-		self.trigger = triggers.on(*args, **kwargs)
-		return self.save()
-
-	def after(self, *args, **kwargs):
-		self.trigger = triggers.after(*args, **kwargs)
-		return self.save()
-
-	def every(self, *args, **kwargs):
-		self.trigger = triggers.every(*args, **kwargs)
-		return self.save()
-
-	def cron(self, *args, **kwargs):
-		self.trigger = triggers.cron(*args, **kwargs)
-		return self.save()
-
-	def at(self, *args, **kwargs):
-		self.trigger = triggers.at(*args, **kwargs)
-		return self.save()
 
 	# Tasks
 
@@ -79,27 +84,24 @@ class Job:
 		self.kwargs = kwargs
 		return self.save()
 
-	# Jobs
+	# Triggers
 
-	@classmethod
-	def jobs(cls):
+	def on(self, *args, **kwargs):
+		self.trigger = triggers.on(*args, **kwargs)
+		return self.save()
 
-		# BUG
-		# scheduler = redbeat.schedulers.RedBeatScheduler(app=queue.queue)
-		# return scheduler.schedule
+	def after(self, *args, **kwargs):
+		self.trigger = triggers.after(*args, **kwargs)
+		return self.save()
 
-		# HACK
-		# https://github.com/sibson/redbeat/issues/155
-		redis = redbeat.schedulers.get_redis(queue.queue)
-		conf = redbeat.schedulers.RedBeatConfig(queue.queue)
-		keys = redis.zrange(conf.schedule_key, 0, -1)
-		return [redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue) for key in keys]
+	def every(self, *args, **kwargs):
+		self.trigger = triggers.every(*args, **kwargs)
+		return self.save()
 
-	@classmethod
-	def job(cls, key):
+	def cron(self, *args, **kwargs):
+		self.trigger = triggers.cron(*args, **kwargs)
+		return self.save()
 
-		try:
-			return redbeat.schedulers.RedBeatSchedulerEntry.from_key(key, app=queue.queue)
-
-		except KeyError:
-			return None
+	def at(self, *args, **kwargs):
+		self.trigger = triggers.at(*args, **kwargs)
+		return self.save()

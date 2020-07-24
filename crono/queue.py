@@ -7,7 +7,8 @@ import celery
 queue = celery.Celery('crono')
 
 queue.conf.include = ['crono.tasks']
-queue.conf.broker_url = os.getenv('CELERY_BROKER')
+
+queue.conf.broker_url = os.getenv('CELERY_BROKER') # required
 queue.conf.result_backend = os.getenv('CELERY_RESULT_BACKEND')
 queue.conf.beat_scheduler = 'redbeat.schedulers.RedBeatScheduler'
 queue.conf.broker_pool_limit = int(os.getenv('CELERY_BROKER_POOL_LIMIT', 0))

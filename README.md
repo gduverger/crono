@@ -4,14 +4,14 @@ Crono is a **_programmatic_ time-based job scheduler** that gives your applicati
 
 ```python
 import crono
-crono.request('GET', 'https://www.google.com/').after(minutes=15)
+crono.request('POST', 'https://your.app/').after(hours=42)
 ```
 
 [Read more](https://twitter.com/gduverger/status/1236054680133922816)
 
 ## Install
 
-Install the library:
+Install package:
 ```python
 pip install crono
 ```
@@ -117,9 +117,12 @@ crono.message(…).cron('0 6 * * 2') # `message` task not implemented (yet)
 
 Crono comes with sensible default values that you can override:
 ```	
-REDIS_MAX_CONNECTIONS (default: 20)	
+# Required
 CELERY_BROKER
+
+# Optional
 CELERY_RESULT_BACKEND
+REDIS_MAX_CONNECTIONS (default: 20)	
 CELERY_BROKER_POOL_LIMIT (default: 0)
 CELERY_TASK_IGNORE_RESULT (default: True)
 CELERY_BEAT_MAX_LOOP_INTERVAL (default: 300)
@@ -130,5 +133,16 @@ CELERY_WORKER_MAX_TASKS_PER_CHILD (default: 100)
 
 ```
 python -m pytest
-celery flower -app=crono.queue:queue --address=127.0.0.1 --port=5555 --broker=redis://localhost:6379/0
+```
+
+## Development
+
+Packaging
+
+```console
+# Generating distribution archives
+$ python setup.py sdist bdist_wheel
+
+# Uploading the distribution archives
+$ twine upload --skip-existing dist/*
 ```
