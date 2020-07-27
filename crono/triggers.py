@@ -25,6 +25,3 @@ def cron(expression):
 		day_of_month=day_of_month,
 		month_of_year=month_of_year,
 		app=queue.queue)
-
-def at(*args, **kwargs):
-	raise Exception('`at` trigger not implemented')

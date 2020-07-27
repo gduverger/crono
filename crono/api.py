@@ -38,6 +38,3 @@ def every(*args, **kwargs):
 
 def cron(*args, **kwargs):
 	return _job.Job(trigger=triggers.cron(*args, **kwargs))
-
-def at(*args, **kwargs):
-	return _job.Job(trigger=triggers.at(*args, **kwargs))

@@ -101,7 +101,3 @@ class Job:
 	def cron(self, *args, **kwargs):
 		self.trigger = triggers.cron(*args, **kwargs)
 		return self.save()
-
-	def at(self, *args, **kwargs):
-		self.trigger = triggers.at(*args, **kwargs)
-		return self.save()
