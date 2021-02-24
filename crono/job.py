@@ -51,6 +51,10 @@ class Job:
 			return None
 
 	@classmethod
+	def meta(cls, key):
+		return redbeat.schedulers.RedBeatSchedulerEntry.load_meta(key, app=queue.queue)
+
+	@classmethod
 	def delete(cls, key):
 		# DOC http://docs.celeryproject.org/en/latest/faq.html#can-i-cancel-the-execution-of-a-task
 		# queue.queue.control.revoke(task_id)
