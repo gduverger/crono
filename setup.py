@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
 	name='crono',
-	version='0.1.6',
+	version='0.1.7',
 	author='Georges Duverger',
 	author_email='georges.duverger@gmail.com',
 	description='Programmatic time-based job scheduler',
@@ -14,7 +14,7 @@ setuptools.setup(
 	url='https://github.com/gduverger/crono',
 	license='MIT',
 	packages=['crono'],
-	# install_requires=[],
+	install_requires=['celery-redbeat'],
 	python_requires='>=3',
 	classifiers=[
 		'Programming Language :: Python :: 3',
