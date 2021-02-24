@@ -8,6 +8,9 @@ def jobs(*args, **kwargs):
 def job(*args, **kwargs):
 	return _job.Job.job(*args, **kwargs)
 
+def meta(*args, **kwargs):
+	return _job.Job.meta(*args, **kwargs)
+
 def delete(*args, **kwargs):
 	return _job.Job.delete(*args, **kwargs)
 

@@ -1,5 +1,5 @@
 # Jobs
-from .api import jobs, job, delete
+from .api import jobs, job, meta, delete
 
 # Tasks
 from .api import log, request, message, email
